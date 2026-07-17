@@ -508,39 +508,29 @@
   
   .purulence-popover {
     position: absolute;
-    right: -6px;
+
+    left: 50%;
     bottom: calc(100% + 14px);
-    z-index: 1000;
-  
-    display: block;
-  
-    width: 520px;
-    max-width: min(520px, calc(100vw - 40px));
-  
+
+    transform: translateX(-50%) translateY(6px);
+
+    width: min(560px, calc(100vw - 60px));
+
     padding: 22px;
-  
-    color: #344054;
-    background: #ffffff;
-  
+
+    background: #fff;
     border: 1.5px solid #14836f;
     border-radius: 14px;
-  
-    box-shadow: 0 16px 36px rgba(31, 41, 55, 0.18);
-  
-    font-size: 15px;
-    line-height: 1.45;
-  
+    box-shadow: 0 16px 36px rgba(0,0,0,.18);
+
     opacity: 0;
     visibility: hidden;
     pointer-events: none;
-  
-    transform: translateY(6px);
-  
-    transition:
-      opacity 0.16s ease,
-      visibility 0.16s ease,
-      transform 0.16s ease;
-  }
+
+    z-index: 1000;
+
+    transition: .15s;
+}
   
   .purulence-popover::before {
     content: "";
@@ -559,13 +549,22 @@
     transform: rotate(45deg);
   }
   
-  .purulence-help-wrap:hover .purulence-popover,
-  .purulence-help-wrap:focus-within .purulence-popover {
-    opacity: 1;
-    visibility: visible;
-    pointer-events: auto;
-    transform: translateY(0);
-  }
+  .purulence-popover::before{
+    content:"";
+    position:absolute;
+
+    left:50%;
+    bottom:-10px;
+
+    transform:translateX(-50%) rotate(45deg);
+
+    width:18px;
+    height:18px;
+
+    background:#fff;
+    border-right:1.5px solid #14836f;
+    border-bottom:1.5px solid #14836f;
+}
   
   .purulence-popover-title {
     display: block;
@@ -670,4 +669,121 @@
       grid-template-columns: 1fr 1fr;
       gap: 16px;
     }
+  }
+
+  /* =========================================================
+   COMPACT MDCalc-STYLE CONTROLS
+   ========================================================= */
+
+.form-section {
+    padding: 22px;
+  }
+  
+  .section-heading {
+    padding-bottom: 14px;
+    margin-bottom: 16px;
+  }
+  
+  .field-group {
+    margin-top: 16px;
+  }
+  
+  /* Compact checkbox grid */
+  .option-grid {
+    gap: 6px;
+  }
+  
+  .check-card {
+    min-height: 42px;
+  
+    padding: 9px 12px;
+  
+    align-items: center;
+  
+    border-radius: 7px;
+  
+    font-size: 14px;
+    line-height: 1.3;
+  }
+  
+  .check-card input {
+    margin-top: 0;
+    flex: 0 0 auto;
+  }
+  
+  /* Compact site radio buttons */
+  .choice-stack {
+    gap: 6px;
+  }
+  
+  .radio-card > span {
+    min-height: 52px;
+  
+    padding: 9px 12px 9px 40px;
+  
+    border-radius: 7px;
+  
+    justify-content: center;
+  }
+  
+  .radio-card > span::before {
+    left: 13px;
+    top: 50%;
+  
+    width: 15px;
+    height: 15px;
+  
+    transform: translateY(-50%);
+  }
+  
+  .radio-card strong {
+    font-size: 14px;
+    line-height: 1.25;
+  }
+  
+  .radio-card small {
+    margin-top: 1px;
+    font-size: 12px;
+    line-height: 1.25;
+  }
+  
+  /* Compact Yes / No controls */
+  .segmented span {
+    min-width: 72px;
+    padding: 8px 14px;
+  
+    font-size: 14px;
+  }
+  
+  /* Less space between sections */
+  .card {
+    margin-bottom: 16px;
+  }
+  
+  /* Reduce textarea size */
+  #reviewSummary {
+    min-height: 92px;
+  }
+  
+  #operativeNote {
+    min-height: 150px;
+  }
+  
+  /* Compact result */
+  .result-banner {
+    padding: 16px 20px;
+  }
+  
+  .result-banner h2 {
+    font-size: 1.2rem;
+  }
+  
+  .result-body {
+    padding: 18px 20px;
+  }
+  
+  /* Slightly tighter top navigation */
+  .top-nav a {
+    padding: 9px 12px;
+    font-size: 14px;
   }
