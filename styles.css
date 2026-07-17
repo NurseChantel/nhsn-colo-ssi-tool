@@ -471,6 +471,17 @@
     align-items: center;
     margin-left: 6px;
     flex: 0 0 auto;
+  } /* Show popover */
+
+  .purulence-help-wrap:hover .purulence-popover,
+  .purulence-help-wrap:focus-within .purulence-popover {
+  
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+  
+      transform: translateX(-50%) translateY(0);
+  
   }
   
   .purulence-help-button {
@@ -531,23 +542,6 @@
 
     transition: .15s;
 }
-  
-  .purulence-popover::before {
-    content: "";
-  
-    position: absolute;
-    right: 18px;
-    bottom: -10px;
-  
-    width: 18px;
-    height: 18px;
-  
-    background: #ffffff;
-    border-right: 1.5px solid #14836f;
-    border-bottom: 1.5px solid #14836f;
-  
-    transform: rotate(45deg);
-  }
   
   .purulence-popover::before{
     content:"";
