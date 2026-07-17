@@ -85,21 +85,38 @@
   .top-nav a:hover, .top-nav a:focus { color: var(--green-800); border-bottom-color: var(--green-700); }
   
   .page-shell {
-    max-width: 1240px;
+    width: 100%;
+    max-width: 1380px;
     margin: 0 auto;
     padding: 30px 24px 50px;
+  
     display: grid;
-    grid-template-columns: minmax(0, 1fr) 300px;
+    grid-template-columns: minmax(0, 1fr) minmax(240px, 290px);
     gap: 24px;
     align-items: start;
   }
-  .content-column { min-width: 0; }
-  .card {
-    background: var(--white);
+  
+  .content-column {
+    min-width: 0;
+    width: 100%;
+  }
+  
+  .progress-panel {
+    position: sticky;
+    top: 154px;
+  
+    width: 100%;
+    min-width: 0;
+  
+    padding: 20px;
+  
     border: 1px solid var(--line);
     border-radius: var(--radius);
+  
+    background: var(--white);
     box-shadow: var(--shadow);
-    margin-bottom: 22px;
+  
+    overflow-wrap: anywhere;
   }
   .form-section { padding: 26px; scroll-margin-top: 160px; }
   .section-heading {
@@ -415,10 +432,15 @@
     text-align: center;
   }
   
-  @media (max-width: 980px) {
-    .page-shell { grid-template-columns: 1fr; }
-    .progress-panel { position: static; order: -1; }
-    .option-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  @media (max-width: 1100px) {
+    .page-shell {
+      grid-template-columns: 1fr;
+    }
+  
+    .progress-panel {
+      position: static;
+      order: -1;
+    }
   }
   @media (max-width: 640px) {
     .header-inner, .top-nav, .page-shell { padding-left: 14px; padding-right: 14px; }
