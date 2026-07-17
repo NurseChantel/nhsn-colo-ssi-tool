@@ -1,445 +1,2404 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>NHSN COLO SSI Review Tool</title>
+
+  <title>NHSN SSI Review Tool</title>
+
   <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
+
   <header class="app-header">
+
     <div class="header-inner">
+
       <div>
-        <p class="eyebrow">NHSN SURVEILLANCE SUPPORT</p>
-        <h1>NHSN COLO SSI Review Tool</h1>
+        <p class="eyebrow">
+          NHSN SURVEILLANCE SUPPORT
+        </p>
+
+        <h1 id="pageTitle">
+          NHSN SSI Review Tool
+        </h1>
+
         <p class="subtitle">
-          Designed to assist with NHSN SSI surveillance. Final classification should follow the current NHSN Manual.
+          Designed to assist with NHSN SSI surveillance.
+          Final classification should follow the current NHSN Manual.
         </p>
       </div>
+
+      <div class="procedure-search">
+
+        <label class="sr-only" for="procedureSearch">
+          Search procedure category
+        </label>
+
+        <input
+          id="procedureSearch"
+          type="search"
+          placeholder="Search COLO, HPRO, or KPRO..."
+          autocomplete="off"
+        >
+
+        <div
+          id="procedureSearchResults"
+          class="search-results hidden"
+          aria-live="polite"
+        ></div>
+
+      </div>
+
     </div>
 
-    <nav class="top-nav" aria-label="Page sections">
-        <a href="#patos">PATOS</a>
-        <a href="#ssi-evidence">SSI Evidence</a>
-        <a href="#symptoms">Signs &amp; Symptoms</a>
-        <a href="#site">Site</a>
-        <a href="#result">Result</a>
-        <a href="#reference-area" data-open-tab="nhsnEvidence">NHSN Evidence</a>
-      </nav>
+    <nav
+      class="top-nav"
+      aria-label="Page sections"
+    >
+      <a href="#procedure">
+        Index Procedure
+      </a>
+
+      <a href="#patos">
+        PATOS
+      </a>
+
+      <a href="#ssi-evidence">
+        SSI Evidence
+      </a>
+
+      <a href="#symptoms">
+        Signs &amp; Symptoms
+      </a>
+
+      <a href="#site">
+        Site
+      </a>
+
+      <a href="#result">
+        Result
+      </a>
+
+      <a
+        href="#reference-area"
+        data-open-tab="nhsnEvidence"
+      >
+        NHSN Evidence
+      </a>
+    </nav>
+
   </header>
 
+
   <main class="page-shell">
+
     <div class="content-column">
 
-      <section id="patos" class="card form-section">
+
+      <!-- =========================================================
+           01 INDEX PROCEDURE
+           ========================================================= -->
+
+      <section
+        id="procedure"
+        class="card form-section"
+      >
+
         <div class="section-heading">
-          <span class="section-number">01</span>
+
+          <span class="section-number">
+            01
+          </span>
+
           <div>
-            <h2>PATOS</h2>
-            <p>Determine whether evidence of infection was present at the time of surgery.</p>
+            <h2>
+              Index Procedure
+            </h2>
+
+            <p>
+              Select the NHSN procedure category and the dates used
+              for SSI surveillance.
+            </p>
           </div>
+
         </div>
+
+
+        <div class="date-grid">
+
+          <div class="field-group no-top-margin">
+
+            <label
+              class="field-label"
+              for="procedureDate"
+            >
+              Index procedure date
+            </label>
+
+            <input
+              id="procedureDate"
+              type="date"
+            >
+
+          </div>
+
+
+          <div class="field-group no-top-margin">
+
+            <label
+              class="field-label"
+              for="eventDate"
+            >
+              Possible SSI date of event
+            </label>
+
+            <input
+              id="eventDate"
+              type="date"
+            >
+
+          </div>
+
+        </div>
+
+
+        <fieldset class="field-group">
+
+          <legend class="field-label">
+            NHSN procedure category
+          </legend>
+
+          <div class="procedure-options">
+
+            <label class="procedure-card">
+
+              <input
+                type="radio"
+                name="procedureCategory"
+                value="COLO"
+              >
+
+              <span>
+                <strong>
+                  COLO
+                </strong>
+
+                <small>
+                  Colon surgery
+                </small>
+              </span>
+
+            </label>
+
+
+            <label class="procedure-card">
+
+              <input
+                type="radio"
+                name="procedureCategory"
+                value="HPRO"
+              >
+
+              <span>
+                <strong>
+                  HPRO
+                </strong>
+
+                <small>
+                  Hip prosthesis
+                </small>
+              </span>
+
+            </label>
+
+
+            <label class="procedure-card">
+
+              <input
+                type="radio"
+                name="procedureCategory"
+                value="KPRO"
+              >
+
+              <span>
+                <strong>
+                  KPRO
+                </strong>
+
+                <small>
+                  Knee prosthesis
+                </small>
+              </span>
+
+            </label>
+
+          </div>
+
+        </fieldset>
+
+
+        <div class="surveillance-box">
+
+          <div>
+
+            <span class="surveillance-label">
+              Surveillance period
+            </span>
+
+            <strong id="surveillanceDays">
+              Select a procedure
+            </strong>
+
+          </div>
+
+
+          <div>
+
+            <span class="surveillance-label">
+              Last surveillance date
+            </span>
+
+            <strong id="surveillanceEndDate">
+              —
+            </strong>
+
+          </div>
+
+
+          <div>
+
+            <span class="surveillance-label">
+              Date-of-event status
+            </span>
+
+            <strong id="eventDateStatus">
+              —
+            </strong>
+
+          </div>
+
+        </div>
+
+
+        <p
+          id="surveillanceNote"
+          class="helper-text"
+        >
+          Select a procedure and anatomic level to determine
+          the surveillance window.
+        </p>
+
+      </section>
+
+
+
+      <!-- =========================================================
+           02 PATOS
+           ========================================================= -->
+
+      <section
+        id="patos"
+        class="card form-section"
+      >
+
+        <div class="section-heading">
+
+          <span class="section-number">
+            02
+          </span>
+
+          <div>
+            <h2>
+              PATOS
+            </h2>
+
+            <p>
+              Determine whether evidence of infection was present
+              at the time of surgery.
+            </p>
+          </div>
+
+        </div>
+
 
         <details class="reference-toggle">
-          <summary>Show / hide PATOS graphic</summary>
+
+          <summary>
+            Show / hide PATOS graphic
+          </summary>
+
           <div class="graphic-wrap">
-            <img src="patos-guide.png" alt="PATOS Guide">
+
+            <img
+              src="patos-guide.png"
+              alt="PATOS Guide"
+            >
+
           </div>
+
         </details>
 
-        <div class="field-group">
-          <label class="field-label" for="operativeNote">Operative note narrative</label>
-          <textarea id="operativeNote" rows="8" placeholder="Paste the relevant operative note narrative here..."></textarea>
-        </div>
 
         <div class="field-group">
+
+          <label
+            class="field-label"
+            for="operativeNote"
+          >
+            Operative note narrative
+          </label>
+
+          <textarea
+            id="operativeNote"
+            rows="8"
+            placeholder="Paste the relevant operative note narrative here..."
+          ></textarea>
+
+        </div>
+
+
+        <div class="field-group">
+
           <div class="label-with-help">
-            <span class="field-label">Evidence of infection documented in the operative narrative</span>
-          </div>
-          <p class="helper-text">Select every NHSN keyword documented in the operative note.</p>
 
-          <div class="option-grid two-column" data-group="patosKeywords">
-            <label class="check-card"><input type="checkbox" name="patosKeyword" value="Abscess"><span>Abscess</span></label>
-            <label class="check-card"><input type="checkbox" name="patosKeyword" value="Infection"><span>Infection</span></label>
-            <label class="check-card"><input type="checkbox" name="patosKeyword" value="Phlegmon"><span>Phlegmon</span></label>
-            <label class="check-card"><input type="checkbox" name="patosKeyword" value="Feculent peritonitis"><span>Feculent peritonitis</span></label>
-            
+            <span class="field-label">
+              Evidence of infection documented in the operative narrative
+            </span>
+
+          </div>
+
+          <p class="helper-text">
+            Select every NHSN keyword documented in the operative note.
+          </p>
+
+
+          <div
+            class="option-grid two-column"
+            data-group="patosKeywords"
+          >
+
+            <label class="check-card">
+
+              <input
+                type="checkbox"
+                name="patosKeyword"
+                value="Abscess"
+              >
+
+              <span>
+                Abscess
+              </span>
+
+            </label>
+
+
+            <label class="check-card">
+
+              <input
+                type="checkbox"
+                name="patosKeyword"
+                value="Infection"
+              >
+
+              <span>
+                Infection
+              </span>
+
+            </label>
+
+
+            <label class="check-card">
+
+              <input
+                type="checkbox"
+                name="patosKeyword"
+                value="Phlegmon"
+              >
+
+              <span>
+                Phlegmon
+              </span>
+
+            </label>
+
+
+            <label class="check-card colo-only">
+
+              <input
+                type="checkbox"
+                name="patosKeyword"
+                value="Feculent peritonitis"
+              >
+
+              <span>
+                Feculent peritonitis
+              </span>
+
+            </label>
+
+
             <label class="check-card purulence-option">
-                <input
-                  type="checkbox"
-                  name="patosKeyword"
-                  value="Purulence or pus"
+
+              <input
+                type="checkbox"
+                name="patosKeyword"
+                value="Purulence or pus"
+              >
+
+              <span class="purulence-label-text">
+                Purulence or pus
+              </span>
+
+              <span class="purulence-help-wrap">
+
+                <button
+                  class="purulence-help-button"
+                  type="button"
+                  aria-label="Show purulence guidance"
                 >
-              
-                <span class="purulence-label-text">
-                  Purulence or pus
-                </span>
-              
-                <span class="purulence-help-wrap">
-                  <button
-                    class="purulence-help-button"
-                    type="button"
-                    aria-label="Show purulence guidance"
-                  >
-                    ?
-                  </button>
-              
-                  <span class="purulence-popover" role="tooltip">
-                    <strong class="purulence-popover-title">
-                      Purulence guidance
-                    </strong>
-              
-                    <span class="purulence-paragraph">
-                      The terms <strong>“pus”</strong> or
-                      <strong>“purulence”</strong> are sufficient documentation
-                      of purulence.
-                    </span>
-              
-                    <span class="purulence-paragraph">
-                      When those exact terms are not documented, a qualifying
-                      color and consistency descriptor must both be present.
-                    </span>
-              
-                    <span class="purulence-table">
-                      <span class="purulence-column">
-                        <strong>Color</strong>
-                        <span>Green</span>
-                        <span>Yellow</span>
-                      </span>
-              
-                      <span class="purulence-column">
-                        <strong>Consistency</strong>
-                        <span>Milky</span>
-                        <span>Thick</span>
-                        <span>Creamy</span>
-                        <span>Opaque</span>
-                        <span>Viscous</span>
-                      </span>
-                    </span>
-              
-                    <span class="purulence-paragraph">
-                      <strong>Example:</strong> “Yellow fluid” alone is not
-                      sufficient. “Thick yellow fluid” contains both a color and
-                      a consistency descriptor.
-                    </span>
-              
-                    <span class="purulence-paragraph purulence-last">
-                      Cloudy, turbid, murky, wound odor, WBCs, or PMNs do not
-                      independently define purulence.
-                    </span>
+                  ?
+                </button>
+
+                <span
+                  class="purulence-popover"
+                  role="tooltip"
+                >
+
+                  <strong class="purulence-popover-title">
+                    Purulence guidance
+                  </strong>
+
+                  <span class="purulence-paragraph">
+                    The terms <strong>“pus”</strong> or
+                    <strong>“purulence”</strong> are sufficient
+                    documentation of purulence.
                   </span>
+
+                  <span class="purulence-paragraph">
+                    When those exact terms are not documented,
+                    a qualifying color and consistency descriptor
+                    must both be present.
+                  </span>
+
+                  <span class="purulence-table">
+
+                    <span class="purulence-column">
+
+                      <strong>
+                        Color
+                      </strong>
+
+                      <span>
+                        Green
+                      </span>
+
+                      <span>
+                        Yellow
+                      </span>
+
+                    </span>
+
+
+                    <span class="purulence-column">
+
+                      <strong>
+                        Consistency
+                      </strong>
+
+                      <span>
+                        Milky
+                      </span>
+
+                      <span>
+                        Thick
+                      </span>
+
+                      <span>
+                        Creamy
+                      </span>
+
+                      <span>
+                        Opaque
+                      </span>
+
+                      <span>
+                        Viscous
+                      </span>
+
+                    </span>
+
+                  </span>
+
+                  <span class="purulence-paragraph">
+                    <strong>Example:</strong>
+                    “Yellow fluid” alone is not sufficient.
+                    “Thick yellow fluid” contains both a color
+                    and a consistency descriptor.
+                  </span>
+
+                  <span class="purulence-paragraph purulence-last">
+                    Cloudy, turbid, murky, wound odor, WBCs,
+                    or PMNs do not independently define purulence.
+                  </span>
+
                 </span>
-              </label>
 
-            <label class="check-card"><input type="checkbox" name="patosKeyword" value="Ruptured or perforated appendix"><span>Ruptured/perforated appendix</span></label>
+              </span>
+
+            </label>
+
+
+            <label class="check-card colo-only">
+
+              <input
+                type="checkbox"
+                name="patosKeyword"
+                value="Ruptured or perforated appendix"
+              >
+
+              <span>
+                Ruptured/perforated appendix
+              </span>
+
+            </label>
+
+
+            <label class="check-card joint-only hidden">
+
+              <input
+                type="checkbox"
+                name="patosKeyword"
+                value="Osteomyelitis"
+              >
+
+              <span>
+                Osteomyelitis
+              </span>
+
+            </label>
+
+
+            <label class="check-card joint-only hidden">
+
+              <input
+                type="checkbox"
+                name="patosKeyword"
+                value="Sinus tract"
+              >
+
+              <span>
+                Sinus tract
+              </span>
+
+            </label>
+
           </div>
+
         </div>
 
+
         <fieldset class="field-group">
-          <legend class="field-label">Does the case meet PATOS?</legend>
+
+          <legend class="field-label">
+            Does the case meet PATOS?
+          </legend>
+
           <div class="segmented">
-            <label><input type="radio" name="patos" value="Yes"><span>Yes</span></label>
-            <label><input type="radio" name="patos" value="No"><span>No</span></label>
+
+            <label>
+
+              <input
+                type="radio"
+                name="patos"
+                value="Yes"
+              >
+
+              <span>
+                Yes
+              </span>
+
+            </label>
+
+
+            <label>
+
+              <input
+                type="radio"
+                name="patos"
+                value="No"
+              >
+
+              <span>
+                No
+              </span>
+
+            </label>
+
           </div>
+
         </fieldset>
+
       </section>
 
-      <section id="ssi-evidence" class="card form-section">
+
+
+      <!-- =========================================================
+           03 SSI EVIDENCE
+           ========================================================= -->
+
+      <section
+        id="ssi-evidence"
+        class="card form-section"
+      >
+
         <div class="section-heading">
-          <span class="section-number">02</span>
+
+          <span class="section-number">
+            03
+          </span>
+
           <div>
-            <h2>SSI Evidence</h2>
-            <p>Select all supporting evidence identified during the review.</p>
+            <h2>
+              SSI Evidence
+            </h2>
+
+            <p>
+              Select all supporting evidence identified during the review.
+            </p>
           </div>
+
         </div>
 
-        <div class="option-grid" data-group="evidence">
-          <label class="check-card"><input type="checkbox" name="evidence" value="Purulent drainage"><span>Purulent drainage</span></label>
-          <label class="check-card"><input type="checkbox" name="evidence" value="Organism identified by culture or non-culture test"><span>Organism identified</span></label>
-          <label class="check-card"><input type="checkbox" name="evidence" value="Incision deliberately opened, re-accessed, or aspirated"><span>Incision deliberately opened, re-accessed, or aspirated</span></label>
-          <label class="check-card"><input type="checkbox" name="evidence" value="Spontaneous dehiscence"><span>Spontaneous dehiscence</span></label>
-          <label class="check-card"><input type="checkbox" name="evidence" value="Gross anatomic evidence of infection"><span>Gross anatomic evidence</span></label>
-          <label class="check-card"><input type="checkbox" name="evidence" value="Histopathologic evidence of infection"><span>Histopathologic evidence</span></label>
-          <label class="check-card"><input type="checkbox" name="evidence" value="Imaging evidence definitive or equivocal for infection"><span>Imaging evidence</span></label>
-          <label class="check-card"><input type="checkbox" name="evidence" value="Physician or physician designee diagnosis"><span>Physician/designee diagnosis</span></label>
-          <label class="check-card"><input type="checkbox" name="evidence" value="Antibiotic or antifungal therapy initiated or continued"><span>Antibiotic/antifungal therapy</span></label>
+
+        <div
+          class="option-grid"
+          data-group="evidence"
+        >
+
+          <label class="check-card">
+
+            <input
+              type="checkbox"
+              name="evidence"
+              value="Purulent drainage"
+            >
+
+            <span>
+              Purulent drainage
+            </span>
+
+          </label>
+
+
+          <label class="check-card">
+
+            <input
+              type="checkbox"
+              name="evidence"
+              value="Organism identified by culture or non-culture test"
+            >
+
+            <span>
+              Organism identified
+            </span>
+
+          </label>
+
+
+          <label class="check-card">
+
+            <input
+              type="checkbox"
+              name="evidence"
+              value="Incision deliberately opened, re-accessed, or aspirated"
+            >
+
+            <span>
+              Incision deliberately opened, re-accessed, or aspirated
+            </span>
+
+          </label>
+
+
+          <label class="check-card">
+
+            <input
+              type="checkbox"
+              name="evidence"
+              value="Spontaneous dehiscence"
+            >
+
+            <span>
+              Spontaneous dehiscence
+            </span>
+
+          </label>
+
+
+          <label class="check-card">
+
+            <input
+              type="checkbox"
+              name="evidence"
+              value="Gross anatomic evidence of infection"
+            >
+
+            <span>
+              Gross anatomic evidence
+            </span>
+
+          </label>
+
+
+          <label class="check-card">
+
+            <input
+              type="checkbox"
+              name="evidence"
+              value="Histopathologic evidence of infection"
+            >
+
+            <span>
+              Histopathologic evidence
+            </span>
+
+          </label>
+
+
+          <label class="check-card">
+
+            <input
+              type="checkbox"
+              name="evidence"
+              value="Imaging evidence definitive or equivocal for infection"
+            >
+
+            <span>
+              Imaging evidence
+            </span>
+
+          </label>
+
+
+          <label class="check-card">
+
+            <input
+              type="checkbox"
+              name="evidence"
+              value="Physician or physician designee diagnosis"
+            >
+
+            <span>
+              Physician/designee diagnosis
+            </span>
+
+          </label>
+
+
+          <label class="check-card">
+
+            <input
+              type="checkbox"
+              name="evidence"
+              value="Antibiotic or antifungal therapy initiated or continued"
+            >
+
+            <span>
+              Antibiotic/antifungal therapy
+            </span>
+
+          </label>
+
         </div>
+
 
         <fieldset class="field-group">
-          <legend class="field-label">Was a culture or microbiologic test collected?</legend>
+
+          <legend class="field-label">
+            Was a culture or microbiologic test collected?
+          </legend>
+
           <div class="segmented">
-            <label><input type="radio" name="cultureCollected" value="Yes"><span>Yes</span></label>
-            <label><input type="radio" name="cultureCollected" value="No"><span>No</span></label>
+
+            <label>
+
+              <input
+                type="radio"
+                name="cultureCollected"
+                value="Yes"
+              >
+
+              <span>
+                Yes
+              </span>
+
+            </label>
+
+
+            <label>
+
+              <input
+                type="radio"
+                name="cultureCollected"
+                value="No"
+              >
+
+              <span>
+                No
+              </span>
+
+            </label>
+
           </div>
+
         </fieldset>
 
-        <div id="organismField" class="field-group conditional hidden">
-          <label class="field-label" for="organisms">Organism(s) identified</label>
-          <input id="organisms" type="text" placeholder="Enter organism(s)">
+
+        <div
+          id="organismField"
+          class="field-group conditional hidden"
+        >
+
+          <label
+            class="field-label"
+            for="organisms"
+          >
+            Organism(s) identified
+          </label>
+
+          <input
+            id="organisms"
+            type="text"
+            placeholder="Enter organism(s)"
+          >
+
         </div>
+
+
+        <div
+          id="pjiEvidence"
+          class="joint-only hidden"
+        >
+
+          <h3 class="subsection-title">
+            PJI-specific findings
+          </h3>
+
+          <p class="helper-text">
+            Select every qualifying PJI finding documented in the record.
+          </p>
+
+          <div class="option-grid two-column">
+
+            <label class="check-card">
+
+              <input
+                type="checkbox"
+                name="pjiEvidence"
+                value="Two positive periprosthetic specimens with a matching organism"
+              >
+
+              <span>
+                Two matching positive periprosthetic specimens
+              </span>
+
+            </label>
+
+
+            <label class="check-card">
+
+              <input
+                type="checkbox"
+                name="pjiEvidence"
+                value="Sinus tract communicating with the joint"
+              >
+
+              <span>
+                Sinus tract communicating with the joint
+              </span>
+
+            </label>
+
+
+            <label class="check-card">
+
+              <input
+                type="checkbox"
+                name="pjiEvidence"
+                value="Purulence or other gross anatomic joint evidence"
+              >
+
+              <span>
+                Purulence or other gross joint evidence
+              </span>
+
+            </label>
+
+
+            <label class="check-card">
+
+              <input
+                type="checkbox"
+                name="pjiEvidence"
+                value="Elevated CRP and ESR"
+              >
+
+              <span>
+                Elevated CRP and ESR
+              </span>
+
+            </label>
+
+
+            <label class="check-card">
+
+              <input
+                type="checkbox"
+                name="pjiEvidence"
+                value="Elevated synovial WBC or leukocyte esterase"
+              >
+
+              <span>
+                Elevated synovial WBC or leukocyte esterase
+              </span>
+
+            </label>
+
+
+            <label class="check-card">
+
+              <input
+                type="checkbox"
+                name="pjiEvidence"
+                value="Elevated synovial PMN percentage"
+              >
+
+              <span>
+                Elevated synovial PMN percentage
+              </span>
+
+            </label>
+
+
+            <label class="check-card">
+
+              <input
+                type="checkbox"
+                name="pjiEvidence"
+                value="Positive periprosthetic histology"
+              >
+
+              <span>
+                Positive periprosthetic histology
+              </span>
+
+            </label>
+
+
+            <label class="check-card">
+
+              <input
+                type="checkbox"
+                name="pjiEvidence"
+                value="Single positive periprosthetic specimen"
+              >
+
+              <span>
+                Single positive periprosthetic specimen
+              </span>
+
+            </label>
+
+
+            <label class="check-card">
+
+              <input
+                type="checkbox"
+                name="pjiEvidence"
+                value="Synovial alpha-defensin positive"
+              >
+
+              <span>
+                Synovial alpha-defensin positive
+              </span>
+
+            </label>
+
+
+            <label class="check-card">
+
+              <input
+                type="checkbox"
+                name="pjiEvidence"
+                value="Physician diagnosis of periprosthetic joint infection"
+              >
+
+              <span>
+                Physician diagnosis of PJI
+              </span>
+
+            </label>
+
+          </div>
+
+        </div>
+
       </section>
 
-      <section id="symptoms" class="card form-section">
+
+
+      <!-- =========================================================
+           04 SIGNS AND SYMPTOMS
+           ========================================================= -->
+
+      <section
+        id="symptoms"
+        class="card form-section"
+      >
+
         <div class="section-heading">
-          <span class="section-number">03</span>
+
+          <span class="section-number">
+            04
+          </span>
+
           <div>
-            <h2>Signs &amp; Symptoms</h2>
-            <p>Select all documented findings that apply.</p>
+            <h2>
+              Signs &amp; Symptoms
+            </h2>
+
+            <p>
+              Select all documented findings that apply.
+            </p>
           </div>
+
         </div>
 
-        <div class="option-grid two-column" data-group="symptoms">
-          <label class="check-card"><input type="checkbox" name="symptom" value="Fever greater than 38°C"><span>Fever &gt;38°C</span></label>
-          <label class="check-card"><input type="checkbox" name="symptom" value="New or worsening localized pain or tenderness"><span>New/worsening localized pain or tenderness</span></label>
-          <label class="check-card"><input type="checkbox" name="symptom" value="Localized swelling"><span>Localized swelling</span></label>
-          <label class="check-card"><input type="checkbox" name="symptom" value="Erythema"><span>Erythema</span></label>
-          <label class="check-card"><input type="checkbox" name="symptom" value="Heat"><span>Heat</span></label>
-          <label class="check-card"><input type="checkbox" name="symptom" value="Nausea"><span>Nausea</span></label>
-          <label class="check-card"><input type="checkbox" name="symptom" value="Vomiting"><span>Vomiting</span></label>
-          <label class="check-card"><input type="checkbox" name="symptom" value="Abdominal pain or tenderness"><span>Abdominal pain/tenderness</span></label>
+
+        <div
+          class="option-grid two-column"
+          data-group="symptoms"
+        >
+
+          <label class="check-card">
+
+            <input
+              type="checkbox"
+              name="symptom"
+              value="Fever greater than 38°C"
+            >
+
+            <span>
+              Fever &gt;38°C
+            </span>
+
+          </label>
+
+
+          <label class="check-card">
+
+            <input
+              type="checkbox"
+              name="symptom"
+              value="New or worsening localized pain or tenderness"
+            >
+
+            <span>
+              New/worsening localized pain or tenderness
+            </span>
+
+          </label>
+
+
+          <label class="check-card">
+
+            <input
+              type="checkbox"
+              name="symptom"
+              value="Localized swelling"
+            >
+
+            <span>
+              Localized swelling
+            </span>
+
+          </label>
+
+
+          <label class="check-card">
+
+            <input
+              type="checkbox"
+              name="symptom"
+              value="Erythema"
+            >
+
+            <span>
+              Erythema
+            </span>
+
+          </label>
+
+
+          <label class="check-card">
+
+            <input
+              type="checkbox"
+              name="symptom"
+              value="Heat"
+            >
+
+            <span>
+              Heat
+            </span>
+
+          </label>
+
+
+          <label class="check-card joint-only hidden">
+
+            <input
+              type="checkbox"
+              name="symptom"
+              value="Drainage"
+            >
+
+            <span>
+              Drainage
+            </span>
+
+          </label>
+
+
+          <label class="check-card joint-only hidden">
+
+            <input
+              type="checkbox"
+              name="symptom"
+              value="Joint effusion"
+            >
+
+            <span>
+              Joint effusion
+            </span>
+
+          </label>
+
+
+          <label class="check-card joint-only hidden">
+
+            <input
+              type="checkbox"
+              name="symptom"
+              value="Limitation of motion"
+            >
+
+            <span>
+              Limitation of motion
+            </span>
+
+          </label>
+
+
+          <label class="check-card colo-only">
+
+            <input
+              type="checkbox"
+              name="symptom"
+              value="Nausea"
+            >
+
+            <span>
+              Nausea
+            </span>
+
+          </label>
+
+
+          <label class="check-card colo-only">
+
+            <input
+              type="checkbox"
+              name="symptom"
+              value="Vomiting"
+            >
+
+            <span>
+              Vomiting
+            </span>
+
+          </label>
+
+
+          <label class="check-card colo-only">
+
+            <input
+              type="checkbox"
+              name="symptom"
+              value="Abdominal pain or tenderness"
+            >
+
+            <span>
+              Abdominal pain/tenderness
+            </span>
+
+          </label>
+
         </div>
+
       </section>
 
-      <section id="site" class="card form-section">
+
+
+      <!-- =========================================================
+           05 SITE
+           ========================================================= -->
+
+      <section
+        id="site"
+        class="card form-section"
+      >
+
         <div class="section-heading">
-          <span class="section-number">04</span>
+
+          <span class="section-number">
+            05
+          </span>
+
           <div>
-            <h2>Site</h2>
-            <p>Select the deepest tissue level involved.</p>
+            <h2>
+              Site
+            </h2>
+
+            <p>
+              Select the deepest tissue level involved.
+            </p>
           </div>
+
         </div>
+
 
         <fieldset class="field-group">
-          <legend class="field-label">Anatomic level</legend>
+
+          <legend class="field-label">
+            Anatomic level
+          </legend>
+
           <div class="choice-stack">
+
             <label class="radio-card">
-              <input type="radio" name="anatomicLevel" value="Superficial incisional SSI">
-              <span><strong>Superficial incisional</strong><small>Skin and subcutaneous tissue only</small></span>
+
+              <input
+                type="radio"
+                name="anatomicLevel"
+                value="Superficial incisional SSI"
+              >
+
+              <span>
+
+                <strong>
+                  Superficial incisional
+                </strong>
+
+                <small>
+                  Skin and subcutaneous tissue only
+                </small>
+
+              </span>
+
             </label>
+
+
             <label class="radio-card">
-              <input type="radio" name="anatomicLevel" value="Deep incisional SSI">
-              <span><strong>Deep incisional</strong><small>Fascia and/or muscle layers</small></span>
+
+              <input
+                type="radio"
+                name="anatomicLevel"
+                value="Deep incisional SSI"
+              >
+
+              <span>
+
+                <strong>
+                  Deep incisional
+                </strong>
+
+                <small>
+                  Fascia and/or muscle layers
+                </small>
+
+              </span>
+
             </label>
+
+
             <label class="radio-card">
-              <input type="radio" name="anatomicLevel" value="Organ/Space SSI">
-              <span><strong>Organ/Space</strong><small>Deeper than fascia/muscle</small></span>
+
+              <input
+                type="radio"
+                name="anatomicLevel"
+                value="Organ/Space SSI"
+              >
+
+              <span>
+
+                <strong>
+                  Organ/Space
+                </strong>
+
+                <small>
+                  Deeper than fascia/muscle
+                </small>
+
+              </span>
+
             </label>
+
           </div>
+
         </fieldset>
 
-        <fieldset id="siteSpecificField" class="field-group conditional hidden">
-          <legend class="field-label">Organ/Space site-specific classification</legend>
-          <div class="choice-stack">
+
+        <fieldset
+          id="siteSpecificField"
+          class="field-group conditional hidden"
+        >
+
+          <legend class="field-label">
+            Organ/Space site-specific classification
+          </legend>
+
+
+          <div
+            id="coloSiteOptions"
+            class="choice-stack"
+          >
+
             <label class="radio-card">
-              <input type="radio" name="siteSpecific" value="GIT">
-              <span><strong>GIT</strong><small>Gastrointestinal tract involvement</small></span>
+
+              <input
+                type="radio"
+                name="siteSpecific"
+                value="GIT"
+              >
+
+              <span>
+
+                <strong>
+                  GIT
+                </strong>
+
+                <small>
+                  Gastrointestinal tract involvement
+                </small>
+
+              </span>
+
             </label>
+
+
             <label class="radio-card">
-              <input type="radio" name="siteSpecific" value="IAB">
-              <span><strong>IAB</strong><small>Intraabdominal infection, not specified elsewhere</small></span>
+
+              <input
+                type="radio"
+                name="siteSpecific"
+                value="IAB"
+              >
+
+              <span>
+
+                <strong>
+                  IAB
+                </strong>
+
+                <small>
+                  Intraabdominal infection, not specified elsewhere
+                </small>
+
+              </span>
+
             </label>
+
+
             <label class="radio-card">
-              <input type="radio" name="siteSpecific" value="OREP">
-              <span><strong>OREP</strong><small>Other reproductive tract infection</small></span>
+
+              <input
+                type="radio"
+                name="siteSpecific"
+                value="OREP"
+              >
+
+              <span>
+
+                <strong>
+                  OREP
+                </strong>
+
+                <small>
+                  Other reproductive tract infection
+                </small>
+
+              </span>
+
             </label>
+
           </div>
+
+
+          <div
+            id="jointSiteOptions"
+            class="choice-stack hidden"
+          >
+
+            <label class="radio-card">
+
+              <input
+                type="radio"
+                name="siteSpecific"
+                value="PJI"
+              >
+
+              <span>
+
+                <strong>
+                  PJI
+                </strong>
+
+                <small>
+                  Periprosthetic joint infection
+                </small>
+
+              </span>
+
+            </label>
+
+
+            <label class="radio-card">
+
+              <input
+                type="radio"
+                name="siteSpecific"
+                value="BONE"
+              >
+
+              <span>
+
+                <strong>
+                  BONE
+                </strong>
+
+                <small>
+                  Osteomyelitis
+                </small>
+
+              </span>
+
+            </label>
+
+          </div>
+
+
+          <p
+            id="siteSpecificNote"
+            class="helper-text"
+          ></p>
+
         </fieldset>
+
 
         <div class="field-group">
-          <label class="field-label" for="reviewSummary">Review Summary</label>
-          <textarea id="reviewSummary" rows="5" placeholder="Summarize the relevant chart findings or your review notes..."></textarea>
+
+          <label
+            class="field-label"
+            for="reviewSummary"
+          >
+            Review Summary
+          </label>
+
+          <textarea
+            id="reviewSummary"
+            rows="5"
+            placeholder="Summarize the relevant chart findings or your review notes..."
+          ></textarea>
+
         </div>
+
       </section>
 
-      <section id="result" class="card result-section">
+
+
+      <!-- =========================================================
+           RESULT
+           ========================================================= -->
+
+      <section
+        id="result"
+        class="card result-section"
+      >
+
         <div class="result-banner">
+
           <div>
-            <p class="result-kicker">PRELIMINARY RESULT</p>
-            <h2 id="resultTitle">Complete the review and select Calculate Result</h2>
+
+            <p class="result-kicker">
+              PRELIMINARY RESULT
+            </p>
+
+            <h2 id="resultTitle">
+              Complete the review and select Calculate Result
+            </h2>
+
           </div>
-          <button id="minimizeResult" class="icon-button" type="button" aria-label="Minimize result">−</button>
+
+
+          <button
+            id="minimizeResult"
+            class="icon-button"
+            type="button"
+            aria-label="Minimize result"
+          >
+            −
+          </button>
+
         </div>
 
-        <div id="resultBody" class="result-body">
-          <div id="resultContent" class="empty-result">
+
+        <div
+          id="resultBody"
+          class="result-body"
+        >
+
+          <div
+            id="resultContent"
+            class="empty-result"
+          >
             Your copy-ready review summary will appear here.
           </div>
 
+
           <div class="result-actions">
-            <button id="calculateButton" class="primary-button" type="button">Calculate Result</button>
-            <button id="copyButton" class="secondary-button" type="button" disabled>Copy Result</button>
-            <button id="clearButton" class="text-button" type="button">Clear Form</button>
+
+            <button
+              id="calculateButton"
+              class="primary-button"
+              type="button"
+            >
+              Calculate Result
+            </button>
+
+
+            <button
+              id="copyButton"
+              class="secondary-button"
+              type="button"
+              disabled
+            >
+              Copy Result
+            </button>
+
+
+            <button
+              id="clearButton"
+              class="text-button"
+              type="button"
+            >
+              Clear Form
+            </button>
+
           </div>
-          <p id="copyStatus" class="copy-status" aria-live="polite"></p>
+
+
+          <p
+            id="copyStatus"
+            class="copy-status"
+            aria-live="polite"
+          ></p>
+
         </div>
+
       </section>
 
-      <section class="card reference-section" id="reference-area">
-        <div class="reference-tabs" role="tablist" aria-label="Reference information">
-          <button class="tab-button active" type="button" role="tab" aria-selected="true" data-tab="nextSteps">Next Steps</button>
-          <button class="tab-button" type="button" role="tab" aria-selected="false" data-tab="nhsnEvidence">NHSN Evidence</button>
-          <button class="tab-button" type="button" role="tab" aria-selected="false" data-tab="references">References</button>
+
+
+      <!-- =========================================================
+           REFERENCE TABS
+           ========================================================= -->
+
+      <section
+        class="card reference-section"
+        id="reference-area"
+      >
+
+        <div
+          class="reference-tabs"
+          role="tablist"
+          aria-label="Reference information"
+        >
+
+          <button
+            class="tab-button active"
+            type="button"
+            role="tab"
+            aria-selected="true"
+            data-tab="nextSteps"
+          >
+            Next Steps
+          </button>
+
+
+          <button
+            class="tab-button"
+            type="button"
+            role="tab"
+            aria-selected="false"
+            data-tab="nhsnEvidence"
+          >
+            NHSN Evidence
+          </button>
+
+
+          <button
+            class="tab-button"
+            type="button"
+            role="tab"
+            aria-selected="false"
+            data-tab="references"
+          >
+            References
+          </button>
+
         </div>
 
-        <div id="nextSteps" class="tab-panel active" role="tabpanel">
-          <h2>Next Steps</h2>
+
+
+        <!-- NEXT STEPS -->
+
+        <div
+          id="nextSteps"
+          class="tab-panel active"
+          role="tabpanel"
+        >
+
+          <h2>
+            Next Steps
+          </h2>
+
           <ul class="reference-list">
-            <li>Confirm the date of event is within the applicable surveillance period.</li>
-            <li>Apply the deepest tissue level identified during the surveillance period.</li>
-            <li>For Organ/Space SSI, confirm an eligible Chapter 17 site-specific definition is met.</li>
-            <li>Confirm PATOS using evidence documented in the narrative portion of the operative note.</li>
-            <li>Use the current NHSN protocol as the authoritative source.</li>
+
+            <li>
+              Confirm the date of event is within the applicable
+              surveillance period.
+            </li>
+
+            <li>
+              Apply the deepest tissue level identified during
+              the surveillance period.
+            </li>
+
+            <li>
+              For Organ/Space SSI, confirm an eligible Chapter 17
+              site-specific definition is met.
+            </li>
+
+            <li>
+              Confirm PATOS using evidence documented in the
+              narrative portion of the operative note.
+            </li>
+
+            <li>
+              Use the current NHSN protocol as the authoritative source.
+            </li>
+
           </ul>
+
         </div>
 
-        <div id="nhsnEvidence" class="tab-panel" role="tabpanel">
-          <h2>NHSN Evidence</h2>
-          <p class="reference-intro">Expand a category to review the 2026 NHSN criteria supplied for this tool.</p>
+
+
+        <!-- NHSN EVIDENCE -->
+
+        <div
+          id="nhsnEvidence"
+          class="tab-panel"
+          role="tabpanel"
+        >
+
+          <h2>
+            NHSN Evidence
+          </h2>
+
+          <p class="reference-intro">
+            Expand a category to review the 2026 NHSN criteria
+            supplied for this tool.
+          </p>
+
+
+
+          <!-- SUPERFICIAL INCISIONAL -->
 
           <details class="criteria-card">
-            <summary>Superficial Incisional SSI</summary>
+
+            <summary>
+              Superficial Incisional SSI
+            </summary>
+
             <div class="criteria-content">
-              <h3>Must meet all of the following</h3>
+
+              <h3>
+                Must meet all of the following
+              </h3>
+
               <ol>
-                <li>Date of event occurs within 30 days following the NHSN operative procedure, where day 1 is the procedure date.</li>
-                <li>Involves only skin and subcutaneous tissue of the incision.</li>
+
                 <li>
-                  Patient has at least one of the following:
-                  <ol type="a">
-                    <li>Purulent drainage from the superficial incision.</li>
-                    <li>Organism(s) identified from an aseptically obtained specimen from the superficial incision or subcutaneous tissue by a culture- or non-culture-based microbiologic testing method performed for clinical diagnosis or treatment.</li>
-                    <li>
-                      A superficial incision deliberately opened, re-accessed, or aspirated by a surgeon, physician, or physician designee;
-                      <strong>and</strong> antibiotic or antifungal therapy is initiated or continued on or in the two calendar days following the procedure, for two calendar days or longer;
-                      <strong>and</strong> the patient has new or worsening localized pain or tenderness, localized swelling, erythema, or heat.
-                    </li>
-                    <li>Diagnosis of a superficial incisional SSI by a physician or physician designee.</li>
-                  </ol>
+                  Date of event occurs within 30 days following
+                  the NHSN operative procedure, where day 1 is
+                  the procedure date.
                 </li>
+
+                <li>
+                  Involves only skin and subcutaneous tissue
+                  of the incision.
+                </li>
+
+                <li>
+
+                  Patient has at least one of the following:
+
+                  <ol type="a">
+
+                    <li>
+                      Purulent drainage from the superficial incision.
+                    </li>
+
+                    <li>
+                      Organism(s) identified from an aseptically obtained
+                      specimen from the superficial incision or subcutaneous
+                      tissue by a culture- or non-culture-based microbiologic
+                      testing method performed for clinical diagnosis or treatment.
+                    </li>
+
+                    <li>
+                      A superficial incision deliberately opened, re-accessed,
+                      or aspirated by a surgeon, physician, or physician designee;
+                      <strong>and</strong> antibiotic or antifungal therapy is
+                      initiated or continued on or in the two calendar days
+                      following the procedure, for two calendar days or longer;
+                      <strong>and</strong> the patient has new or worsening
+                      localized pain or tenderness, localized swelling,
+                      erythema, or heat.
+                    </li>
+
+                    <li>
+                      Diagnosis of a superficial incisional SSI by a
+                      physician or physician designee.
+                    </li>
+
+                  </ol>
+
+                </li>
+
               </ol>
 
-              <h3>Comments</h3>
+
+              <h3>
+                Comments
+              </h3>
+
               <ul>
-                <li><strong>SIP:</strong> Superficial Incisional Primary — identified in the primary incision.</li>
-                <li><strong>SIS:</strong> Superficial Incisional Secondary — identified in a secondary incision when the operation has more than one incision.</li>
+
+                <li>
+                  <strong>SIP:</strong>
+                  Superficial Incisional Primary — identified
+                  in the primary incision.
+                </li>
+
+                <li>
+                  <strong>SIS:</strong>
+                  Superficial Incisional Secondary — identified
+                  in a secondary incision when the operation has
+                  more than one incision.
+                </li>
+
               </ul>
 
-              <h3>Does not qualify by itself</h3>
+
+              <h3>
+                Does not qualify by itself
+              </h3>
+
               <ul>
-                <li>Diagnosis or treatment of cellulitis alone.</li>
-                <li>A stitch abscess alone.</li>
-                <li>A localized stab wound or pin-site infection.</li>
+
+                <li>
+                  Diagnosis or treatment of cellulitis alone.
+                </li>
+
+                <li>
+                  A stitch abscess alone.
+                </li>
+
+                <li>
+                  A localized stab wound or pin-site infection.
+                </li>
+
               </ul>
 
-              <h3>Important note</h3>
-              <p>For NHSN surveillance, a laparoscopic trocar site is considered a surgical incision rather than a stab wound. A trocar site used for drain placement at the end of the procedure is considered a surgical incision.</p>
+
+              <h3>
+                Important note
+              </h3>
+
+              <p>
+                For NHSN surveillance, a laparoscopic trocar site
+                is considered a surgical incision rather than a stab wound.
+                A trocar site used for drain placement at the end of the
+                procedure is considered a surgical incision.
+              </p>
+
             </div>
+
           </details>
 
+
+
+          <!-- DEEP INCISIONAL -->
+
           <details class="criteria-card">
-            <summary>Deep Incisional SSI</summary>
+
+            <summary>
+              Deep Incisional SSI
+            </summary>
+
             <div class="criteria-content">
-              <h3>Must meet all of the following</h3>
+
+              <h3>
+                Must meet all of the following
+              </h3>
+
               <ol>
-                <li>Date of event occurs within 30 or 90 days following the NHSN operative procedure, according to the applicable procedure surveillance period.</li>
-                <li>Involves deep soft tissues of the incision, such as fascial and muscle layers.</li>
+
                 <li>
-                  Patient has at least one of the following:
-                  <ol type="a">
-                    <li>Purulent drainage from the deep incision.</li>
-                    <li>Organism(s) identified from the deep soft tissues of the incision by a culture- or non-culture-based microbiologic testing method performed for clinical diagnosis or treatment.</li>
-                    <li>
-                      A deep incision deliberately opened, re-accessed, or aspirated by a surgeon, physician, or physician designee, or spontaneously dehisces;
-                      <strong>and</strong> antibiotic or antifungal therapy is initiated or continued on or in the two calendar days following that event, for two calendar days or longer;
-                      <strong>and</strong> the patient has fever &gt;38°C or new/worsening localized pain or tenderness.
-                    </li>
-                    <li>An abscess or other evidence of infection involving the deep incision detected on gross anatomic examination, histopathologic examination, or imaging test.</li>
-                  </ol>
+                  Date of event occurs within 30 or 90 days following
+                  the NHSN operative procedure, according to the
+                  applicable procedure surveillance period.
                 </li>
+
+                <li>
+                  Involves deep soft tissues of the incision,
+                  such as fascial and muscle layers.
+                </li>
+
+                <li>
+
+                  Patient has at least one of the following:
+
+                  <ol type="a">
+
+                    <li>
+                      Purulent drainage from the deep incision.
+                    </li>
+
+                    <li>
+                      Organism(s) identified from the deep soft tissues
+                      of the incision by a culture- or non-culture-based
+                      microbiologic testing method performed for clinical
+                      diagnosis or treatment.
+                    </li>
+
+                    <li>
+                      A deep incision deliberately opened, re-accessed,
+                      or aspirated by a surgeon, physician, or physician
+                      designee, or spontaneously dehisces;
+                      <strong>and</strong> antibiotic or antifungal therapy
+                      is initiated or continued on or in the two calendar
+                      days following that event, for two calendar days
+                      or longer;
+                      <strong>and</strong> the patient has fever &gt;38°C
+                      or new/worsening localized pain or tenderness.
+                    </li>
+
+                    <li>
+                      An abscess or other evidence of infection involving
+                      the deep incision detected on gross anatomic examination,
+                      histopathologic examination, or imaging test.
+                    </li>
+
+                  </ol>
+
+                </li>
+
               </ol>
 
-              <h3>Definitions and comments</h3>
+
+              <h3>
+                Definitions and comments
+              </h3>
+
               <ul>
-                <li>Spontaneous dehiscence is a re-opening of a surgical incision not caused by an external factor such as direct trauma.</li>
-                <li><strong>DIP:</strong> Deep Incisional Primary — identified in the primary incision.</li>
-                <li><strong>DIS:</strong> Deep Incisional Secondary — identified in a secondary incision when the operation has more than one incision.</li>
+
+                <li>
+                  Spontaneous dehiscence is a re-opening of a surgical
+                  incision not caused by an external factor such as direct trauma.
+                </li>
+
+                <li>
+                  <strong>DIP:</strong>
+                  Deep Incisional Primary — identified in the primary incision.
+                </li>
+
+                <li>
+                  <strong>DIS:</strong>
+                  Deep Incisional Secondary — identified in a secondary incision
+                  when the operation has more than one incision.
+                </li>
+
               </ul>
+
             </div>
+
           </details>
 
+
+
+          <!-- ORGAN/SPACE -->
+
           <details class="criteria-card">
-            <summary>Organ/Space SSI</summary>
+
+            <summary>
+              Organ/Space SSI
+            </summary>
+
             <div class="criteria-content">
-              <h3>Must meet all of the following</h3>
+
+              <h3>
+                Must meet all of the following
+              </h3>
+
               <ol>
-                <li>Date of event occurs within 30 or 90 days following the NHSN operative procedure, according to the applicable procedure surveillance period.</li>
-                <li>Involves organ/space tissues deeper than the fascia or muscle layers.</li>
+
                 <li>
+                  Date of event occurs within 30 or 90 days following
+                  the NHSN operative procedure, according to the
+                  applicable procedure surveillance period.
+                </li>
+
+                <li>
+                  Involves organ/space tissues deeper than the
+                  fascia or muscle layers.
+                </li>
+
+                <li>
+
                   Patient has at least one of the following:
+
                   <ol type="a">
-                    <li>Purulent drainage from a drain placed into the organ/space, such as a closed suction drainage system, open drain, T-tube drain, or CT-guided drainage system.</li>
-                    <li>Organism(s) identified from fluid or tissue in the organ/space by a culture- or non-culture-based microbiologic testing method performed for clinical diagnosis or treatment.</li>
+
                     <li>
-                      An abscess or other evidence of infection involving the organ/space detected on:
+                      Purulent drainage from a drain placed into the organ/space,
+                      such as a closed suction drainage system, open drain,
+                      T-tube drain, or CT-guided drainage system.
+                    </li>
+
+                    <li>
+                      Organism(s) identified from fluid or tissue in the
+                      organ/space by a culture- or non-culture-based
+                      microbiologic testing method performed for clinical
+                      diagnosis or treatment.
+                    </li>
+
+                    <li>
+
+                      An abscess or other evidence of infection involving
+                      the organ/space detected on:
+
                       <ul>
-                        <li>gross anatomic examination,</li>
-                        <li>histopathologic examination, or</li>
-                        <li>imaging test evidence definitive or equivocal for infection.</li>
+
+                        <li>
+                          gross anatomic examination,
+                        </li>
+
+                        <li>
+                          histopathologic examination, or
+                        </li>
+
+                        <li>
+                          imaging test evidence definitive or equivocal
+                          for infection.
+                        </li>
+
                       </ul>
+
                     </li>
+
                   </ol>
+
                 </li>
-                <li>Meets at least one eligible criterion for a specific organ/space infection site in the NHSN site-specific definitions.</li>
+
+                <li>
+                  Meets at least one eligible criterion for a specific
+                  organ/space infection site in the NHSN site-specific definitions.
+                </li>
+
               </ol>
 
-              <h3>Examples of gross anatomic evidence</h3>
+
+              <h3>
+                Examples of gross anatomic evidence
+              </h3>
+
               <ul>
-                <li>An intraabdominal abscess generally requires an invasive procedure to directly visualize the abscess.</li>
-                <li>Visualization of pus or purulent drainage, including drainage from a drain.</li>
-                <li>Special reproductive-tract provisions may apply after certain procedures when the appropriate site-specific definition is met.</li>
+
+                <li>
+                  An intraabdominal abscess generally requires an invasive
+                  procedure to directly visualize the abscess.
+                </li>
+
+                <li>
+                  Visualization of pus or purulent drainage,
+                  including drainage from a drain.
+                </li>
+
+                <li>
+                  Special reproductive-tract provisions may apply after
+                  certain procedures when the appropriate site-specific
+                  definition is met.
+                </li>
+
               </ul>
 
-              <h3>COLO site-specific classification</h3>
-              <ul>
-                <li><strong>GIT:</strong> Gastrointestinal tract.</li>
-                <li><strong>IAB:</strong> Intraabdominal infection, not specified elsewhere.</li>
-                <li><strong>OREP:</strong> Other reproductive tract infection.</li>
-              </ul>
+
+              <div id="coloEvidenceCards">
+
+                <h3>
+                  COLO site-specific classification
+                </h3>
+
+                <ul>
+
+                  <li>
+                    <strong>GIT:</strong>
+                    Gastrointestinal tract.
+                  </li>
+
+                  <li>
+                    <strong>IAB:</strong>
+                    Intraabdominal infection, not specified elsewhere.
+                  </li>
+
+                  <li>
+                    <strong>OREP:</strong>
+                    Other reproductive tract infection.
+                  </li>
+
+                </ul>
+
+              </div>
+
+
+              <div
+                id="jointEvidenceCards"
+                class="hidden"
+              >
+
+                <h3>
+                  HPRO/KPRO site-specific classification
+                </h3>
+
+                <p>
+                  For HPRO and KPRO organ/space SSI review, the applicable
+                  site-specific classifications in this tool are PJI and BONE.
+                </p>
+
+                <details class="criteria-card nested-criteria-card">
+
+                  <summary>
+                    PJI — Periprosthetic Joint Infection
+                  </summary>
+
+                  <div class="criteria-content">
+
+                    <h3>
+                      Potential qualifying pathways
+                    </h3>
+
+                    <ol>
+
+                      <li>
+                        Two positive periprosthetic tissue or fluid specimens
+                        with at least one matching organism.
+                      </li>
+
+                      <li>
+                        A sinus tract communicating with the joint,
+                        purulence, or other gross anatomic evidence
+                        involving the joint.
+                      </li>
+
+                      <li>
+                        At least three qualifying minor criteria,
+                        such as:
+                        <ul>
+                          <li>elevated CRP and ESR,</li>
+                          <li>elevated synovial WBC or positive leukocyte esterase,</li>
+                          <li>elevated synovial PMN percentage,</li>
+                          <li>positive histology of periprosthetic tissue,</li>
+                          <li>a single positive periprosthetic specimen,</li>
+                          <li>positive synovial alpha-defensin, or</li>
+                          <li>physician diagnosis of PJI.</li>
+                        </ul>
+                      </li>
+
+                    </ol>
+
+                    <p>
+                      Verify the exact threshold values, specimen requirements,
+                      and current NHSN wording before reporting.
+                    </p>
+
+                  </div>
+
+                </details>
+
+
+                <details class="criteria-card nested-criteria-card">
+
+                  <summary>
+                    BONE — Osteomyelitis
+                  </summary>
+
+                  <div class="criteria-content">
+
+                    <h3>
+                      Potential qualifying pathways
+                    </h3>
+
+                    <ul>
+
+                      <li>
+                        Organism(s) identified from bone by an eligible
+                        microbiologic testing method.
+                      </li>
+
+                      <li>
+                        Gross anatomic or histopathologic evidence
+                        of osteomyelitis.
+                      </li>
+
+                      <li>
+                        A qualifying combination of localized signs
+                        or symptoms with blood microbiology, imaging,
+                        or physician diagnosis and treatment.
+                      </li>
+
+                    </ul>
+
+                    <p>
+                      <strong>Reporting instruction:</strong>
+                      When both PJI and BONE definitions are met after
+                      HPRO or KPRO, report BONE.
+                    </p>
+
+                  </div>
+
+                </details>
+
+              </div>
+
             </div>
+
           </details>
+
         </div>
 
-        <div id="references" class="tab-panel" role="tabpanel">
-          <h2>References</h2>
+
+
+        <!-- REFERENCES -->
+
+        <div
+          id="references"
+          class="tab-panel"
+          role="tabpanel"
+        >
+
+          <h2>
+            References
+          </h2>
+
           <ul class="reference-list">
-            <li>CDC NHSN Patient Safety Component Manual, Chapter 9: Surgical Site Infection Event.</li>
-            <li>CDC NHSN Patient Safety Component Manual, Chapter 17: Surveillance Definitions for Specific Types of Infections.</li>
-            <li>Evidence text in this tool should be reviewed annually against the current NHSN manual.</li>
+
+            <li>
+              CDC NHSN Patient Safety Component Manual,
+              Chapter 9: Surgical Site Infection Event.
+            </li>
+
+            <li>
+              CDC NHSN Patient Safety Component Manual,
+              Chapter 17: Surveillance Definitions for
+              Specific Types of Infections.
+            </li>
+
+            <li>
+              Evidence text in this tool should be reviewed annually
+              against the current NHSN manual.
+            </li>
+
           </ul>
+
         </div>
+
       </section>
+
     </div>
 
-    <aside class="progress-panel" aria-live="polite">
-      <p class="progress-eyebrow">CURRENT REVIEW</p>
-      <h2 id="progressTitle">Complete the sections</h2>
+
+
+    <!-- =========================================================
+         RIGHT-SIDE REVIEW PANEL
+         ========================================================= -->
+
+    <aside
+      class="progress-panel"
+      aria-live="polite"
+    >
+
+      <p class="progress-eyebrow">
+        CURRENT REVIEW
+      </p>
+
+      <h2 id="progressTitle">
+        Complete the sections
+      </h2>
+
+
       <div class="progress-list">
-        <div><span id="progressPatos" class="status-dot"></span>PATOS selected</div>
-        <div><span id="progressEvidence" class="status-dot"></span>Evidence reviewed</div>
-        <div><span id="progressLevel" class="status-dot"></span>Anatomic level selected</div>
-        <div><span id="progressSite" class="status-dot"></span>Site-specific classification</div>
+
+        <div>
+
+          <span
+            id="progressProcedure"
+            class="status-dot"
+          ></span>
+
+          Index procedure selected
+
+        </div>
+
+
+        <div>
+
+          <span
+            id="progressPatos"
+            class="status-dot"
+          ></span>
+
+          PATOS selected
+
+        </div>
+
+
+        <div>
+
+          <span
+            id="progressEvidence"
+            class="status-dot"
+          ></span>
+
+          Evidence reviewed
+
+        </div>
+
+
+        <div>
+
+          <span
+            id="progressLevel"
+            class="status-dot"
+          ></span>
+
+          Anatomic level selected
+
+        </div>
+
+
+        <div>
+
+          <span
+            id="progressSite"
+            class="status-dot"
+          ></span>
+
+          Site-specific classification
+
+        </div>
+
       </div>
-      <div id="progressGuidance" class="progress-guidance">
-        Begin with the operative note and PATOS review.
+
+
+      <div
+        id="progressGuidance"
+        class="progress-guidance"
+      >
+        Select the index procedure category.
       </div>
+
+
+      <div
+        id="criteriaAlert"
+        class="criteria-alert neutral"
+        aria-live="polite"
+      >
+
+        <div class="criteria-alert-heading">
+
+          <span
+            id="criteriaAlertIcon"
+            class="criteria-alert-icon"
+          >
+            i
+          </span>
+
+          <strong id="criteriaAlertTitle">
+            Criteria guidance
+          </strong>
+
+        </div>
+
+
+        <p id="criteriaAlertMessage">
+          Select a procedure and anatomic level to see
+          what is still needed.
+        </p>
+
+
+        <ul
+          id="criteriaAlertList"
+          class="criteria-alert-list"
+        ></ul>
+
+      </div>
+
     </aside>
+
   </main>
 
+
   <footer>
-    Based on the 2026 NHSN Patient Safety Component Manual. Verify criteria against the current manual before reporting.
+    Based on the 2026 NHSN Patient Safety Component Manual.
+    Verify criteria against the current manual before reporting.
   </footer>
 
-  <div id="tooltip" class="tooltip" role="tooltip"></div>
+
+  <div
+    id="tooltip"
+    class="tooltip"
+    role="tooltip"
+  ></div>
+
+
   <script src="script.js"></script>
+
 </body>
 </html>
