@@ -655,3 +655,23 @@ $("#minimizeResult").addEventListener(
 setupTabs();
 setupTooltips();
 updateConditionalFields();
+$$('[data-open-tab="nhsnEvidence"]').forEach(link => {
+    link.addEventListener("click", () => {
+      $$(".tab-button").forEach(button => {
+        const isEvidence = button.dataset.tab === "nhsnEvidence";
+  
+        button.classList.toggle("active", isEvidence);
+        button.setAttribute(
+          "aria-selected",
+          isEvidence ? "true" : "false"
+        );
+      });
+  
+      $$(".tab-panel").forEach(panel => {
+        panel.classList.toggle(
+          "active",
+          panel.id === "nhsnEvidence"
+        );
+      });
+    });
+  });
