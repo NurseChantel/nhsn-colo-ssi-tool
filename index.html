@@ -588,650 +588,7 @@
 
 
       <!-- =========================================================
-           03 SSI EVIDENCE
-           ========================================================= -->
-
-      <section
-        id="ssi-evidence"
-        class="card form-section"
-      >
-
-        <div class="section-heading">
-
-          <span class="section-number">
-            03
-          </span>
-
-          <div>
-            <h2>
-              SSI Evidence
-            </h2>
-
-            <p>
-              Select supporting evidence identified after the index procedure during the applicable NHSN surveillance window.
-            </p>
-          </div>
-
-          <button
-            class="section-reset-button"
-            type="button"
-            data-reset-section="ssi-evidence"
-            aria-label="Reset SSI Evidence section"
-          >
-            Reset
-          </button>
-
-        </div>
-
-        <aside
-          class="review-timeframe review-timeframe-ssi"
-          aria-label="SSI evidence review timeframe"
-        >
-          <span class="review-timeframe-label">Review timeframe</span>
-
-          <div>
-            <strong>
-              After the index procedure — within the surveillance window
-            </strong>
-
-            <p id="ssiEvidenceTimeframe" aria-live="polite">
-              Enter the index procedure date and select a procedure to show
-              the SSI evidence review window.
-            </p>
-          </div>
-        </aside>
-
-        <div
-          class="option-grid"
-          data-group="evidence"
-        >
-
-          <label class="check-card">
-
-            <input
-              type="checkbox"
-              name="evidence"
-              value="Purulent drainage"
-            >
-
-            <span>
-              Purulent drainage
-            </span>
-
-          </label>
-
-
-          <label class="check-card">
-
-            <input
-              type="checkbox"
-              name="evidence"
-              value="Organism identified by culture or non-culture test"
-            >
-
-            <span>
-              Organism identified
-            </span>
-
-          </label>
-
-
-          <label class="check-card">
-
-            <input
-              type="checkbox"
-              name="evidence"
-              value="Incision deliberately opened, re-accessed, or aspirated"
-            >
-
-            <span>
-              Incision deliberately opened, re-accessed, or aspirated
-            </span>
-
-          </label>
-
-
-          <label class="check-card">
-
-            <input
-              type="checkbox"
-              name="evidence"
-              value="Spontaneous dehiscence"
-            >
-
-            <span>
-              Spontaneous dehiscence
-            </span>
-
-          </label>
-
-
-          <label class="check-card">
-
-            <input
-              type="checkbox"
-              name="evidence"
-              value="Gross anatomic evidence of infection"
-            >
-
-            <span>
-              Gross anatomic evidence
-            </span>
-
-          </label>
-
-
-          <label class="check-card">
-
-            <input
-              type="checkbox"
-              name="evidence"
-              value="Histopathologic evidence of infection"
-            >
-
-            <span>
-              Histopathologic evidence
-            </span>
-
-          </label>
-
-
-          <label class="check-card">
-
-            <input
-              type="checkbox"
-              name="evidence"
-              value="Imaging evidence definitive or equivocal for infection"
-            >
-
-            <span>
-              Imaging evidence
-            </span>
-
-          </label>
-
-
-          <label class="check-card">
-
-            <input
-              type="checkbox"
-              name="evidence"
-              value="Physician or physician designee diagnosis"
-            >
-
-            <span>
-              Physician/designee diagnosis
-            </span>
-
-          </label>
-
-
-          <label class="check-card">
-
-            <input
-              type="checkbox"
-              name="evidence"
-              value="Antibiotic or antifungal therapy initiated or continued"
-            >
-
-            <span>
-              Antibiotic/antifungal therapy
-            </span>
-
-          </label>
-
-        </div>
-
-
-        <fieldset class="field-group">
-
-          <legend class="field-label">
-            Was a culture or microbiologic test collected?
-          </legend>
-
-          <div class="segmented">
-
-            <label>
-
-              <input
-                type="radio"
-                name="cultureCollected"
-                value="Yes"
-              >
-
-              <span>
-                Yes
-              </span>
-
-            </label>
-
-
-            <label>
-
-              <input
-                type="radio"
-                name="cultureCollected"
-                value="No"
-              >
-
-              <span>
-                No
-              </span>
-
-            </label>
-
-          </div>
-
-        </fieldset>
-
-
-        <div
-          id="organismField"
-          class="field-group conditional hidden"
-        >
-
-          <label
-            class="field-label"
-            for="organisms"
-          >
-            Organism(s) identified
-          </label>
-
-          <input
-            id="organisms"
-            type="text"
-            placeholder="Enter organism(s)"
-          >
-
-        </div>
-
-
-        <div
-          id="pjiEvidence"
-          class="joint-only hidden"
-        >
-
-          <h3 class="subsection-title">
-            PJI-specific findings
-          </h3>
-
-          <p class="helper-text">
-            Select every qualifying PJI finding documented in the record.
-          </p>
-
-          <div class="option-grid two-column">
-
-            <label class="check-card">
-
-              <input
-                type="checkbox"
-                name="pjiEvidence"
-                value="Two positive periprosthetic specimens with a matching organism"
-              >
-
-              <span>
-                Two matching positive periprosthetic specimens
-              </span>
-
-            </label>
-
-
-            <label class="check-card">
-
-              <input
-                type="checkbox"
-                name="pjiEvidence"
-                value="Sinus tract communicating with the joint"
-              >
-
-              <span>
-                Sinus tract communicating with the joint
-              </span>
-
-            </label>
-
-
-            <label class="check-card">
-
-              <input
-                type="checkbox"
-                name="pjiEvidence"
-                value="Purulence or other gross anatomic joint evidence"
-              >
-
-              <span>
-                Purulence or other gross joint evidence
-              </span>
-
-            </label>
-
-
-            <label class="check-card">
-
-              <input
-                type="checkbox"
-                name="pjiEvidence"
-                value="Elevated CRP and ESR"
-              >
-
-              <span>
-                Elevated CRP and ESR
-              </span>
-
-            </label>
-
-
-            <label class="check-card">
-
-              <input
-                type="checkbox"
-                name="pjiEvidence"
-                value="Elevated synovial WBC or leukocyte esterase"
-              >
-
-              <span>
-                Elevated synovial WBC or leukocyte esterase
-              </span>
-
-            </label>
-
-
-            <label class="check-card">
-
-              <input
-                type="checkbox"
-                name="pjiEvidence"
-                value="Elevated synovial PMN percentage"
-              >
-
-              <span>
-                Elevated synovial PMN percentage
-              </span>
-
-            </label>
-
-
-            <label class="check-card">
-
-              <input
-                type="checkbox"
-                name="pjiEvidence"
-                value="Positive periprosthetic histology"
-              >
-
-              <span>
-                Positive periprosthetic histology
-              </span>
-
-            </label>
-
-
-            <label class="check-card">
-
-              <input
-                type="checkbox"
-                name="pjiEvidence"
-                value="Single positive periprosthetic specimen"
-              >
-
-              <span>
-                Single positive periprosthetic specimen
-              </span>
-
-            </label>
-
-
-            <label class="check-card">
-
-              <input
-                type="checkbox"
-                name="pjiEvidence"
-                value="Synovial alpha-defensin positive"
-              >
-
-              <span>
-                Synovial alpha-defensin positive
-              </span>
-
-            </label>
-
-
-            <label class="check-card">
-
-              <input
-                type="checkbox"
-                name="pjiEvidence"
-                value="Physician diagnosis of periprosthetic joint infection"
-              >
-
-              <span>
-                Physician diagnosis of PJI
-              </span>
-
-            </label>
-
-          </div>
-
-        </div>
-
-      </section>
-
-
-
-      <!-- =========================================================
-           04 SIGNS AND SYMPTOMS
-           ========================================================= -->
-
-      <section
-        id="symptoms"
-        class="card form-section"
-      >
-
-        <div class="section-heading">
-
-          <span class="section-number">
-            04
-          </span>
-
-          <div>
-            <h2>
-              Signs &amp; Symptoms
-            </h2>
-
-            <p>
-              Select all documented findings that apply.
-            </p>
-          </div>
-
-          <button
-            class="section-reset-button"
-            type="button"
-            data-reset-section="symptoms"
-            aria-label="Reset Signs and Symptoms section"
-          >
-            Reset
-          </button>
-
-        </div>
-
-
-        <div
-          class="option-grid two-column"
-          data-group="symptoms"
-        >
-
-          <label class="check-card">
-
-            <input
-              type="checkbox"
-              name="symptom"
-              value="Fever greater than 38°C"
-            >
-
-            <span>
-              Fever &gt;38°C
-            </span>
-
-          </label>
-
-
-          <label class="check-card">
-
-            <input
-              type="checkbox"
-              name="symptom"
-              value="New or worsening localized pain or tenderness"
-            >
-
-            <span>
-              New/worsening localized pain or tenderness
-            </span>
-
-          </label>
-
-
-          <label class="check-card">
-
-            <input
-              type="checkbox"
-              name="symptom"
-              value="Localized swelling"
-            >
-
-            <span>
-              Localized swelling
-            </span>
-
-          </label>
-
-
-          <label class="check-card">
-
-            <input
-              type="checkbox"
-              name="symptom"
-              value="Erythema"
-            >
-
-            <span>
-              Erythema
-            </span>
-
-          </label>
-
-
-          <label class="check-card">
-
-            <input
-              type="checkbox"
-              name="symptom"
-              value="Heat"
-            >
-
-            <span>
-              Heat
-            </span>
-
-          </label>
-
-
-          <label class="check-card joint-only hidden">
-
-            <input
-              type="checkbox"
-              name="symptom"
-              value="Drainage"
-            >
-
-            <span>
-              Drainage
-            </span>
-
-          </label>
-
-
-          <label class="check-card joint-only hidden">
-
-            <input
-              type="checkbox"
-              name="symptom"
-              value="Joint effusion"
-            >
-
-            <span>
-              Joint effusion
-            </span>
-
-          </label>
-
-
-          <label class="check-card joint-only hidden">
-
-            <input
-              type="checkbox"
-              name="symptom"
-              value="Limitation of motion"
-            >
-
-            <span>
-              Limitation of motion
-            </span>
-
-          </label>
-
-
-          <label class="check-card colo-only">
-
-            <input
-              type="checkbox"
-              name="symptom"
-              value="Nausea"
-            >
-
-            <span>
-              Nausea
-            </span>
-
-          </label>
-
-
-          <label class="check-card colo-only">
-
-            <input
-              type="checkbox"
-              name="symptom"
-              value="Vomiting"
-            >
-
-            <span>
-              Vomiting
-            </span>
-
-          </label>
-
-
-          <label class="check-card colo-only">
-
-            <input
-              type="checkbox"
-              name="symptom"
-              value="Abdominal pain or tenderness"
-            >
-
-            <span>
-              Abdominal pain/tenderness
-            </span>
-
-          </label>
-
-        </div>
-
-      </section>
-
-
-
-      <!-- =========================================================
-           05 SITE
+           03 SITE
            ========================================================= -->
 
       <section
@@ -1242,7 +599,7 @@
         <div class="section-heading">
 
           <span class="section-number">
-            05
+            03
           </span>
 
           <div>
@@ -1258,8 +615,8 @@
           <button
             class="section-reset-button"
             type="button"
-            data-reset-section="site"
-            aria-label="Reset Site section"
+            data-reset-section="ssi-evidence"
+            aria-label="Reset SSI Evidence section"
           >
             Reset
           </button>
@@ -1524,6 +881,649 @@
 
         </fieldset>
 
+
+      </section>
+
+
+
+      <!-- =========================================================
+           04 SSI EVIDENCE
+           ========================================================= -->
+
+      <section
+        id="ssi-evidence"
+        class="card form-section"
+      >
+
+        <div class="section-heading">
+
+          <span class="section-number">
+            04
+          </span>
+
+          <div>
+            <h2>
+              SSI Evidence
+            </h2>
+
+            <p>
+              Select supporting evidence identified after the index procedure during the applicable NHSN surveillance window.
+            </p>
+          </div>
+
+          <button
+            class="section-reset-button"
+            type="button"
+            data-reset-section="symptoms"
+            aria-label="Reset Signs and Symptoms section"
+          >
+            Reset
+          </button>
+
+        </div>
+
+        <aside
+          class="review-timeframe review-timeframe-ssi"
+          aria-label="SSI evidence review timeframe"
+        >
+          <span class="review-timeframe-label">Review timeframe</span>
+
+          <div>
+            <strong>
+              After the index procedure — within the surveillance window
+            </strong>
+
+            <p id="ssiEvidenceTimeframe" aria-live="polite">
+              Enter the index procedure date and select a procedure to show
+              the SSI evidence review window.
+            </p>
+          </div>
+        </aside>
+
+        <div
+          class="option-grid"
+          data-group="evidence"
+        >
+
+          <label class="check-card">
+
+            <input
+              type="checkbox"
+              name="evidence"
+              value="Purulent drainage"
+            >
+
+            <span>
+              Purulent drainage
+            </span>
+
+          </label>
+
+
+          <label class="check-card">
+
+            <input
+              type="checkbox"
+              name="evidence"
+              value="Organism identified by culture or non-culture test"
+            >
+
+            <span>
+              Organism identified
+            </span>
+
+          </label>
+
+
+          <label class="check-card">
+
+            <input
+              type="checkbox"
+              name="evidence"
+              value="Incision deliberately opened, re-accessed, or aspirated"
+            >
+
+            <span>
+              Incision deliberately opened, re-accessed, or aspirated
+            </span>
+
+          </label>
+
+
+          <label class="check-card">
+
+            <input
+              type="checkbox"
+              name="evidence"
+              value="Spontaneous dehiscence"
+            >
+
+            <span>
+              Spontaneous dehiscence
+            </span>
+
+          </label>
+
+
+          <label class="check-card">
+
+            <input
+              type="checkbox"
+              name="evidence"
+              value="Gross anatomic evidence of infection"
+            >
+
+            <span>
+              Gross anatomic evidence
+            </span>
+
+          </label>
+
+
+          <label class="check-card">
+
+            <input
+              type="checkbox"
+              name="evidence"
+              value="Histopathologic evidence of infection"
+            >
+
+            <span>
+              Histopathologic evidence
+            </span>
+
+          </label>
+
+
+          <label class="check-card">
+
+            <input
+              type="checkbox"
+              name="evidence"
+              value="Imaging evidence definitive or equivocal for infection"
+            >
+
+            <span>
+              Imaging evidence
+            </span>
+
+          </label>
+
+
+          <label class="check-card">
+
+            <input
+              type="checkbox"
+              name="evidence"
+              value="Physician or physician designee diagnosis"
+            >
+
+            <span>
+              Physician/designee diagnosis
+            </span>
+
+          </label>
+
+
+          <label class="check-card">
+
+            <input
+              type="checkbox"
+              name="evidence"
+              value="Antibiotic or antifungal therapy initiated or continued"
+            >
+
+            <span>
+              Antibiotic/antifungal therapy
+            </span>
+
+          </label>
+
+        </div>
+
+
+        <fieldset class="field-group">
+
+          <legend class="field-label">
+            Was a culture or microbiologic test collected?
+          </legend>
+
+          <div class="segmented">
+
+            <label>
+
+              <input
+                type="radio"
+                name="cultureCollected"
+                value="Yes"
+              >
+
+              <span>
+                Yes
+              </span>
+
+            </label>
+
+
+            <label>
+
+              <input
+                type="radio"
+                name="cultureCollected"
+                value="No"
+              >
+
+              <span>
+                No
+              </span>
+
+            </label>
+
+          </div>
+
+        </fieldset>
+
+
+        <div
+          id="organismField"
+          class="field-group conditional hidden"
+        >
+
+          <label
+            class="field-label"
+            for="organisms"
+          >
+            Organism(s) identified
+          </label>
+
+          <input
+            id="organisms"
+            type="text"
+            placeholder="Enter organism(s)"
+          >
+
+          <button
+            class="section-reset-button"
+            type="button"
+            data-reset-section="site"
+            aria-label="Reset Site section"
+          >
+            Reset
+          </button>
+
+        </div>
+
+
+        <div
+          id="pjiEvidence"
+          class="joint-only hidden"
+        >
+
+          <h3 class="subsection-title">
+            PJI-specific findings
+          </h3>
+
+          <p class="helper-text">
+            Select every qualifying PJI finding documented in the record.
+          </p>
+
+          <div class="option-grid two-column">
+
+            <label class="check-card">
+
+              <input
+                type="checkbox"
+                name="pjiEvidence"
+                value="Two positive periprosthetic specimens with a matching organism"
+              >
+
+              <span>
+                Two matching positive periprosthetic specimens
+              </span>
+
+            </label>
+
+
+            <label class="check-card">
+
+              <input
+                type="checkbox"
+                name="pjiEvidence"
+                value="Sinus tract communicating with the joint"
+              >
+
+              <span>
+                Sinus tract communicating with the joint
+              </span>
+
+            </label>
+
+
+            <label class="check-card">
+
+              <input
+                type="checkbox"
+                name="pjiEvidence"
+                value="Purulence or other gross anatomic joint evidence"
+              >
+
+              <span>
+                Purulence or other gross joint evidence
+              </span>
+
+            </label>
+
+
+            <label class="check-card">
+
+              <input
+                type="checkbox"
+                name="pjiEvidence"
+                value="Elevated CRP and ESR"
+              >
+
+              <span>
+                Elevated CRP and ESR
+              </span>
+
+            </label>
+
+
+            <label class="check-card">
+
+              <input
+                type="checkbox"
+                name="pjiEvidence"
+                value="Elevated synovial WBC or leukocyte esterase"
+              >
+
+              <span>
+                Elevated synovial WBC or leukocyte esterase
+              </span>
+
+            </label>
+
+
+            <label class="check-card">
+
+              <input
+                type="checkbox"
+                name="pjiEvidence"
+                value="Elevated synovial PMN percentage"
+              >
+
+              <span>
+                Elevated synovial PMN percentage
+              </span>
+
+            </label>
+
+
+            <label class="check-card">
+
+              <input
+                type="checkbox"
+                name="pjiEvidence"
+                value="Positive periprosthetic histology"
+              >
+
+              <span>
+                Positive periprosthetic histology
+              </span>
+
+            </label>
+
+
+            <label class="check-card">
+
+              <input
+                type="checkbox"
+                name="pjiEvidence"
+                value="Single positive periprosthetic specimen"
+              >
+
+              <span>
+                Single positive periprosthetic specimen
+              </span>
+
+            </label>
+
+
+            <label class="check-card">
+
+              <input
+                type="checkbox"
+                name="pjiEvidence"
+                value="Synovial alpha-defensin positive"
+              >
+
+              <span>
+                Synovial alpha-defensin positive
+              </span>
+
+            </label>
+
+
+            <label class="check-card">
+
+              <input
+                type="checkbox"
+                name="pjiEvidence"
+                value="Physician diagnosis of periprosthetic joint infection"
+              >
+
+              <span>
+                Physician diagnosis of PJI
+              </span>
+
+            </label>
+
+          </div>
+
+        </div>
+
+      </section>
+
+
+
+      <!-- =========================================================
+           05 SIGNS AND SYMPTOMS
+           ========================================================= -->
+
+      <section
+        id="symptoms"
+        class="card form-section"
+      >
+
+        <div class="section-heading">
+
+          <span class="section-number">
+            05
+          </span>
+
+          <div>
+            <h2>
+              Signs &amp; Symptoms
+            </h2>
+
+            <p>
+              Select all documented findings that apply.
+            </p>
+          </div>
+
+        </div>
+
+
+        <div
+          class="option-grid two-column"
+          data-group="symptoms"
+        >
+
+          <label class="check-card">
+
+            <input
+              type="checkbox"
+              name="symptom"
+              value="Fever greater than 38°C"
+            >
+
+            <span>
+              Fever &gt;38°C
+            </span>
+
+          </label>
+
+
+          <label class="check-card">
+
+            <input
+              type="checkbox"
+              name="symptom"
+              value="New or worsening localized pain or tenderness"
+            >
+
+            <span>
+              New/worsening localized pain or tenderness
+            </span>
+
+          </label>
+
+
+          <label class="check-card">
+
+            <input
+              type="checkbox"
+              name="symptom"
+              value="Localized swelling"
+            >
+
+            <span>
+              Localized swelling
+            </span>
+
+          </label>
+
+
+          <label class="check-card">
+
+            <input
+              type="checkbox"
+              name="symptom"
+              value="Erythema"
+            >
+
+            <span>
+              Erythema
+            </span>
+
+          </label>
+
+
+          <label class="check-card">
+
+            <input
+              type="checkbox"
+              name="symptom"
+              value="Heat"
+            >
+
+            <span>
+              Heat
+            </span>
+
+          </label>
+
+
+          <label class="check-card joint-only hidden">
+
+            <input
+              type="checkbox"
+              name="symptom"
+              value="Drainage"
+            >
+
+            <span>
+              Drainage
+            </span>
+
+          </label>
+
+
+          <label class="check-card joint-only hidden">
+
+            <input
+              type="checkbox"
+              name="symptom"
+              value="Joint effusion"
+            >
+
+            <span>
+              Joint effusion
+            </span>
+
+          </label>
+
+
+          <label class="check-card joint-only hidden">
+
+            <input
+              type="checkbox"
+              name="symptom"
+              value="Limitation of motion"
+            >
+
+            <span>
+              Limitation of motion
+            </span>
+
+          </label>
+
+
+          <label class="check-card colo-only">
+
+            <input
+              type="checkbox"
+              name="symptom"
+              value="Nausea"
+            >
+
+            <span>
+              Nausea
+            </span>
+
+          </label>
+
+
+          <label class="check-card colo-only">
+
+            <input
+              type="checkbox"
+              name="symptom"
+              value="Vomiting"
+            >
+
+            <span>
+              Vomiting
+            </span>
+
+          </label>
+
+
+          <label class="check-card colo-only">
+
+            <input
+              type="checkbox"
+              name="symptom"
+              value="Abdominal pain or tenderness"
+            >
+
+            <span>
+              Abdominal pain/tenderness
+            </span>
+
+          </label>
+
+        </div>
 
       </section>
 
