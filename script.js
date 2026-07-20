@@ -836,9 +836,15 @@ document.addEventListener("DOMContentLoaded", () => {
         )}.`;
     }
 
-    summary +=
-      ` PATOS at the index procedure: ${patos}. ` +
-      `Culture collected: ${culture}.`;
+    if (keywords.length) {
+      summary +=
+        ` PATOS at the index procedure: ${patos}.`;
+    }
+
+    if (culture !== "not selected") {
+      summary +=
+        ` Culture collected: ${culture}.`;
+    }
 
     if (
       culture === "Yes" &&
