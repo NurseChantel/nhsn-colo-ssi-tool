@@ -240,7 +240,51 @@ document.addEventListener("DOMContentLoaded", () => {
     return null;
   }
 
+  function updateSsiEvidenceTimeframe() {
+    const timeframe =
+      $("#ssiEvidenceTimeframe");
+
+    if (!timeframe) {
+      return;
+    }
+
+    const procedure =
+      selectedRadio("procedureCategory");
+
+    const procedureDate =
+      parseLocalDate(
+        $("#procedureDate")?.value || ""
+      );
+
+    const days =
+      applicableDays();
+
+    if (!procedure || !days) {
+      timeframe.textContent =
+        "Select the index procedure and anatomic level to show the SSI evidence review window.";
+      return;
+    }
+
+    if (!procedureDate) {
+      timeframe.textContent =
+        `For ${procedure}, review postoperative SSI evidence within the ${days}-day surveillance period after entering the index procedure date.`;
+      return;
+    }
+
+    const endDate =
+      new Date(procedureDate);
+
+    endDate.setDate(
+      endDate.getDate() + days - 1
+    );
+
+    timeframe.textContent =
+      `Review postoperative SSI evidence dated on or after ${formatDate(procedureDate)} through ${formatDate(endDate)}. The procedure date is surveillance day 1 of this ${days}-day window.`;
+  }
+
   function calculateSurveillance() {
+    updateSsiEvidenceTimeframe();
+
     const procedure =
       selectedRadio("procedureCategory");
 
@@ -642,7 +686,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (evidence.length) {
       summary +=
-        ` Supporting evidence includes ` +
+        ` Post-index supporting evidence includes ` +
         `${joinNatural(
           evidence.map(
             item => item.toLowerCase()
@@ -681,7 +725,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     summary +=
-      ` PATOS: ${patos}. ` +
+      ` PATOS at the index procedure: ${patos}. ` +
       `Culture collected: ${culture}.`;
 
     if (
