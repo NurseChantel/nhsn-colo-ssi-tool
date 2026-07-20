@@ -108,6 +108,26 @@ document.addEventListener("DOMContentLoaded", () => {
 
   let latestCopyText = "";
 
+  const manualDialog = $("#manualDialog");
+  const openManual = $("#openManual");
+  const closeManual = $("#closeManual");
+
+  if (manualDialog && openManual && closeManual) {
+    openManual.addEventListener("click", () => {
+      manualDialog.showModal();
+    });
+
+    closeManual.addEventListener("click", () => {
+      manualDialog.close();
+    });
+
+    manualDialog.addEventListener("click", event => {
+      if (event.target === manualDialog) {
+        manualDialog.close();
+      }
+    });
+  }
+
   function selectedRadio(name) {
     const input = $(`input[name="${name}"]:checked`);
     return input ? input.value : "";

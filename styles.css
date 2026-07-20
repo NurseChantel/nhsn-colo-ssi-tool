@@ -85,6 +85,32 @@ h1 {
   position:relative
 }
 
+.header-tools {
+  display:flex;
+  align-items:center;
+  gap:10px
+}
+
+.header-tools .procedure-search {
+  flex:1
+}
+
+.manual-button {
+  flex:0 0 auto;
+  min-height:42px;
+  padding:8px 14px;
+  border:1px solid var(--green-800);
+  border-radius:8px;
+  background:var(--green-800);
+  color:var(--white);
+  font-weight:800
+}
+
+.manual-button:hover,.manual-button:focus-visible {
+  background:var(--green-900);
+  border-color:var(--green-900)
+}
+
 .procedure-search input {
   width:100%;
   height:42px;
@@ -391,27 +417,67 @@ textarea {
   font-size:14px
 }
 
-.reference-toggle {
-  border:1px solid var(--line);
-  border-radius:8px;
-  background:#fbfcfd;
-  margin-bottom:16px
-}
-
-.reference-toggle summary,.criteria-card summary {
+.criteria-card summary {
   padding:11px 13px;
   cursor:pointer;
   font-weight:800
 }
 
-.graphic-wrap {
-  padding:0 13px 13px
+.manual-dialog {
+  width:min(960px,calc(100% - 32px));
+  max-height:calc(100% - 32px);
+  padding:0;
+  border:0;
+  border-radius:var(--radius);
+  box-shadow:0 20px 50px rgba(31,42,55,.28)
 }
 
-.graphic-wrap img {
+.manual-dialog::backdrop {
+  background:rgba(25,34,45,.58)
+}
+
+.manual-dialog-header {
+  position:sticky;
+  top:0;
+  z-index:1;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:16px;
+  padding:14px 18px;
+  border-bottom:1px solid var(--line);
+  background:var(--white)
+}
+
+.manual-dialog-header h2 {
+  margin:0;
+  font-size:1.1rem
+}
+
+.manual-close {
+  padding:7px 12px;
+  border:1px solid var(--line);
+  border-radius:7px;
+  background:var(--white);
+  color:var(--ink);
+  font-weight:800
+}
+
+.manual-close:hover,.manual-close:focus-visible {
+  border-color:var(--green-700);
+  color:var(--green-800)
+}
+
+.manual-dialog-content {
+  overflow:auto;
+  max-height:calc(100vh - 110px);
+  padding:18px
+}
+
+.manual-dialog-content img {
   display:block;
-  max-width:100%;
-  border-radius:7px
+  width:100%;
+  height:auto
 }
 
 .option-grid {
@@ -1012,6 +1078,13 @@ footer {
   }
   .segmented span {
     min-width:0
+  }
+  .header-tools {
+    align-items:stretch;
+    flex-direction:column
+  }
+  .manual-button {
+    width:100%
   }
 }
 
