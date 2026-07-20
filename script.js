@@ -102,6 +102,50 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   };
 
+  /*
+   * Organ/space is not one diagnosis.  The site-specific definition is the
+   * part of the review that determines which signs, symptoms, specimen, and
+   * imaging findings count.  Keep the choices tied to the operation rather
+   * than leaving every non-COLO procedure behind a catch-all option.
+   */
+  const PROCEDURE_SITES = {
+    HYST: [
+      ["CUL", "Cuff cellulitis"],
+      ["EMET", "Endometritis"],
+      ["OREP", "Other reproductive tract infection"],
+      ["VCUF", "Vaginal cuff infection"]
+    ],
+    CBGB: [["MED", "Mediastinitis"]],
+    CBGC: [["MED", "Mediastinitis"]],
+    CRAN: [
+      ["IC", "Intracranial infection"],
+      ["MEN", "Meningitis or ventriculitis"],
+      ["VENT", "Ventriculitis"]
+    ],
+    CSEC: [
+      ["EMET", "Endometritis"],
+      ["OREP", "Other reproductive tract infection"]
+    ],
+    FUSN: [
+      ["BONE", "Osteomyelitis"],
+      ["DISC", "Disc space infection"]
+    ]
+  };
+
+  const SITE_CRITERIA_PROMPTS = {
+    CUL: "Document the cuff finding and the qualifying reproductive-tract evidence required by the CUL definition; a generic postoperative symptom does not establish CUL.",
+    EMET: "Document fever and the required uterine finding or qualifying microbiology specified in the EMET definition. Do not treat abdominal symptoms alone as endometritis.",
+    VCUF: "Document the vaginal-cuff finding and the required qualifying evidence in the VCUF definition; record the source of any drainage or specimen.",
+    MED: "Document a mediastinal finding: purulent drainage or eligible mediastinal fluid/tissue microbiology, or mediastinal evidence on direct examination, histopathology, or imaging. Also document the required MED clinical finding when that pathway is used.",
+    IC: "Document eligible intracranial tissue/fluid microbiology, direct or histopathologic intracranial evidence, or the complete IC clinical-and-diagnostic pathway. Fever alone is not enough.",
+    MEN: "Document the MEN clinical signs and the required cerebrospinal-fluid, blood, or diagnostic evidence for the selected pathway. Do not use a non-CNS specimen as MEN evidence.",
+    VENT: "Document eligible ventricular-fluid microbiology or the complete VENT clinical-and-diagnostic pathway, including the required signs or symptoms when applicable.",
+    DISC: "Document eligible disc-space microbiology, direct or histopathologic evidence, or the complete DISC symptom-plus-diagnostic pathway. Back pain alone is not enough.",
+    GIT: "Document the complete GIT pathway: the required gastrointestinal signs or symptoms and the eligible specimen, imaging, or direct-anatomic evidence for that pathway.",
+    IAB: "Document the complete IAB pathway: the required abdominal signs or symptoms and the eligible specimen, imaging, or direct-anatomic evidence for that pathway.",
+    OREP: "Document the reproductive-tract anatomy and the qualifying OREP signs, symptoms, and diagnostic evidence. Do not use a nonspecific postoperative symptom by itself."
+  };
+
   function isJointProcedure(procedure) {
     return procedure === "HPRO" || procedure === "KPRO";
   }
@@ -437,6 +481,27 @@ document.addEventListener("DOMContentLoaded", () => {
     panel.classList.remove("hidden");
   }
 
+  function renderProcedureSiteOptions(procedure) {
+    const container = $("#genericSiteOptions");
+    const sites = PROCEDURE_SITES[procedure];
+
+    if (!container || !sites) {
+      return;
+    }
+
+    container.innerHTML = sites
+      .map(([code, label]) => `
+        <label class="radio-card">
+          <input type="radio" name="siteSpecific" value="${escapeHtml(code)}">
+          <span>
+            <strong>${escapeHtml(code)}</strong>
+            <small>${escapeHtml(label)}</small>
+          </span>
+        </label>
+      `)
+      .join("");
+  }
+
   function setProcedure(procedure) {
     if (!PROCEDURES[procedure]) {
       return;
@@ -527,6 +592,8 @@ document.addEventListener("DOMContentLoaded", () => {
       coloProcedure || jointProcedure
     );
 
+    renderProcedureSiteOptions(procedure);
+
     coloEvidenceCards?.classList.toggle(
       "hidden",
       !coloProcedure
@@ -543,7 +610,7 @@ document.addEventListener("DOMContentLoaded", () => {
           ? "For HPRO/KPRO, use PJI or BONE. If both definitions are met, report BONE."
           : coloProcedure
             ? "For COLO, select the site-specific definition supported by the anatomy and evidence."
-            : "Select this option only after confirming the exact Chapter 17 site-specific definition outside this tool.";
+            : "Select the anatomic site actually involved. The Criteria guidance panel will identify the site-specific evidence that still needs to be documented.";
     }
 
     /*
@@ -1243,29 +1310,6 @@ document.addEventListener("DOMContentLoaded", () => {
     };
   }
 
-  function addSymptomPathwayGuidance(site, missing) {
-    const qualifyingSymptoms = [
-      "Fever greater than 38°C",
-      "Nausea",
-      "Vomiting",
-      "Abdominal pain or tenderness"
-    ];
-    const selectedCount = selectedChecks("symptom")
-      .filter(item => qualifyingSymptoms.includes(item))
-      .length;
-    const stillNeeded = Math.max(0, 2 - selectedCount);
-
-    if (stillNeeded) {
-      missing.push(
-        `${stillNeeded} more qualifying symptom${stillNeeded === 1 ? "" : "s"} is needed for the two-symptom ${site} pathway (fever >38°C, nausea, vomiting, or abdominal pain/tenderness).`
-      );
-    } else {
-      missing.push(
-        `The two-symptom ${site} threshold is selected. Confirm the symptoms have no other recognized cause and satisfy the exact Chapter 17 ${site} definition.`
-      );
-    }
-  }
-
   function updateCriteriaGuidance() {
     const procedure =
       selectedRadio("procedureCategory");
@@ -1675,15 +1719,18 @@ document.addEventListener("DOMContentLoaded", () => {
       }
 
       /*
-       * COLO ORGAN/SPACE:
-       * GIT, IAB, OREP
+       * Site-specific organ/space review. A general evidence checkbox never
+       * substitutes for the signs/symptoms and source requirements of the
+       * selected Chapter 17 site.
        */
       const missing = [
         ...organSpaceCore.missing
       ];
 
-      if (["GIT", "IAB", "OREP"].includes(site)) {
-        addSymptomPathwayGuidance(site, missing);
+      if (SITE_CRITERIA_PROMPTS[site]) {
+        missing.push(
+          SITE_CRITERIA_PROMPTS[site]
+        );
       } else {
         missing.push(
           `Confirm that the full ${site} Chapter 17 site-specific definition is met.`
@@ -1691,13 +1738,9 @@ document.addEventListener("DOMContentLoaded", () => {
       }
 
       setCriteriaAlert(
-        missing.length ? "danger" : "warning",
-        missing.length
-          ? "Organ/Space criteria still needed"
-          : "Potential Organ/Space pathway identified",
-        missing.length
-          ? "Review the remaining NHSN requirements below before assigning Organ/Space SSI."
-          : `A potential general Organ/Space SSI element is selected. The complete ${site} site-specific definition must also be met before reporting.`,
+        "danger",
+        "Organ/Space criteria still needed",
+        `The selected ${site} site requires both an eligible Organ/Space SSI finding and its complete Chapter 17 site-specific pathway.`,
         missing
       );
     }
