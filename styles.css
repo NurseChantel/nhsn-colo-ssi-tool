@@ -524,6 +524,16 @@ select {
   gap:6px
 }
 
+/* Keep the Site review easy to scan without making the form unnecessarily tall. */
+.site-choice-grid {
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:8px
+}
+
+.site-choice-grid .radio-card>span {
+  min-height:58px
+}
+
 .radio-card {
   display:block;
   position:relative;
@@ -1008,6 +1018,9 @@ footer {
   .option-grid {
     grid-template-columns:repeat(2,minmax(0,1fr))
   }
+  .site-choice-grid {
+    grid-template-columns:repeat(2,minmax(0,1fr))
+  }
 }
 
 @media(max-width:640px) {
@@ -1015,7 +1028,7 @@ footer {
     padding-left:13px;
     padding-right:13px
   }
-  .date-grid,.surveillance-box,.option-grid,.option-grid.two-column,.reference-tabs {
+  .date-grid,.surveillance-box,.option-grid,.option-grid.two-column,.reference-tabs,.site-choice-grid {
     grid-template-columns:1fr
   }
   .form-section,.tab-panel,.result-body {
