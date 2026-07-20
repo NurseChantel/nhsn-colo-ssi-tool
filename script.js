@@ -1981,6 +1981,123 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     );
 
+  const NHSN_DEFINITIONS = {
+    "procedureDate": "The date the NHSN operative procedure was performed. It is surveillance day 1.",
+    "eventDate": "The date the first element used to meet an NHSN infection criterion occurs. It must fall within the procedure's applicable surveillance period.",
+    "procedureCategory": "Choose the NHSN operative-procedure category that matches the index operation. Confirm the full category definition in the current NHSN Patient Safety Component Manual.",
+    "patosKeyword": "PATOS means infection was documented as present at the time of the index procedure. It is determined from intraoperative evidence, not from postoperative findings.",
+    "Abscess": "A localized collection of pus. In NHSN SSI criteria, an abscess may be evidence of infection when it involves the applicable anatomic level.",
+    "Infection": "Use documentation that infection was present at the index procedure for PATOS. Apply the full NHSN criteria before final reporting.",
+    "Phlegmon": "An inflammatory mass or diffuse inflammatory process. When documented at surgery, it may support PATOS review.",
+    "Feculent peritonitis": "Peritoneal inflammation or contamination with fecal material noted at the index procedure; this is a COLO-specific PATOS finding in this tool.",
+    "Purulence or pus": "NHSN accepts the terms pus or purulence as documentation of purulence. Without those terms, both an accepted color and consistency descriptor are required.",
+    "Ruptured or perforated appendix": "A ruptured or perforated appendix documented at the index procedure is a COLO-specific PATOS finding in this tool.",
+    "Osteomyelitis": "Infection involving bone. For HPRO/KPRO organ/space review, apply the NHSN BONE definition; when PJI and BONE are both met, report BONE.",
+    "Sinus tract": "An abnormal channel from a deeper site to the skin or another surface. For PJI, it must communicate with the joint to meet that pathway.",
+    "Purulent drainage": "Drainage documented as purulent from the applicable superficial or deep incision, or from a drain placed into the organ/space, as specified by the relevant NHSN criterion.",
+    "Organism identified by culture or non-culture test": "Organism(s) identified from an aseptically obtained specimen from the applicable incision, tissue, fluid, or organ/space using an eligible microbiologic test performed for clinical diagnosis or treatment.",
+    "Incision deliberately opened, re-accessed, or aspirated": "An applicable incision is deliberately opened, re-accessed, or aspirated by a surgeon, physician, or physician designee. Additional NHSN requirements, including treatment and symptoms where applicable, still apply.",
+    "Spontaneous dehiscence": "Re-opening of a surgical incision that is not caused by an external factor such as direct trauma. In deep-incisional SSI criteria, other requirements also apply.",
+    "Gross anatomic evidence of infection": "Evidence of infection observed during direct examination of the applicable tissue or organ/space, such as an abscess. Imaging alone is not gross anatomic evidence.",
+    "Histopathologic evidence of infection": "Evidence of infection identified on histopathologic examination of the applicable tissue.",
+    "Imaging evidence definitive or equivocal for infection": "Imaging that is definitive or equivocal for infection may support organ/space SSI review when the other NHSN requirements are met.",
+    "Physician or physician designee diagnosis": "A diagnosis documented by a physician or physician designee. It is a qualifying pathway for superficial-incisional SSI, but is not by itself a general substitute for every NHSN SSI criterion.",
+    "Antibiotic or antifungal therapy initiated or continued": "For the deliberate-opening/dehiscence pathways, therapy must be initiated or continued on or within two calendar days of the procedure and continue for at least two calendar days; verify the full criterion.",
+    "cultureCollected": "Record whether a culture or eligible non-culture microbiologic test was collected. A result qualifies only when its specimen source and testing method meet the applicable NHSN criterion.",
+    "organisms": "Enter organism(s) identified from the relevant specimen. NHSN qualification depends on the specimen source, collection method, and applicable criterion.",
+    "pjiEvidence": "These are PJI review elements. NHSN PJI may be met through two matching positive periprosthetic specimens, a communicating sinus tract or gross joint evidence, or the required combination of minor criteria; verify the current definition.",
+    "Two positive periprosthetic specimens with a matching organism": "Two positive periprosthetic tissue or fluid specimens with at least one matching organism are a qualifying PJI pathway.",
+    "Sinus tract communicating with the joint": "A sinus tract that communicates with the joint is a qualifying PJI pathway.",
+    "Purulence or other gross anatomic joint evidence": "Purulence or other gross anatomic evidence involving the joint is a qualifying PJI pathway.",
+    "Elevated CRP and ESR": "Elevated C-reactive protein and erythrocyte sedimentation rate are PJI minor criteria; required thresholds and combinations are defined by NHSN.",
+    "Elevated synovial WBC or leukocyte esterase": "Elevated synovial white blood cells or positive leukocyte esterase is a PJI minor criterion; use NHSN thresholds.",
+    "Elevated synovial PMN percentage": "An elevated synovial polymorphonuclear-neutrophil percentage is a PJI minor criterion; use NHSN thresholds.",
+    "Positive periprosthetic histology": "Positive histology of periprosthetic tissue is a PJI minor criterion.",
+    "Single positive periprosthetic specimen": "A single positive periprosthetic specimen is a PJI minor criterion, not the two-matching-specimens pathway.",
+    "Synovial alpha-defensin positive": "A positive synovial alpha-defensin test is a PJI minor criterion.",
+    "Physician diagnosis of periprosthetic joint infection": "A physician diagnosis of PJI is a PJI minor criterion in the NHSN definition; it must be assessed with the required combination of criteria.",
+    "symptom": "Signs and symptoms are selected as documented clinical findings. Whether they qualify depends on the SSI site and the complete NHSN criterion.",
+    "Fever greater than 38°C": "Fever greater than 38°C is an NHSN symptom element in the deep-incisional deliberate-opening or dehiscence pathway.",
+    "New or worsening localized pain or tenderness": "New or worsening localized pain or tenderness is an NHSN symptom element in applicable superficial- or deep-incisional criteria.",
+    "Localized swelling": "Localized swelling is an NHSN symptom element in the superficial-incisional deliberate-opening pathway.",
+    "Erythema": "Erythema is an NHSN symptom element in the superficial-incisional deliberate-opening pathway.",
+    "Heat": "Heat is an NHSN symptom element in the superficial-incisional deliberate-opening pathway.",
+    "Drainage": "Drainage is a documented finding. For SSI classification, apply the relevant NHSN requirement for purulent drainage and the applicable anatomic level.",
+    "Joint effusion": "An increased amount of fluid in a joint. Use it only as directed by the applicable NHSN PJI or BONE criteria.",
+    "Limitation of motion": "Reduced joint movement. Use it only as directed by the applicable NHSN PJI or BONE criteria.",
+    "Nausea": "Nausea is a documented clinical finding. It is not, by itself, a general NHSN SSI criterion.",
+    "Vomiting": "Vomiting is a documented clinical finding. It is not, by itself, a general NHSN SSI criterion.",
+    "Abdominal pain or tenderness": "Abdominal pain or tenderness is a documented clinical finding; its use depends on the applicable organ/space site-specific definition.",
+    "Superficial incisional SSI": "Involves only skin and subcutaneous tissue of the incision and must meet the applicable 30-day NHSN criterion.",
+    "Deep incisional SSI": "Involves deep soft tissues of the incision, such as fascial and muscle layers, and must meet the applicable 30- or 90-day NHSN criterion.",
+    "Organ/Space SSI": "Involves anatomy deeper than fascia or muscle and requires both an organ/space SSI criterion and an eligible NHSN site-specific definition.",
+    "GIT": "GIT is the NHSN gastrointestinal tract organ/space infection site. Apply its full Chapter 17 site-specific definition.",
+    "IAB": "IAB is the NHSN intraabdominal infection, not specified elsewhere, organ/space site. Apply its full Chapter 17 site-specific definition.",
+    "OREP": "OREP is the NHSN other reproductive tract infection organ/space site. Apply its full Chapter 17 site-specific definition.",
+    "PJI": "PJI is the NHSN periprosthetic joint infection organ/space site. Apply its full site-specific definition and report BONE if both PJI and BONE are met.",
+    "BONE": "BONE is the NHSN osteomyelitis organ/space site. For HPRO/KPRO, report BONE when both BONE and PJI definitions are met.",
+    "Other eligible Chapter 17 site": "Choose only after confirming an eligible NHSN Chapter 17 site-specific definition and documenting the exact site.",
+    "reviewSummary": "Free-text review notes are not an NHSN criterion. Record supporting documentation and verify the final event against the current NHSN Manual.",
+    "procedureSearch": "Search the operative-procedure categories included in this review tool. Verify the selected category against the full NHSN procedure definition."
+  };
+
+  function definitionFor(control) {
+    return NHSN_DEFINITIONS[control.value] ||
+      NHSN_DEFINITIONS[control.name] ||
+      NHSN_DEFINITIONS[control.id] ||
+      "Review this field using the applicable NHSN Patient Safety Component Manual definition and criterion.";
+  }
+
+  function setupDefinitionTooltips() {
+    const tooltip = $("#tooltip");
+
+    if (!tooltip) return;
+
+    function hideTooltip() {
+      tooltip.classList.remove("visible");
+    }
+
+    $$("input, select, textarea").forEach(control => {
+      if (control.type === "hidden" || control.closest(".purulence-option")) return;
+      const container = control.closest(".check-card, .radio-card") ||
+        document.querySelector(`label[for="${control.id}"]`) ||
+        control.closest(".field-group, fieldset");
+
+      if (!container || container.querySelector(":scope > .definition-trigger")) return;
+
+      const trigger = document.createElement("button");
+      trigger.type = "button";
+      trigger.className = "definition-trigger";
+      trigger.setAttribute("aria-label", `Show NHSN definition for ${control.value || control.name || control.id}`);
+      trigger.setAttribute("aria-describedby", "tooltip");
+      trigger.textContent = "i";
+
+      const showTooltip = event => {
+        event.preventDefault();
+        event.stopPropagation();
+        const title = document.createElement("strong");
+        title.textContent = "NHSN definition";
+        const content = document.createElement("span");
+        content.textContent = definitionFor(control);
+        const source = document.createElement("small");
+        source.textContent = "Based on the NHSN Patient Safety Component Manual; verify the current edition.";
+        tooltip.replaceChildren(title, content, source);
+        tooltip.classList.add("visible");
+        const rect = trigger.getBoundingClientRect();
+        tooltip.style.top = `${Math.min(window.innerHeight - 16, rect.bottom + 10)}px`;
+        tooltip.style.left = `${Math.min(window.innerWidth - 16, Math.max(16, rect.left + rect.width / 2))}px`;
+      };
+
+      trigger.addEventListener("mouseenter", showTooltip);
+      trigger.addEventListener("focus", showTooltip);
+      trigger.addEventListener("click", showTooltip);
+      trigger.addEventListener("mouseleave", hideTooltip);
+      trigger.addEventListener("blur", hideTooltip);
+      container.appendChild(trigger);
+    });
+  }
+
+  setupDefinitionTooltips();
   setupTabs();
   setupSearch();
   updateConditionalFields();
