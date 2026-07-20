@@ -1137,6 +1137,91 @@ document.addEventListener("DOMContentLoaded", () => {
     );
   }
 
+  function organSpaceCoreRequirements() {
+    const procedureDate = parseLocalDate(
+      $("#procedureDate")?.value || ""
+    );
+    const eventDate = parseLocalDate(
+      $("#eventDate")?.value || ""
+    );
+    const days = applicableDays();
+    const purulentDrainage = hasAnyEvidence([
+      "Purulent drainage"
+    ]);
+    const microbiologySelected = hasAnyEvidence([
+      "Organism identified by culture or non-culture test"
+    ]);
+    const organismDocumented =
+      microbiologySelected &&
+      selectedRadio("cultureCollected") === "Yes" &&
+      Boolean($("#organisms")?.value.trim());
+    const anatomicEvidence = hasAnyEvidence([
+      "Gross anatomic evidence of infection",
+      "Histopathologic evidence of infection",
+      "Imaging evidence definitive or equivocal for infection"
+    ]);
+    const independentCoreEvidence =
+      purulentDrainage ||
+      anatomicEvidence;
+    const coreEvidence =
+      independentCoreEvidence ||
+      organismDocumented;
+    const missing = [];
+
+    if (!procedureDate || !eventDate || !days) {
+      missing.push(
+        "Enter the procedure date and possible date of event to verify the applicable 30- or 90-day surveillance period."
+      );
+    } else {
+      const endDate = new Date(procedureDate);
+      endDate.setDate(endDate.getDate() + days - 1);
+
+      if (eventDate < procedureDate || eventDate > endDate) {
+        missing.push(
+          "The possible date of event must fall within the applicable surveillance period."
+        );
+      }
+    }
+
+    if (!coreEvidence) {
+      missing.push(
+        microbiologySelected
+          ? "For the microbiology pathway, select “Yes” for a collected test and enter the organism(s); also verify the fluid or tissue specimen is from the organ/space."
+          : "Add one organ/space finding: purulent drainage from an organ/space drain, eligible fluid/tissue microbiology, or gross, histopathologic, or imaging evidence of infection."
+      );
+    }
+
+    return {
+      coreEvidence,
+      microbiologySelected,
+      organismDocumented,
+      missing
+    };
+  }
+
+  function addSymptomPathwayGuidance(site, missing) {
+    const qualifyingSymptoms = [
+      "Fever greater than 38°C",
+      "Nausea",
+      "Vomiting",
+      "Abdominal pain or tenderness"
+    ];
+    const selectedCount = selectedChecks("symptom")
+      .filter(item => qualifyingSymptoms.includes(item))
+      .length;
+    const stillNeeded = Math.max(0, 2 - selectedCount);
+
+    if (stillNeeded) {
+      missing.push(
+        `${stillNeeded} more qualifying symptom${stillNeeded === 1 ? "" : "s"} is needed for the two-symptom ${site} pathway (fever >38°C, nausea, vomiting, or abdominal pain/tenderness).`
+      );
+    } else {
+      missing.push(
+        `The two-symptom ${site} threshold is selected. Confirm the symptoms have no other recognized cause and satisfy the exact Chapter 17 ${site} definition.`
+      );
+    }
+  }
+
   function updateCriteriaGuidance() {
     const procedure =
       selectedRadio("procedureCategory");
@@ -1417,32 +1502,11 @@ document.addEventListener("DOMContentLoaded", () => {
         return;
       }
 
-      const purulentDrainage =
-        hasAnyEvidence([
-          "Purulent drainage"
-        ]);
-
-      const microbiologySelected =
-        hasAnyEvidence([
-          "Organism identified by culture or non-culture test"
-        ]);
-
-      const organismDocumented =
-        microbiologySelected &&
-        cultureCollected === "Yes" &&
-        Boolean(organisms);
-
-      const anatomicEvidence =
-        hasAnyEvidence([
-          "Gross anatomic evidence of infection",
-          "Histopathologic evidence of infection",
-          "Imaging evidence definitive or equivocal for infection"
-        ]);
+      const organSpaceCore =
+        organSpaceCoreRequirements();
 
       const generalOrganSpacePathway =
-        purulentDrainage ||
-        organismDocumented ||
-        anatomicEvidence;
+        organSpaceCore.coreEvidence;
 
       /*
        * PJI
@@ -1475,9 +1539,14 @@ document.addEventListener("DOMContentLoaded", () => {
           majorFinding
         ) {
           setCriteriaAlert(
-            "success",
-            "Potential PJI pathway identified",
-            "A major PJI pathway is selected. Verify timing, specimen requirements, anatomy, and exact NHSN wording."
+            organSpaceCore.missing.length ? "danger" : "success",
+            organSpaceCore.missing.length
+              ? "PJI pathway selected; Organ/Space criteria still needed"
+              : "Potential PJI pathway identified",
+            organSpaceCore.missing.length
+              ? "A PJI pathway is selected, but the Organ/Space SSI requirements below are still incomplete."
+              : "A major PJI pathway is selected. Verify timing, specimen requirements, anatomy, and exact NHSN wording.",
+            organSpaceCore.missing
           );
 
           return;
@@ -1485,9 +1554,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
         if (minorItems.length >= 3) {
           setCriteriaAlert(
-            "success",
-            "Potential PJI minor-criteria pathway identified",
-            `${minorItems.length} qualifying minor findings are selected. Verify that each selected finding meets the exact NHSN requirement.`
+            organSpaceCore.missing.length ? "danger" : "success",
+            organSpaceCore.missing.length
+              ? "PJI minor criteria selected; Organ/Space criteria still needed"
+              : "Potential PJI minor-criteria pathway identified",
+            organSpaceCore.missing.length
+              ? `${minorItems.length} qualifying PJI minor findings are selected, but the Organ/Space SSI requirements below are still incomplete.`
+              : `${minorItems.length} qualifying minor findings are selected. Verify that each selected finding meets the exact NHSN requirement.`,
+            organSpaceCore.missing
           );
 
           return;
@@ -1500,13 +1574,16 @@ document.addEventListener("DOMContentLoaded", () => {
           "danger",
           "PJI criteria not yet met",
           "The currently selected symptoms and findings are not enough to complete PJI.",
-          minorItems.length
-            ? [
-                `${stillNeeded} additional qualifying PJI minor criterion/criteria are needed for the three-minor-criteria pathway.`
-              ]
-            : [
-                "Select two matching positive periprosthetic specimens; a sinus tract, purulence, or gross joint finding; or at least three qualifying minor criteria."
-              ]
+          [
+            ...(minorItems.length
+              ? [
+                  `${stillNeeded} additional qualifying PJI minor criterion/criteria are needed for the three-minor-criteria pathway.`
+                ]
+              : [
+                  "Select two matching positive periprosthetic specimens; a sinus tract, purulence, or gross joint finding; or at least three qualifying minor criteria."
+                ]),
+            ...organSpaceCore.missing
+          ]
         );
 
         return;
@@ -1522,8 +1599,8 @@ document.addEventListener("DOMContentLoaded", () => {
           ];
 
           if (
-            microbiologySelected &&
-            !organismDocumented
+            organSpaceCore.microbiologySelected &&
+            !organSpaceCore.organismDocumented
           ) {
             missing.push(
               "Enter the organism and confirm it came from an eligible specimen."
@@ -1557,40 +1634,27 @@ document.addEventListener("DOMContentLoaded", () => {
        * COLO ORGAN/SPACE:
        * GIT, IAB, OREP
        */
-      if (!generalOrganSpacePathway) {
-        const missing = [];
+      const missing = [
+        ...organSpaceCore.missing
+      ];
 
-        if (
-          microbiologySelected &&
-          !organismDocumented
-        ) {
-          missing.push(
-            "Enter the organism and confirm the specimen is eligible for the selected site-specific definition."
-          );
-        } else {
-          missing.push(
-            "Add purulent drainage from an organ/space drain, eligible microbiology, or gross, histopathologic, or imaging evidence."
-          );
-        }
-
+      if (["GIT", "IAB", "OREP"].includes(site)) {
+        addSymptomPathwayGuidance(site, missing);
+      } else {
         missing.push(
           `Confirm that the full ${site} Chapter 17 site-specific definition is met.`
         );
-
-        setCriteriaAlert(
-          "danger",
-          "Organ/Space criteria not yet supported",
-          "The selected symptoms alone are not sufficient for Organ/Space SSI.",
-          missing
-        );
-
-        return;
       }
 
       setCriteriaAlert(
-        "warning",
-        "General organ/space pathway identified",
-        `A potential general Organ/Space SSI element is selected. The complete ${site} site-specific definition must also be met before reporting.`
+        missing.length ? "danger" : "warning",
+        missing.length
+          ? "Organ/Space criteria still needed"
+          : "Potential Organ/Space pathway identified",
+        missing.length
+          ? "Review the remaining NHSN requirements below before assigning Organ/Space SSI."
+          : `A potential general Organ/Space SSI element is selected. The complete ${site} site-specific definition must also be met before reporting.`,
+        missing
       );
     }
   }
