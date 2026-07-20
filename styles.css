@@ -479,7 +479,7 @@ select {
   box-shadow:inset 0 0 0 1px #166a5a
 }
 
-.check-card:has(input:checked) span {
+.check-card:has(input:checked) > span:not(.purulence-help-wrap) {
   color:#fff
 }
 
