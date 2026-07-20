@@ -740,9 +740,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const days =
       applicableDays();
 
-    const reviewSummary =
-      $("#reviewSummary")?.value.trim() || "";
-
     const classification =
       determineResult();
 
@@ -830,11 +827,6 @@ document.addEventListener("DOMContentLoaded", () => {
     ) {
       summary +=
         " A site-specific organ/space definition still needs to be selected.";
-    }
-
-    if (reviewSummary) {
-      summary +=
-        ` Review notes: ${reviewSummary}`;
     }
 
     return {
@@ -2080,7 +2072,6 @@ document.addEventListener("DOMContentLoaded", () => {
     "PJI": "PJI is the NHSN periprosthetic joint infection organ/space site. Apply its full site-specific definition and report BONE if both PJI and BONE are met.",
     "BONE": "BONE is the NHSN osteomyelitis organ/space site. For HPRO/KPRO, report BONE when both BONE and PJI definitions are met.",
     "Other eligible Chapter 17 site": "Choose only after confirming an eligible NHSN Chapter 17 site-specific definition and documenting the exact site.",
-    "reviewSummary": "Free-text review notes are not an NHSN criterion. Record supporting documentation and verify the final event against the current NHSN Manual.",
     "procedureSearch": "Search the operative-procedure categories included in this review tool. Verify the selected category against the full NHSN procedure definition."
   };
 
