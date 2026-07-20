@@ -1591,7 +1591,9 @@ document.addEventListener("DOMContentLoaded", () => {
         "Deep-incisional criteria not yet supported",
         "The current selections do not complete a deep-incisional SSI pathway.",
         [
-          "Add purulent drainage, gross anatomic evidence, histopathologic evidence, imaging evidence, or a qualifying opening/dehiscence pathway."
+          "Choose one qualifying pathway:",
+          "Purulent drainage, gross anatomic evidence, histopathologic evidence, or imaging evidence involving fascia and/or muscle.",
+          "OR: a qualifying opening/dehiscence pathway, plus fever or localized pain/tenderness and required antimicrobial therapy."
         ]
       );
 
@@ -1608,18 +1610,21 @@ document.addEventListener("DOMContentLoaded", () => {
       if (!site) {
         setCriteriaAlert(
           "danger",
-          "Site-specific definition required",
-          "Organ/Space SSI cannot be completed until an eligible site-specific definition is selected.",
+          "Start with the Organ/Space site",
+          "Organ/Space SSI requires a matching Chapter 17 site-specific definition before the remaining criteria can be evaluated.",
           procedure === "COLO"
             ? [
-                "Select GIT, IAB, or OREP after confirming the corresponding Chapter 17 definition."
+                "Choose the matching site: GIT, IAB, or OREP.",
+                "Then document both a general Organ/Space finding and the complete definition for the selected site."
               ]
             : isJointProcedure(procedure)
               ? [
-                  "Select PJI or BONE after confirming the corresponding Chapter 17 definition."
+                  "Choose the matching site: PJI or BONE.",
+                  "Then document both a general Organ/Space finding and the complete definition for the selected site."
                 ]
               : [
-                  "Confirm the exact eligible Chapter 17 site-specific definition, then select the documented review option."
+                  "Identify and select the exact eligible Chapter 17 site-specific definition.",
+                  "Then document both a general Organ/Space finding and the complete definition for that site."
                 ]
         );
 
@@ -1762,21 +1767,18 @@ document.addEventListener("DOMContentLoaded", () => {
       const missing = [
         ...organSpaceCore.missing
       ];
+      const siteSpecificRequirement =
+        SITE_CRITERIA_PROMPTS[site] ||
+        `Confirm that the full ${site} Chapter 17 site-specific definition is met.`;
 
-      if (SITE_CRITERIA_PROMPTS[site]) {
-        missing.push(
-          SITE_CRITERIA_PROMPTS[site]
-        );
-      } else {
-        missing.push(
-          `Confirm that the full ${site} Chapter 17 site-specific definition is met.`
-        );
-      }
+      missing.push(
+        `Complete the ${site} site-specific pathway: ${siteSpecificRequirement}`
+      );
 
       setCriteriaAlert(
         "danger",
-        "Organ/Space criteria still needed",
-        `The selected ${site} site requires both an eligible Organ/Space SSI finding and its complete Chapter 17 site-specific pathway.`,
+        "Organ/Space: complete the remaining checkpoints",
+        `For ${site}, work through the remaining requirements in order. Both the general Organ/Space evidence and the ${site} definition must be met.`,
         missing
       );
     }
