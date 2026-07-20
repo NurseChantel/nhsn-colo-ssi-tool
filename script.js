@@ -565,26 +565,9 @@ document.addEventListener("DOMContentLoaded", () => {
     const pageTitle =
       $("#pageTitle");
 
-    const procedureSearch =
-      $("#procedureSearch");
-
-    const procedureSearchResults =
-      $("#procedureSearchResults");
-
     if (pageTitle) {
       pageTitle.textContent =
         PROCEDURES[procedure].title;
-    }
-
-    if (procedureSearch) {
-      procedureSearch.value =
-        `${procedure} — ${PROCEDURES[procedure].name}`;
-    }
-
-    if (procedureSearchResults) {
-      procedureSearchResults.classList.add(
-        "hidden"
-      );
     }
 
     const jointProcedure =
@@ -1023,9 +1006,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const pageTitle =
       $("#pageTitle");
 
-    const searchResults =
-      $("#procedureSearchResults");
-
     const resultTitle =
       $("#resultTitle");
 
@@ -1042,10 +1022,6 @@ document.addEventListener("DOMContentLoaded", () => {
       pageTitle.textContent =
         "NHSN SSI Review Tool";
     }
-
-    searchResults?.classList.add(
-      "hidden"
-    );
 
     if (resultTitle) {
       resultTitle.textContent =
@@ -1129,8 +1105,6 @@ document.addEventListener("DOMContentLoaded", () => {
     if (sectionId === "procedure") {
       $("#pageTitle").textContent =
         "NHSN SSI Review Tool";
-      $("#procedureSearch").value = "";
-      $("#procedureSearchResults")?.classList.add("hidden");
       $("#procedureWorkup")?.classList.add("hidden");
 
       $$(".colo-only").forEach(element => {
@@ -1886,139 +1860,6 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  function setupSearch() {
-    const input =
-      $("#procedureSearch");
-
-    const results =
-      $("#procedureSearchResults");
-
-    if (
-      !input ||
-      !results
-    ) {
-      return;
-    }
-
-    function render(query = "") {
-      const normalized =
-        query
-          .trim()
-          .toLowerCase();
-
-      if (!normalized) {
-        results.classList.add(
-          "hidden"
-        );
-
-        results.innerHTML = "";
-
-        return;
-      }
-
-      const matches =
-        Object.entries(PROCEDURES)
-          .filter(
-            ([code, item]) =>
-              code
-                .toLowerCase()
-                .includes(normalized) ||
-              item.name
-                .toLowerCase()
-                .includes(normalized)
-          );
-
-      results.innerHTML =
-        matches.length
-          ? matches
-              .map(
-                ([code, item]) => `
-                  <button
-                    class="search-result"
-                    type="button"
-                    data-procedure="${code}"
-                  >
-                    <span>
-                      <strong>${code}</strong>
-                      <small>${item.name}</small>
-                    </span>
-                    <span>Open</span>
-                  </button>
-                `
-              )
-              .join("")
-          : `
-              <div class="search-result">
-                <span>No matching procedure</span>
-              </div>
-            `;
-
-      results.classList.remove(
-        "hidden"
-      );
-    }
-
-    input.addEventListener(
-      "input",
-      event => {
-        render(
-          event.target.value
-        );
-      }
-    );
-
-    input.addEventListener(
-      "focus",
-      event => {
-        if (
-          event.target.value.trim()
-        ) {
-          render(
-            event.target.value
-          );
-        }
-      }
-    );
-
-    results.addEventListener(
-      "click",
-      event => {
-        const button =
-          event.target.closest(
-            "[data-procedure]"
-          );
-
-        if (!button) {
-          return;
-        }
-
-        setProcedure(
-          button.dataset.procedure
-        );
-
-        $("#procedure")
-          ?.scrollIntoView({
-            behavior: "smooth"
-          });
-      }
-    );
-
-    document.addEventListener(
-      "click",
-      event => {
-        if (
-          !event.target.closest(
-            ".procedure-search"
-          )
-        ) {
-          results.classList.add(
-            "hidden"
-          );
-        }
-      }
-    );
-  }
-
   /*
    * Listen for checkbox, radio, and date changes.
    */
@@ -2171,8 +2012,7 @@ document.addEventListener("DOMContentLoaded", () => {
     "OREP": "OREP is the NHSN other reproductive tract infection organ/space site. Apply its full Chapter 17 site-specific definition.",
     "PJI": "PJI is the NHSN periprosthetic joint infection organ/space site. Apply its full site-specific definition and report BONE if both PJI and BONE are met.",
     "BONE": "BONE is the NHSN osteomyelitis organ/space site. For HPRO/KPRO, report BONE when both BONE and PJI definitions are met.",
-    "Other eligible Chapter 17 site": "Choose only after confirming an eligible NHSN Chapter 17 site-specific definition and documenting the exact site.",
-    "procedureSearch": "Search the operative-procedure categories included in this review tool. Verify the selected category against the full NHSN procedure definition."
+    "Other eligible Chapter 17 site": "Choose only after confirming an eligible NHSN Chapter 17 site-specific definition and documenting the exact site."
   };
 
   function definitionFor(control) {
@@ -2233,7 +2073,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
   setupDefinitionTooltips();
   setupTabs();
-  setupSearch();
   updateConditionalFields();
   calculateSurveillance();
   updateProgress();

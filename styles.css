@@ -81,18 +81,10 @@ h1 {
   max-width:760px
 }
 
-.procedure-search {
-  position:relative
-}
-
 .header-tools {
   display:flex;
-  align-items:center;
-  gap:10px
-}
-
-.header-tools .procedure-search {
-  flex:1
+  justify-content:flex-end;
+  align-items:center
 }
 
 .manual-button {
@@ -110,62 +102,6 @@ h1 {
 .manual-button:hover { transform:perspective(360px) translateY(-3px) rotateY(-11deg) rotateZ(-2deg); box-shadow:inset 1px 1px 0 rgba(255,255,255,.22),inset -4px -4px 7px rgba(0,0,0,.16),4px 7px 0 #d8d0bc,9px 13px 17px rgba(20,43,43,.29) }
 .manual-button:focus-visible { outline:3px solid #f0b429; outline-offset:4px }
 .manual-button:active { transform:perspective(360px) translateY(1px) rotateY(-5deg) rotateZ(0deg); box-shadow:inset 1px 2px 5px rgba(0,0,0,.28),3px 3px 0 #d8d0bc,5px 6px 8px rgba(20,43,43,.24) }
-
-.procedure-search input {
-  width:100%;
-  height:42px;
-  border:1px solid #cfd5df;
-  border-radius:8px;
-  padding:8px 12px;
-  background:#fff
-}
-
-.procedure-search input:focus {
-  outline:none;
-  border-color:var(--green-700);
-  box-shadow:0 0 0 3px rgba(19,132,110,.14)
-}
-
-.search-results {
-  position:absolute;
-  left:0;
-  right:0;
-  top:calc(100% + 6px);
-  z-index:100;
-  border:1px solid var(--line);
-  border-radius:8px;
-  background:#fff;
-  box-shadow:var(--shadow);
-  overflow:hidden
-}
-
-.search-result {
-  width:100%;
-  display:flex;
-  justify-content:space-between;
-  gap:12px;
-  padding:10px 12px;
-  border:0;
-  border-bottom:1px solid #eceff3;
-  background:#fff;
-  text-align:left
-}
-
-.search-result:last-child {
-  border-bottom:0
-}
-
-.search-result:hover {
-  background:var(--green-050)
-}
-
-.search-result strong,.search-result small {
-  display:block
-}
-
-.search-result small {
-  color:var(--muted)
-}
 
 .top-nav {
   display:flex;
@@ -1048,11 +984,6 @@ footer {
   .segmented span {
     min-width:0
   }
-  .header-tools {
-    align-items:stretch;
-    flex-direction:column
-  }
-  .manual-button { align-self:flex-start }
   .manual-dialog { width:calc(100vw - 16px); height:calc(100dvh - 16px); max-height:calc(100dvh - 16px) }
   .manual-dialog-header { padding:12px }
   .manual-dialog-description { display:none }
