@@ -1060,6 +1060,50 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
+  function resetSection(sectionId) {
+    const section = document.getElementById(sectionId);
+
+    if (!section) {
+      return;
+    }
+
+    $$("input, select, textarea", section).forEach(control => {
+      if (
+        control.type === "checkbox" ||
+        control.type === "radio"
+      ) {
+        control.checked = false;
+      } else {
+        control.value = "";
+      }
+    });
+
+    if (sectionId === "procedure") {
+      $("#pageTitle").textContent =
+        "NHSN SSI Review Tool";
+      $("#procedureSearch").value = "";
+      $("#procedureSearchResults")?.classList.add("hidden");
+      $("#procedureWorkup")?.classList.add("hidden");
+
+      $$(".colo-only").forEach(element => {
+        element.classList.remove("hidden");
+      });
+
+      $$(".joint-only").forEach(element => {
+        element.classList.add("hidden");
+      });
+
+      $("#coloSiteOptions")?.classList.remove("hidden");
+      $("#jointSiteOptions")?.classList.add("hidden");
+      $("#genericSiteOptions")?.classList.add("hidden");
+      $("#coloEvidenceCards")?.classList.remove("hidden");
+      $("#jointEvidenceCards")?.classList.add("hidden");
+      $("#siteSpecificNote").textContent = "";
+    }
+
+    updateConditionalFields();
+  }
+
   function updateProgress() {
     const procedure =
       selectedRadio("procedureCategory");
@@ -1985,6 +2029,12 @@ document.addEventListener("DOMContentLoaded", () => {
       "click",
       clearForm
     );
+
+  $$("[data-reset-section]").forEach(button => {
+    button.addEventListener("click", () => {
+      resetSection(button.dataset.resetSection);
+    });
+  });
 
   $("#minimizeResult")
     ?.addEventListener(

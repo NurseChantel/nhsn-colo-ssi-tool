@@ -229,6 +229,24 @@ h1 {
   margin-bottom:16px
 }
 
+.section-reset-button {
+  flex:0 0 auto;
+  margin-left:auto;
+  padding:5px 9px;
+  border:1px solid var(--line);
+  border-radius:7px;
+  background:var(--white);
+  color:#475467;
+  font-size:.8rem;
+  font-weight:800
+}
+
+.section-reset-button:hover,.section-reset-button:focus-visible {
+  border-color:var(--green-700);
+  color:var(--green-900);
+  background:var(--green-050)
+}
+
 .section-heading h2 {
   margin:0;
   font-size:1.3rem
