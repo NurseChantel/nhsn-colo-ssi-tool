@@ -233,6 +233,101 @@ document.addEventListener("DOMContentLoaded", () => {
     );
   }
 
+  function syncProcedurePicker(value) {
+    const button = $("#procedurePickerButton");
+    const selectedOption = $(`.procedure-option[data-procedure-value="${value}"]`);
+
+    $$(".procedure-option").forEach(option => {
+      const selected = option.dataset.procedureValue === value;
+      option.setAttribute("aria-selected", String(selected));
+    });
+
+    if (!button) {
+      return;
+    }
+
+    const label = $(".procedure-picker-button-label", button);
+    const hint = $(".procedure-picker-button-hint", button);
+
+    if (selectedOption) {
+      label.textContent = selectedOption.querySelector("strong")?.textContent || "Choose an NHSN procedure";
+      hint.textContent = `${value} · ${selectedOption.querySelector("small")?.textContent || "NHSN procedure category"}`;
+    } else {
+      label.textContent = "Choose an NHSN procedure";
+      hint.textContent = "Organized clinical categories";
+    }
+  }
+
+  function setupProcedurePicker() {
+    const picker = $("[data-procedure-picker]");
+    const select = $("#procedureCategory");
+    const button = $("#procedurePickerButton");
+    const menu = $("#procedurePickerList");
+
+    if (!picker || !select || !button || !menu) {
+      return;
+    }
+
+    const closeMenu = () => {
+      menu.hidden = true;
+      button.setAttribute("aria-expanded", "false");
+    };
+
+    const openMenu = () => {
+      menu.hidden = false;
+      button.setAttribute("aria-expanded", "true");
+    };
+
+    const chooseProcedure = value => {
+      select.value = value;
+      syncProcedurePicker(value);
+      closeMenu();
+      select.dispatchEvent(new Event("change", { bubbles: true }));
+      button.focus();
+    };
+
+    button.addEventListener("click", () => {
+      if (menu.hidden) {
+        openMenu();
+        const selected = $(".procedure-option[aria-selected=\"true\"]", menu) || $(".procedure-option", menu);
+        selected?.focus();
+      } else {
+        closeMenu();
+      }
+    });
+
+    $$(".procedure-option", menu).forEach(option => {
+      option.addEventListener("click", () => chooseProcedure(option.dataset.procedureValue));
+    });
+
+    menu.addEventListener("keydown", event => {
+      const options = $$(".procedure-option", menu);
+      const current = document.activeElement;
+      const index = options.indexOf(current);
+
+      if (event.key === "Escape") {
+        event.preventDefault();
+        closeMenu();
+        button.focus();
+      } else if (event.key === "ArrowDown" || event.key === "ArrowUp") {
+        event.preventDefault();
+        const direction = event.key === "ArrowDown" ? 1 : -1;
+        options.at((index + direction + options.length) % options.length)?.focus();
+      } else if (event.key === "Home" || event.key === "End") {
+        event.preventDefault();
+        options.at(event.key === "Home" ? 0 : -1)?.focus();
+      }
+    });
+
+    document.addEventListener("click", event => {
+      if (!picker.contains(event.target)) {
+        closeMenu();
+      }
+    });
+
+    syncProcedurePicker(select.value);
+  }
+
   function calculatePatos() {
     return selectedChecks("patosKeyword").length > 0
       ? "Yes"
@@ -560,6 +655,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (procedureCategory) {
       procedureCategory.value = procedure;
+      syncProcedurePicker(procedure);
     }
 
     const pageTitle =
@@ -1003,6 +1099,8 @@ document.addEventListener("DOMContentLoaded", () => {
       select.value = "";
     });
 
+    syncProcedurePicker("");
+
     $$(
       'input[type="text"], input[type="date"], textarea'
     ).forEach(input => {
@@ -1109,6 +1207,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     if (sectionId === "procedure") {
+      syncProcedurePicker("");
       $("#pageTitle").textContent =
         "NHSN SSI Review Tool";
       $("#procedureWorkup")?.classList.add("hidden");
@@ -2077,6 +2176,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
+  setupProcedurePicker();
   setupDefinitionTooltips();
   setupTabs();
   updateConditionalFields();
