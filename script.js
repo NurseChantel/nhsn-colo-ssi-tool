@@ -157,18 +157,66 @@ document.addEventListener("DOMContentLoaded", () => {
   const closeManual = $("#closeManual");
 
   if (manualDialog && openManual && closeManual) {
+    const focusableSelector = [
+      "a[href]",
+      "button:not([disabled])",
+      "iframe",
+      "[tabindex]:not([tabindex=\"-1\"])"
+    ].join(",");
+
+    function closeManualDialog() {
+      if (manualDialog.open) {
+        manualDialog.close();
+      }
+    }
+
     openManual.addEventListener("click", () => {
       manualDialog.showModal();
+      document.body.classList.add("manual-open");
+      closeManual.focus();
     });
 
-    closeManual.addEventListener("click", () => {
-      manualDialog.close();
-    });
+    closeManual.addEventListener("click", closeManualDialog);
 
     manualDialog.addEventListener("click", event => {
       if (event.target === manualDialog) {
-        manualDialog.close();
+        closeManualDialog();
       }
+    });
+
+    manualDialog.addEventListener("cancel", event => {
+      event.preventDefault();
+      closeManualDialog();
+    });
+
+    manualDialog.addEventListener("keydown", event => {
+      if (event.key !== "Tab") {
+        return;
+      }
+
+      const focusable = $$(focusableSelector, manualDialog)
+        .filter(element => !element.hasAttribute("disabled"));
+
+      if (!focusable.length) {
+        event.preventDefault();
+        return;
+      }
+
+      const first = focusable[0];
+      const last = focusable.at(-1);
+
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first.focus();
+      }
+    });
+
+    manualDialog.addEventListener("close", () => {
+      document.body.classList.remove("manual-open");
+      openManual.focus();
     });
   }
 

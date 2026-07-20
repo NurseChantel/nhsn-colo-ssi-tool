@@ -37,9 +37,15 @@
           id="openManual"
           class="manual-button"
           type="button"
+          aria-label="Open NHSN Patient Safety Component Manual"
           aria-haspopup="dialog"
+          aria-controls="manualDialog"
         >
-          NHSN Manual
+          <span class="manual-book-spine" aria-hidden="true"></span>
+          <span class="manual-book-title" aria-hidden="true">
+            <strong>NHSN</strong>
+            <span>Manual</span>
+          </span>
         </button>
 
         <div class="procedure-search">
@@ -2400,37 +2406,54 @@
   <dialog
     id="manualDialog"
     class="manual-dialog"
+    role="dialog"
+    aria-modal="true"
     aria-labelledby="manualDialogTitle"
+    aria-describedby="manualDialogDescription"
   >
 
     <div class="manual-dialog-header">
-
-      <h2 id="manualDialogTitle">
-        NHSN Manual
-      </h2>
+      <div>
+        <p class="manual-dialog-kicker">REFERENCE DOCUMENT</p>
+        <h2 id="manualDialogTitle">NHSN Patient Safety Component Manual</h2>
+        <p id="manualDialogDescription" class="manual-dialog-description">
+          Review the NHSN manual without leaving this SSI review tool.
+        </p>
+      </div>
 
       <button
         id="closeManual"
         class="manual-close"
         type="button"
-        aria-label="Close NHSN Manual"
       >
         Close
       </button>
-
     </div>
 
     <div class="manual-dialog-content">
-
-      <img
-        src="patos-guide.png"
-        alt="PATOS guide from the NHSN Manual"
+      <iframe
+        id="manualFrame"
+        class="manual-frame"
+        src="nhsn-manual.pdf"
+        title="NHSN Patient Safety Component Manual PDF"
       >
+        <p>
+          Your browser cannot display this PDF. Use the links below to open or download it.
+        </p>
+      </iframe>
+    </div>
 
+    <div class="manual-dialog-footer">
+      <p>
+        If the manual does not load in the viewer, open or download the PDF instead.
+      </p>
+      <div class="manual-dialog-actions">
+        <a href="nhsn-manual.pdf" target="_blank" rel="noopener">Open in new tab</a>
+        <a href="nhsn-manual.pdf" download>Download PDF</a>
+      </div>
     </div>
 
   </dialog>
-
 
   <script src="script.js"></script>
 

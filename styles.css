@@ -96,20 +96,20 @@ h1 {
 }
 
 .manual-button {
-  flex:0 0 auto;
-  min-height:42px;
-  padding:8px 14px;
-  border:1px solid var(--green-800);
-  border-radius:8px;
-  background:var(--green-800);
-  color:var(--white);
-  font-weight:800
+  position:relative; flex:0 0 84px; width:84px; min-height:58px; padding:7px 7px 7px 13px;
+  isolation:isolate; overflow:visible; border:1px solid #06483f; border-radius:4px 8px 8px 4px;
+  background:linear-gradient(135deg,#167c6a 0%,#0c5d51 52%,#073f39 100%); color:var(--white);
+  box-shadow:inset 1px 1px 0 rgba(255,255,255,.22),inset -4px -4px 7px rgba(0,0,0,.16),4px 5px 0 #d8d0bc,7px 9px 12px rgba(20,43,43,.27);
+  font-weight:800; line-height:1; text-align:center; transform:perspective(360px) rotateY(-8deg) rotateZ(-1deg); transform-origin:left center; transition:transform .18s ease,box-shadow .18s ease
 }
-
-.manual-button:hover,.manual-button:focus-visible {
-  background:var(--green-900);
-  border-color:var(--green-900)
-}
+.manual-button::after { position:absolute; z-index:-1; top:4px; right:-5px; bottom:4px; width:5px; border-radius:0 4px 4px 0; background:repeating-linear-gradient(to bottom,#f5f0e4 0 1px,#d9d0bf 1px 2px); box-shadow:1px 0 1px rgba(0,0,0,.15); content:"" }
+.manual-book-spine { position:absolute; top:2px; bottom:2px; left:3px; width:7px; border-radius:3px 0 0 3px; background:linear-gradient(90deg,#043b35,#0b6759 65%,rgba(255,255,255,.18)); box-shadow:inset -1px 0 rgba(255,255,255,.22) }
+.manual-book-title { display:flex; position:relative; height:42px; align-items:center; justify-content:center; flex-direction:column; border:1px solid rgba(228,245,239,.4); border-radius:3px; background:linear-gradient(135deg,rgba(255,255,255,.12),transparent 48%); box-shadow:inset 0 1px rgba(255,255,255,.16) }
+.manual-book-title strong { font-size:.88rem; letter-spacing:.07em }
+.manual-book-title span { margin-top:3px; font-size:.66rem; font-weight:700; letter-spacing:.04em }
+.manual-button:hover { transform:perspective(360px) translateY(-3px) rotateY(-11deg) rotateZ(-2deg); box-shadow:inset 1px 1px 0 rgba(255,255,255,.22),inset -4px -4px 7px rgba(0,0,0,.16),4px 7px 0 #d8d0bc,9px 13px 17px rgba(20,43,43,.29) }
+.manual-button:focus-visible { outline:3px solid #f0b429; outline-offset:4px }
+.manual-button:active { transform:perspective(360px) translateY(1px) rotateY(-5deg) rotateZ(0deg); box-shadow:inset 1px 2px 5px rgba(0,0,0,.28),3px 3px 0 #d8d0bc,5px 6px 8px rgba(20,43,43,.24) }
 
 .procedure-search input {
   width:100%;
@@ -397,62 +397,22 @@ select {
   font-weight:800
 }
 
-.manual-dialog {
-  width:min(960px,calc(100% - 32px));
-  max-height:calc(100% - 32px);
-  padding:0;
-  border:0;
-  border-radius:var(--radius);
-  box-shadow:0 20px 50px rgba(31,42,55,.28)
-}
-
-.manual-dialog::backdrop {
-  background:rgba(25,34,45,.58)
-}
-
-.manual-dialog-header {
-  position:sticky;
-  top:0;
-  z-index:1;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:16px;
-  padding:14px 18px;
-  border-bottom:1px solid var(--line);
-  background:var(--white)
-}
-
-.manual-dialog-header h2 {
-  margin:0;
-  font-size:1.1rem
-}
-
-.manual-close {
-  padding:7px 12px;
-  border:1px solid var(--line);
-  border-radius:7px;
-  background:var(--white);
-  color:var(--ink);
-  font-weight:800
-}
-
-.manual-close:hover,.manual-close:focus-visible {
-  border-color:var(--green-700);
-  color:var(--green-800)
-}
-
-.manual-dialog-content {
-  overflow:auto;
-  max-height:calc(100vh - 110px);
-  padding:18px
-}
-
-.manual-dialog-content img {
-  display:block;
-  width:100%;
-  height:auto
-}
+.manual-dialog { width:min(1240px,calc(100vw - 32px)); height:min(900px,calc(100dvh - 32px)); max-height:calc(100dvh - 32px); padding:0; overflow:hidden; border:0; border-radius:var(--radius); background:var(--white); box-shadow:0 20px 50px rgba(31,42,55,.28) }
+.manual-dialog::backdrop { background:rgba(25,34,45,.58) }
+.manual-dialog-header { display:flex; align-items:flex-start; justify-content:space-between; gap:16px; padding:15px 18px; border-bottom:1px solid var(--line); background:var(--white) }
+.manual-dialog-kicker { margin:0 0 2px; color:var(--green-800); font-size:.68rem; font-weight:900; letter-spacing:.09em }
+.manual-dialog-header h2 { margin:0; font-size:clamp(1rem,2vw,1.25rem) }
+.manual-dialog-description { margin:3px 0 0; color:var(--muted); font-size:.86rem }
+.manual-close { flex:0 0 auto; padding:7px 12px; border:1px solid var(--line); border-radius:7px; background:var(--white); color:var(--ink); font-weight:800 }
+.manual-close:hover,.manual-close:focus-visible { border-color:var(--green-700); color:var(--green-800) }
+.manual-dialog-content { height:calc(100% - 154px); min-height:220px; padding:0; background:#e9edf1 }
+.manual-frame { display:block; width:100%; height:100%; border:0; background:var(--white) }
+.manual-dialog-footer { display:flex; align-items:center; justify-content:space-between; gap:16px; min-height:68px; padding:10px 18px; border-top:1px solid var(--line); background:var(--green-050) }
+.manual-dialog-footer p { margin:0; color:#475467; font-size:.82rem }
+.manual-dialog-actions { display:flex; flex:0 0 auto; flex-wrap:wrap; gap:8px }
+.manual-dialog-actions a { padding:7px 10px; border:1px solid var(--green-700); border-radius:7px; color:var(--green-900); background:var(--white); font-size:.84rem; font-weight:800; text-decoration:none }
+.manual-dialog-actions a:hover,.manual-dialog-actions a:focus-visible { color:var(--white); background:var(--green-800) }
+body.manual-open { overflow:hidden }
 
 .option-grid {
   display:grid;
@@ -1070,9 +1030,12 @@ footer {
     align-items:stretch;
     flex-direction:column
   }
-  .manual-button {
-    width:100%
-  }
+  .manual-button { align-self:flex-start }
+  .manual-dialog { width:calc(100vw - 16px); height:calc(100dvh - 16px); max-height:calc(100dvh - 16px) }
+  .manual-dialog-header { padding:12px }
+  .manual-dialog-description { display:none }
+  .manual-dialog-content { height:calc(100% - 136px) }
+  .manual-dialog-footer { align-items:flex-start; flex-direction:column; gap:7px; min-height:82px; padding:9px 12px }
 }
 
 .patos-calculator {
@@ -1256,3 +1219,5 @@ label.field-label > .definition-trigger {
   font-size:10px;
   line-height:1.3;
 }
+
+@media(prefers-reduced-motion:reduce) { .manual-button { transition:none } .manual-button:hover,.manual-button:active { transform:none } }
