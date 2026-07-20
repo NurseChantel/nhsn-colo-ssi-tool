@@ -112,6 +112,7 @@ document.addEventListener("DOMContentLoaded", () => {
     HYST: [
       ["CUL", "Cuff cellulitis"],
       ["EMET", "Endometritis"],
+      ["IAB", "Intraabdominal infection"],
       ["OREP", "Other reproductive tract infection"],
       ["VCUF", "Vaginal cuff infection"]
     ],
@@ -124,6 +125,7 @@ document.addEventListener("DOMContentLoaded", () => {
     ],
     CSEC: [
       ["EMET", "Endometritis"],
+      ["IAB", "Intraabdominal infection"],
       ["OREP", "Other reproductive tract infection"]
     ],
     FUSN: [
