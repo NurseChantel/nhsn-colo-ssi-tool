@@ -259,7 +259,81 @@ textarea {
 .date-grid {
   display:grid;
   grid-template-columns:repeat(2,minmax(0,1fr));
-  gap:14px
+  gap:16px;
+  padding:16px;
+  border:1px solid #d7e7e2;
+  border-radius:12px;
+  background:linear-gradient(135deg,#f7fcfa 0%,#eef7f4 100%);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.82)
+}
+
+.date-field {
+  position:relative;
+  margin:0;
+  padding:13px;
+  border:1px solid #d3e3de;
+  border-radius:10px;
+  background:var(--white);
+  box-shadow:0 2px 5px rgba(11,94,80,.04);
+  transition:border-color .16s ease,box-shadow .16s ease,transform .16s ease
+}
+
+.date-field::before {
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  width:26px;
+  height:26px;
+  margin:0 7px 7px 0;
+  border:1px solid var(--green-700);
+  border-radius:6px;
+  background:linear-gradient(to bottom,var(--green-700) 0 6px,var(--white) 6px 100%);
+  color:var(--green-800);
+  box-shadow:inset 0 -5px var(--green-100);
+  content:"";
+  font-size:0;
+  line-height:1;
+  vertical-align:middle
+}
+
+.date-field .field-label {
+  display:inline-flex;
+  align-items:center;
+  max-width:calc(100% - 38px);
+  margin-bottom:10px;
+  vertical-align:middle
+}
+
+.date-field .definition-trigger {
+  margin-left:7px;
+}
+
+.date-field input[type="date"] {
+  min-height:48px;
+  border-color:#c6d7d2;
+  border-radius:8px;
+  padding:10px 12px;
+  font-weight:700;
+  letter-spacing:.01em;
+  transition:border-color .16s ease,box-shadow .16s ease
+}
+
+.date-field:focus-within {
+  border-color:var(--green-700);
+  box-shadow:0 0 0 3px rgba(19,132,110,.11),0 5px 12px rgba(11,94,80,.08);
+  transform:translateY(-1px)
+}
+
+.date-field input[type="date"]::-webkit-calendar-picker-indicator {
+  padding:6px;
+  border-radius:5px;
+  cursor:pointer;
+  opacity:.76
+}
+
+.date-field input[type="date"]::-webkit-calendar-picker-indicator:hover {
+  background:var(--green-100);
+  opacity:1
 }
 
 select {
