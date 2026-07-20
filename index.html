@@ -34,6 +34,16 @@
       <div class="header-tools">
 
         <button
+          id="openKeywordDetector"
+          class="keyword-detector-button"
+          type="button"
+          aria-haspopup="dialog"
+          aria-controls="keywordDetectorDialog"
+        >
+          Keyword<br>detector
+        </button>
+
+        <button
           id="openManual"
           class="manual-button"
           type="button"
@@ -2432,6 +2442,48 @@
       </div>
     </div>
 
+  </dialog>
+
+  <dialog
+    id="keywordDetectorDialog"
+    class="keyword-detector-dialog"
+    aria-modal="true"
+    aria-labelledby="keywordDetectorTitle"
+    aria-describedby="keywordDetectorDescription"
+  >
+    <div class="keyword-detector-header">
+      <div>
+        <p class="manual-dialog-kicker">REVIEW ASSISTANT</p>
+        <h2 id="keywordDetectorTitle">Keyword detector</h2>
+        <p id="keywordDetectorDescription" class="manual-dialog-description">
+          Paste operative notes to identify documented terms and preselect related review fields.
+        </p>
+      </div>
+
+      <button id="closeKeywordDetector" class="manual-close" type="button">
+        Close
+      </button>
+    </div>
+
+    <div class="keyword-detector-content">
+      <label class="field-label" for="operativeNarrative">Operative narrative</label>
+      <p class="helper-text detector-helper">
+        Copy and paste the operative note, findings, or procedure narrative. This tool only detects terms; verify every selection against the record and current NHSN Manual.
+      </p>
+      <textarea id="operativeNarrative" rows="11" placeholder="Paste operative notes here..."></textarea>
+
+      <div id="keywordDetectorResults" class="keyword-detector-results" aria-live="polite">
+        Paste a narrative, then select Detect keywords.
+      </div>
+    </div>
+
+    <div class="keyword-detector-footer">
+      <p>Detected selections are added to the form; existing selections are not removed.</p>
+      <div class="keyword-detector-actions">
+        <button id="clearOperativeNarrative" class="manual-close" type="button">Clear narrative</button>
+        <button id="detectKeywords" class="detect-keywords-button" type="button">Detect keywords</button>
+      </div>
+    </div>
   </dialog>
 
   <script src="script.js"></script>
