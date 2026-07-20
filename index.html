@@ -570,7 +570,297 @@
 
 
       <!-- =========================================================
-           03 SSI EVIDENCE
+           03 SITE
+           ========================================================= -->
+
+      <section
+        id="site"
+        class="card form-section"
+      >
+
+        <div class="section-heading">
+
+          <span class="section-number">
+            03
+          </span>
+
+          <div>
+            <h2>
+              Site
+            </h2>
+
+            <p>
+              Select the deepest tissue level involved.
+            </p>
+          </div>
+
+        </div>
+
+
+        <fieldset class="field-group">
+
+          <legend class="field-label">
+            Anatomic level
+          </legend>
+
+          <div class="choice-stack site-choice-grid">
+
+            <label class="radio-card">
+
+              <input
+                type="radio"
+                name="anatomicLevel"
+                value="Superficial incisional SSI"
+              >
+
+              <span>
+
+                <strong>
+                  Superficial incisional
+                </strong>
+
+                <small>
+                  Skin and subcutaneous tissue only
+                </small>
+
+              </span>
+
+            </label>
+
+
+            <label class="radio-card">
+
+              <input
+                type="radio"
+                name="anatomicLevel"
+                value="Deep incisional SSI"
+              >
+
+              <span>
+
+                <strong>
+                  Deep incisional
+                </strong>
+
+                <small>
+                  Fascia and/or muscle layers
+                </small>
+
+              </span>
+
+            </label>
+
+
+            <label class="radio-card">
+
+              <input
+                type="radio"
+                name="anatomicLevel"
+                value="Organ/Space SSI"
+              >
+
+              <span>
+
+                <strong>
+                  Organ/Space
+                </strong>
+
+                <small>
+                  Deeper than fascia/muscle
+                </small>
+
+              </span>
+
+            </label>
+
+          </div>
+
+        </fieldset>
+
+
+        <fieldset
+          id="siteSpecificField"
+          class="field-group conditional hidden"
+        >
+
+          <legend class="field-label">
+            Organ/Space site-specific classification
+          </legend>
+
+
+          <div
+            id="coloSiteOptions"
+            class="choice-stack site-choice-grid"
+          >
+
+            <label class="radio-card">
+
+              <input
+                type="radio"
+                name="siteSpecific"
+                value="GIT"
+              >
+
+              <span>
+
+                <strong>
+                  GIT
+                </strong>
+
+                <small>
+                  Gastrointestinal tract involvement
+                </small>
+
+              </span>
+
+            </label>
+
+
+            <label class="radio-card">
+
+              <input
+                type="radio"
+                name="siteSpecific"
+                value="IAB"
+              >
+
+              <span>
+
+                <strong>
+                  IAB
+                </strong>
+
+                <small>
+                  Intraabdominal infection, not specified elsewhere
+                </small>
+
+              </span>
+
+            </label>
+
+
+            <label class="radio-card">
+
+              <input
+                type="radio"
+                name="siteSpecific"
+                value="OREP"
+              >
+
+              <span>
+
+                <strong>
+                  OREP
+                </strong>
+
+                <small>
+                  Other reproductive tract infection
+                </small>
+
+              </span>
+
+            </label>
+
+          </div>
+
+
+          <div
+            id="jointSiteOptions"
+            class="choice-stack site-choice-grid hidden"
+          >
+
+            <label class="radio-card">
+
+              <input
+                type="radio"
+                name="siteSpecific"
+                value="PJI"
+              >
+
+              <span>
+
+                <strong>
+                  PJI
+                </strong>
+
+                <small>
+                  Periprosthetic joint infection
+                </small>
+
+              </span>
+
+            </label>
+
+
+            <label class="radio-card">
+
+              <input
+                type="radio"
+                name="siteSpecific"
+                value="BONE"
+              >
+
+              <span>
+
+                <strong>
+                  BONE
+                </strong>
+
+                <small>
+                  Osteomyelitis
+                </small>
+
+              </span>
+
+            </label>
+
+          </div>
+
+
+          <div
+            id="genericSiteOptions"
+            class="choice-stack site-choice-grid hidden"
+          >
+
+            <label class="radio-card">
+
+              <input
+                type="radio"
+                name="siteSpecific"
+                value="Other eligible Chapter 17 site"
+              >
+
+              <span>
+
+                <strong>
+                  Eligible Chapter 17 site
+                </strong>
+
+                <small>
+                  Confirm and document the exact site-specific definition
+                </small>
+
+              </span>
+
+            </label>
+
+          </div>
+
+
+          <p
+            id="siteSpecificNote"
+            class="helper-text"
+          ></p>
+
+        </fieldset>
+
+
+      </section>
+
+
+
+      <!-- =========================================================
+           04 SSI EVIDENCE
            ========================================================= -->
 
       <section
@@ -581,7 +871,7 @@
         <div class="section-heading">
 
           <span class="section-number">
-            03
+            04
           </span>
 
           <div>
@@ -992,7 +1282,7 @@
 
 
       <!-- =========================================================
-           04 SIGNS AND SYMPTOMS
+           05 SIGNS AND SYMPTOMS
            ========================================================= -->
 
       <section
@@ -1003,7 +1293,7 @@
         <div class="section-heading">
 
           <span class="section-number">
-            04
+            05
           </span>
 
           <div>
@@ -1189,296 +1479,6 @@
           </label>
 
         </div>
-
-      </section>
-
-
-
-      <!-- =========================================================
-           05 SITE
-           ========================================================= -->
-
-      <section
-        id="site"
-        class="card form-section"
-      >
-
-        <div class="section-heading">
-
-          <span class="section-number">
-            05
-          </span>
-
-          <div>
-            <h2>
-              Site
-            </h2>
-
-            <p>
-              Select the deepest tissue level involved.
-            </p>
-          </div>
-
-        </div>
-
-
-        <fieldset class="field-group">
-
-          <legend class="field-label">
-            Anatomic level
-          </legend>
-
-          <div class="choice-stack site-choice-grid">
-
-            <label class="radio-card">
-
-              <input
-                type="radio"
-                name="anatomicLevel"
-                value="Superficial incisional SSI"
-              >
-
-              <span>
-
-                <strong>
-                  Superficial incisional
-                </strong>
-
-                <small>
-                  Skin and subcutaneous tissue only
-                </small>
-
-              </span>
-
-            </label>
-
-
-            <label class="radio-card">
-
-              <input
-                type="radio"
-                name="anatomicLevel"
-                value="Deep incisional SSI"
-              >
-
-              <span>
-
-                <strong>
-                  Deep incisional
-                </strong>
-
-                <small>
-                  Fascia and/or muscle layers
-                </small>
-
-              </span>
-
-            </label>
-
-
-            <label class="radio-card">
-
-              <input
-                type="radio"
-                name="anatomicLevel"
-                value="Organ/Space SSI"
-              >
-
-              <span>
-
-                <strong>
-                  Organ/Space
-                </strong>
-
-                <small>
-                  Deeper than fascia/muscle
-                </small>
-
-              </span>
-
-            </label>
-
-          </div>
-
-        </fieldset>
-
-
-        <fieldset
-          id="siteSpecificField"
-          class="field-group conditional hidden"
-        >
-
-          <legend class="field-label">
-            Organ/Space site-specific classification
-          </legend>
-
-
-          <div
-            id="coloSiteOptions"
-            class="choice-stack site-choice-grid"
-          >
-
-            <label class="radio-card">
-
-              <input
-                type="radio"
-                name="siteSpecific"
-                value="GIT"
-              >
-
-              <span>
-
-                <strong>
-                  GIT
-                </strong>
-
-                <small>
-                  Gastrointestinal tract involvement
-                </small>
-
-              </span>
-
-            </label>
-
-
-            <label class="radio-card">
-
-              <input
-                type="radio"
-                name="siteSpecific"
-                value="IAB"
-              >
-
-              <span>
-
-                <strong>
-                  IAB
-                </strong>
-
-                <small>
-                  Intraabdominal infection, not specified elsewhere
-                </small>
-
-              </span>
-
-            </label>
-
-
-            <label class="radio-card">
-
-              <input
-                type="radio"
-                name="siteSpecific"
-                value="OREP"
-              >
-
-              <span>
-
-                <strong>
-                  OREP
-                </strong>
-
-                <small>
-                  Other reproductive tract infection
-                </small>
-
-              </span>
-
-            </label>
-
-          </div>
-
-
-          <div
-            id="jointSiteOptions"
-            class="choice-stack site-choice-grid hidden"
-          >
-
-            <label class="radio-card">
-
-              <input
-                type="radio"
-                name="siteSpecific"
-                value="PJI"
-              >
-
-              <span>
-
-                <strong>
-                  PJI
-                </strong>
-
-                <small>
-                  Periprosthetic joint infection
-                </small>
-
-              </span>
-
-            </label>
-
-
-            <label class="radio-card">
-
-              <input
-                type="radio"
-                name="siteSpecific"
-                value="BONE"
-              >
-
-              <span>
-
-                <strong>
-                  BONE
-                </strong>
-
-                <small>
-                  Osteomyelitis
-                </small>
-
-              </span>
-
-            </label>
-
-          </div>
-
-
-          <div
-            id="genericSiteOptions"
-            class="choice-stack site-choice-grid hidden"
-          >
-
-            <label class="radio-card">
-
-              <input
-                type="radio"
-                name="siteSpecific"
-                value="Other eligible Chapter 17 site"
-              >
-
-              <span>
-
-                <strong>
-                  Eligible Chapter 17 site
-                </strong>
-
-                <small>
-                  Confirm and document the exact site-specific definition
-                </small>
-
-              </span>
-
-            </label>
-
-          </div>
-
-
-          <p
-            id="siteSpecificNote"
-            class="helper-text"
-          ></p>
-
-        </fieldset>
-
 
       </section>
 
