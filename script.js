@@ -110,7 +110,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function selectedRadio(name) {
     const input = $(`input[name="${name}"]:checked`);
-    return input ? input.value : "";
+    const select = $(`select[name="${name}"]`);
+
+    return input ? input.value : select?.value || "";
   }
 
   function selectedChecks(name) {
@@ -358,13 +360,11 @@ document.addEventListener("DOMContentLoaded", () => {
       return;
     }
 
-    const radio =
-      $(
-        `input[name="procedureCategory"][value="${procedure}"]`
-      );
+    const procedureCategory =
+      $("#procedureCategory");
 
-    if (radio) {
-      radio.checked = true;
+    if (procedureCategory) {
+      procedureCategory.value = procedure;
     }
 
     const pageTitle =
@@ -819,6 +819,10 @@ document.addEventListener("DOMContentLoaded", () => {
       'input[type="checkbox"], input[type="radio"]'
     ).forEach(input => {
       input.checked = false;
+    });
+
+    $$("select").forEach(select => {
+      select.value = "";
     });
 
     $$(
@@ -1759,7 +1763,7 @@ document.addEventListener("DOMContentLoaded", () => {
     "change",
     event => {
       if (
-        !event.target.matches("input")
+        !event.target.matches("input, select")
       ) {
         return;
       }
