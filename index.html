@@ -483,36 +483,26 @@
         </details>
 
 
-        <div class="field-group">
-
-          <label
-            class="field-label"
-            for="operativeNote"
-          >
-            Operative note narrative
-          </label>
-
-          <textarea
-            id="operativeNote"
-            rows="8"
-            placeholder="Paste the relevant operative note narrative here..."
-          ></textarea>
-
-        </div>
-
-
-        <div class="field-group">
+        <div class="field-group patos-calculator">
 
           <div class="label-with-help">
 
             <span class="field-label">
-              Evidence of infection documented in the operative narrative
+              PATOS symptoms
             </span>
+
+            <output
+              id="patosResult"
+              class="patos-result"
+              aria-live="polite"
+            >
+              PATOS = NO
+            </output>
 
           </div>
 
           <p class="helper-text">
-            Select every NHSN keyword documented in the operative note.
+            Select every applicable finding. PATOS is automatically YES when one or more findings are selected.
           </p>
 
 
@@ -739,48 +729,6 @@
           </div>
 
         </div>
-
-
-        <fieldset class="field-group">
-
-          <legend class="field-label">
-            Does the case meet PATOS?
-          </legend>
-
-          <div class="segmented">
-
-            <label>
-
-              <input
-                type="radio"
-                name="patos"
-                value="Yes"
-              >
-
-              <span>
-                Yes
-              </span>
-
-            </label>
-
-
-            <label>
-
-              <input
-                type="radio"
-                name="patos"
-                value="No"
-              >
-
-              <span>
-                No
-              </span>
-
-            </label>
-
-          </div>
-
-        </fieldset>
 
       </section>
 
@@ -2465,7 +2413,7 @@
             class="status-dot"
           ></span>
 
-          PATOS selected
+          PATOS calculated
 
         </div>
 
