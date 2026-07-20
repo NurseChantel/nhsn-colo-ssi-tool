@@ -10,19 +10,101 @@ document.addEventListener("DOMContentLoaded", () => {
   const PROCEDURES = {
     COLO: {
       name: "Colon Surgery",
-      title: "NHSN COLO SSI Review Tool"
+      title: "NHSN COLO SSI Review Tool",
+      surveillanceDays: 30,
+      workup: [
+        "Confirm the procedure meets the NHSN COLO category definition.",
+        "For organ/space review, determine whether GIT, IAB, OREP, or another eligible Chapter 17 site-specific definition applies."
+      ]
+    },
+
+    HYST: {
+      name: "Abdominal Hysterectomy",
+      title: "NHSN HYST SSI Review Tool",
+      surveillanceDays: 30,
+      workup: [
+        "Confirm the procedure meets the NHSN HYST category definition and is not a cesarean section.",
+        "For organ/space review, apply the eligible Chapter 17 reproductive-tract or intraabdominal site-specific definition."
+      ]
+    },
+
+    CBGB: {
+      name: "Coronary Artery Bypass Graft with Chest and Donor-site Incisions",
+      title: "NHSN CBGB SSI Review Tool",
+      surveillanceDays: 90,
+      workup: [
+        "Confirm both the chest and donor-site incisions are part of the indexed CABG procedure.",
+        "Document the involved incision so primary versus secondary incisional SSI can be assigned when applicable.",
+        "For organ/space review, apply the eligible Chapter 17 site-specific definition."
+      ]
+    },
+
+    CBGC: {
+      name: "Coronary Artery Bypass Graft with Chest Incision Only",
+      title: "NHSN CBGC SSI Review Tool",
+      surveillanceDays: 90,
+      workup: [
+        "Confirm the indexed CABG procedure has a chest incision only; do not use CBGC when a donor-site incision is present.",
+        "For organ/space review, apply the eligible Chapter 17 site-specific definition."
+      ]
+    },
+
+    CRAN: {
+      name: "Craniotomy",
+      title: "NHSN CRAN SSI Review Tool",
+      surveillanceDays: 90,
+      workup: [
+        "Confirm the procedure meets the NHSN CRAN category definition.",
+        "For organ/space review, apply the eligible intracranial or other Chapter 17 site-specific definition."
+      ]
+    },
+
+    CSEC: {
+      name: "Cesarean Section",
+      title: "NHSN CSEC SSI Review Tool",
+      surveillanceDays: 30,
+      workup: [
+        "Confirm the procedure meets the NHSN CSEC category definition.",
+        "For organ/space review, apply the eligible Chapter 17 reproductive-tract or intraabdominal site-specific definition."
+      ]
+    },
+
+    FUSN: {
+      name: "Spinal Fusion",
+      title: "NHSN FUSN SSI Review Tool",
+      surveillanceDays: 90,
+      workup: [
+        "Confirm the procedure meets the NHSN FUSN category definition.",
+        "For organ/space review, apply the eligible Chapter 17 spinal, bone, or other site-specific definition."
+      ]
     },
 
     HPRO: {
       name: "Hip Prosthesis",
-      title: "NHSN HPRO SSI Review Tool"
+      title: "NHSN HPRO SSI Review Tool",
+      surveillanceDays: null,
+      workup: [
+        "Confirm the procedure meets the NHSN HPRO category definition.",
+        "Use 30 days for superficial incisional SSI and 90 days for deep-incisional or organ/space SSI.",
+        "For organ/space review, apply PJI or BONE; if both definitions are met, report BONE."
+      ]
     },
 
     KPRO: {
       name: "Knee Prosthesis",
-      title: "NHSN KPRO SSI Review Tool"
+      title: "NHSN KPRO SSI Review Tool",
+      surveillanceDays: null,
+      workup: [
+        "Confirm the procedure meets the NHSN KPRO category definition.",
+        "Use 30 days for superficial incisional SSI and 90 days for deep-incisional or organ/space SSI.",
+        "For organ/space review, apply PJI or BONE; if both definitions are met, report BONE."
+      ]
     }
   };
+
+  function isJointProcedure(procedure) {
+    return procedure === "HPRO" || procedure === "KPRO";
+  }
 
   let latestCopyText = "";
 
@@ -97,8 +179,11 @@ document.addEventListener("DOMContentLoaded", () => {
       return null;
     }
 
-    if (procedure === "COLO") {
-      return 30;
+    const configuredDays =
+      PROCEDURES[procedure]?.surveillanceDays;
+
+    if (configuredDays) {
+      return configuredDays;
     }
 
     if (level === "Superficial incisional SSI") {
@@ -178,8 +263,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (
       (
-        procedure === "HPRO" ||
-        procedure === "KPRO"
+        isJointProcedure(procedure)
       ) &&
       !level
     ) {
@@ -202,8 +286,8 @@ document.addEventListener("DOMContentLoaded", () => {
       `${days} days`;
 
     surveillanceNote.textContent =
-      procedure === "COLO"
-        ? "COLO uses a 30-day SSI surveillance period."
+      PROCEDURES[procedure]?.surveillanceDays
+        ? `${procedure} uses a ${days}-day SSI surveillance period.`
         : `${procedure} uses 30 days for superficial SSI and 90 days for deep-incisional or organ/space SSI.`;
 
     if (!procedureDate || !days) {
@@ -242,6 +326,31 @@ document.addEventListener("DOMContentLoaded", () => {
       eventDateStatus.textContent =
         "Outside surveillance period";
     }
+  }
+
+  function updateProcedureWorkup(procedure) {
+    const panel = $("#procedureWorkup");
+    const title = $("#procedureWorkupTitle");
+    const intro = $("#procedureWorkupIntro");
+    const list = $("#procedureWorkupList");
+    const procedureConfig = PROCEDURES[procedure];
+
+    if (!panel || !title || !intro || !list) {
+      return;
+    }
+
+    if (!procedureConfig) {
+      panel.classList.add("hidden");
+      return;
+    }
+
+    title.textContent = `${procedure} procedure-specific workup`;
+    intro.textContent =
+      "Use these prompts with the full NHSN procedure definition and SSI criteria.";
+    list.innerHTML = procedureConfig.workup
+      .map(item => `<li>${escapeHtml(item)}</li>`)
+      .join("");
+    panel.classList.remove("hidden");
   }
 
   function setProcedure(procedure) {
@@ -284,13 +393,15 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     const jointProcedure =
-      procedure === "HPRO" ||
-      procedure === "KPRO";
+      isJointProcedure(procedure);
+
+    const coloProcedure =
+      procedure === "COLO";
 
     $$(".colo-only").forEach(element => {
       element.classList.toggle(
         "hidden",
-        jointProcedure
+        !coloProcedure
       );
     });
 
@@ -307,6 +418,9 @@ document.addEventListener("DOMContentLoaded", () => {
     const jointSiteOptions =
       $("#jointSiteOptions");
 
+    const genericSiteOptions =
+      $("#genericSiteOptions");
+
     const coloEvidenceCards =
       $("#coloEvidenceCards");
 
@@ -318,7 +432,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     coloSiteOptions?.classList.toggle(
       "hidden",
-      jointProcedure
+      !coloProcedure
     );
 
     jointSiteOptions?.classList.toggle(
@@ -326,9 +440,14 @@ document.addEventListener("DOMContentLoaded", () => {
       !jointProcedure
     );
 
+    genericSiteOptions?.classList.toggle(
+      "hidden",
+      coloProcedure || jointProcedure
+    );
+
     coloEvidenceCards?.classList.toggle(
       "hidden",
-      jointProcedure
+      !coloProcedure
     );
 
     jointEvidenceCards?.classList.toggle(
@@ -340,7 +459,9 @@ document.addEventListener("DOMContentLoaded", () => {
       siteSpecificNote.textContent =
         jointProcedure
           ? "For HPRO/KPRO, use PJI or BONE. If both definitions are met, report BONE."
-          : "For COLO, select the site-specific definition supported by the anatomy and evidence.";
+          : coloProcedure
+            ? "For COLO, select the site-specific definition supported by the anatomy and evidence."
+            : "Select this option only after confirming the exact Chapter 17 site-specific definition outside this tool.";
     }
 
     /*
@@ -353,6 +474,7 @@ document.addEventListener("DOMContentLoaded", () => {
       input.checked = false;
     });
 
+    updateProcedureWorkup(procedure);
     updateConditionalFields();
   }
 
@@ -771,6 +893,12 @@ document.addEventListener("DOMContentLoaded", () => {
       ?.classList.remove("hidden");
 
     $("#jointSiteOptions")
+      ?.classList.add("hidden");
+
+    $("#genericSiteOptions")
+      ?.classList.add("hidden");
+
+    $("#procedureWorkup")
       ?.classList.add("hidden");
 
     $("#coloEvidenceCards")
@@ -1247,9 +1375,13 @@ document.addEventListener("DOMContentLoaded", () => {
             ? [
                 "Select GIT, IAB, or OREP after confirming the corresponding Chapter 17 definition."
               ]
-            : [
-                "Select PJI or BONE after confirming the corresponding Chapter 17 definition."
-              ]
+            : isJointProcedure(procedure)
+              ? [
+                  "Select PJI or BONE after confirming the corresponding Chapter 17 definition."
+                ]
+              : [
+                  "Confirm the exact eligible Chapter 17 site-specific definition, then select the documented review option."
+                ]
         );
 
         return;

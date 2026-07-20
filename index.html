@@ -40,7 +40,7 @@
         <input
           id="procedureSearch"
           type="search"
-          placeholder="Search COLO, HPRO, or KPRO..."
+          placeholder="Search COLO, HYST, CBGB, CRAN..."
           autocomplete="off"
         >
 
@@ -199,6 +199,132 @@
               <input
                 type="radio"
                 name="procedureCategory"
+                value="HYST"
+              >
+
+              <span>
+                <strong>
+                  HYST
+                </strong>
+
+                <small>
+                  Abdominal hysterectomy
+                </small>
+              </span>
+
+            </label>
+
+
+            <label class="procedure-card">
+
+              <input
+                type="radio"
+                name="procedureCategory"
+                value="CBGB"
+              >
+
+              <span>
+                <strong>
+                  CBGB
+                </strong>
+
+                <small>
+                  CABG with chest and donor-site incisions
+                </small>
+              </span>
+
+            </label>
+
+
+            <label class="procedure-card">
+
+              <input
+                type="radio"
+                name="procedureCategory"
+                value="CBGC"
+              >
+
+              <span>
+                <strong>
+                  CBGC
+                </strong>
+
+                <small>
+                  CABG with chest incision only
+                </small>
+              </span>
+
+            </label>
+
+
+            <label class="procedure-card">
+
+              <input
+                type="radio"
+                name="procedureCategory"
+                value="CRAN"
+              >
+
+              <span>
+                <strong>
+                  CRAN
+                </strong>
+
+                <small>
+                  Craniotomy
+                </small>
+              </span>
+
+            </label>
+
+
+            <label class="procedure-card">
+
+              <input
+                type="radio"
+                name="procedureCategory"
+                value="CSEC"
+              >
+
+              <span>
+                <strong>
+                  CSEC
+                </strong>
+
+                <small>
+                  Cesarean section
+                </small>
+              </span>
+
+            </label>
+
+
+            <label class="procedure-card">
+
+              <input
+                type="radio"
+                name="procedureCategory"
+                value="FUSN"
+              >
+
+              <span>
+                <strong>
+                  FUSN
+                </strong>
+
+                <small>
+                  Spinal fusion
+                </small>
+              </span>
+
+            </label>
+
+
+            <label class="procedure-card">
+
+              <input
+                type="radio"
+                name="procedureCategory"
                 value="HPRO"
               >
 
@@ -238,6 +364,21 @@
           </div>
 
         </fieldset>
+
+
+        <aside
+          id="procedureWorkup"
+          class="procedure-workup hidden"
+          aria-live="polite"
+        >
+          <h3 id="procedureWorkupTitle">
+            Procedure-specific workup
+          </h3>
+
+          <p id="procedureWorkupIntro"></p>
+
+          <ul id="procedureWorkupList"></ul>
+        </aside>
 
 
         <div class="surveillance-box">
@@ -1492,6 +1633,36 @@
 
                 <small>
                   Osteomyelitis
+                </small>
+
+              </span>
+
+            </label>
+
+          </div>
+
+
+          <div
+            id="genericSiteOptions"
+            class="choice-stack hidden"
+          >
+
+            <label class="radio-card">
+
+              <input
+                type="radio"
+                name="siteSpecific"
+                value="Other eligible Chapter 17 site"
+              >
+
+              <span>
+
+                <strong>
+                  Eligible Chapter 17 site
+                </strong>
+
+                <small>
+                  Confirm and document the exact site-specific definition
                 </small>
 
               </span>
