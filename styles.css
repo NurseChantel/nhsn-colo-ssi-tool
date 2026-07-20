@@ -822,7 +822,7 @@ body.manual-open { overflow:hidden }
   border-left-width:5px;
   border-radius:9px;
   background:#f8fafc;
-  font-size:.87rem
+  font-size:.82rem
 }
 
 .criteria-alert-heading {
@@ -847,21 +847,22 @@ body.manual-open { overflow:hidden }
 }
 
 .criteria-alert p {
-  margin:8px 0 0
+  margin:6px 0 0;
+  line-height:1.4
 }
 
 .criteria-alert-list {
   display:grid;
-  gap:8px;
-  margin:12px 0 0;
+  gap:5px;
+  margin:8px 0 0;
   padding:0;
   list-style:none
 }
 
 .criteria-alert-list li {
   position:relative;
-  padding-left:21px;
-  line-height:1.45
+  padding-left:19px;
+  line-height:1.35
 }
 
 .criteria-alert-list li::before {
@@ -874,11 +875,11 @@ body.manual-open { overflow:hidden }
 
 .criteria-alert.danger .criteria-alert-list li {
   border-top:1px solid rgba(198,40,40,.14);
-  padding-top:8px
+  padding-top:6px
 }
 
 .criteria-alert.danger .criteria-alert-list li::before {
-  top:8px
+  top:6px
 }
 
 .criteria-alert.neutral {
