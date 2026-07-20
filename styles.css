@@ -955,12 +955,34 @@ select {
 }
 
 .criteria-alert-list {
-  margin:8px 0 0;
-  padding-left:19px
+  display:grid;
+  gap:8px;
+  margin:12px 0 0;
+  padding:0;
+  list-style:none
 }
 
 .criteria-alert-list li {
-  margin:5px 0
+  position:relative;
+  padding-left:21px;
+  line-height:1.45
+}
+
+.criteria-alert-list li::before {
+  content:"→";
+  position:absolute;
+  left:0;
+  color:currentColor;
+  font-weight:900
+}
+
+.criteria-alert.danger .criteria-alert-list li {
+  border-top:1px solid rgba(198,40,40,.14);
+  padding-top:8px
+}
+
+.criteria-alert.danger .criteria-alert-list li::before {
+  top:8px
 }
 
 .criteria-alert.neutral {
