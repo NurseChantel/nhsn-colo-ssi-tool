@@ -119,6 +119,24 @@ document.addEventListener("DOMContentLoaded", () => {
     );
   }
 
+  function calculatePatos() {
+    return selectedChecks("patosKeyword").length > 0
+      ? "Yes"
+      : "No";
+  }
+
+  function updatePatosResult() {
+    const result = $("#patosResult");
+    const patos = calculatePatos();
+
+    if (!result) {
+      return;
+    }
+
+    result.textContent = `PATOS = ${patos.toUpperCase()}`;
+    result.classList.toggle("is-yes", patos === "Yes");
+  }
+
   function escapeHtml(value) {
     return String(value)
       .replaceAll("&", "&amp;")
@@ -510,6 +528,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     calculateSurveillance();
+    updatePatosResult();
     updateProgress();
     updateCriteriaGuidance();
   }
@@ -556,8 +575,7 @@ document.addEventListener("DOMContentLoaded", () => {
       selectedRadio("siteSpecific");
 
     const patos =
-      selectedRadio("patos") ||
-      "not selected";
+      calculatePatos();
 
     const evidence =
       selectedChecks("evidence");
@@ -634,7 +652,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (keywords.length) {
       summary +=
-        ` Operative narrative findings include ` +
+        ` Selected PATOS findings include ` +
         `${joinNatural(
           keywords.map(
             item => item.toLowerCase()
@@ -919,9 +937,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const procedure =
       selectedRadio("procedureCategory");
 
-    const patos =
-      selectedRadio("patos");
-
     const evidenceComplete =
       selectedChecks("evidence").length > 0 ||
       Boolean(
@@ -943,7 +958,7 @@ document.addEventListener("DOMContentLoaded", () => {
     $("#progressPatos")
       ?.classList.toggle(
         "complete",
-        Boolean(patos)
+        true
       );
 
     $("#progressEvidence")
@@ -970,7 +985,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const completed = [
       Boolean(procedure),
-      Boolean(patos),
+      true,
       evidenceComplete,
       Boolean(level),
       Boolean(level) &&
@@ -993,15 +1008,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (
       procedure &&
-      !patos
-    ) {
-      guidance =
-        "Complete the PATOS determination.";
-    }
-
-    if (
-      procedure &&
-      patos &&
       !evidenceComplete
     ) {
       guidance =

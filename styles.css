@@ -1014,3 +1014,41 @@ footer {
     min-width:0
   }
 }
+
+.patos-calculator {
+  padding:14px;
+  border:1px solid #b9dacf;
+  border-radius:9px;
+  background:var(--green-050);
+}
+
+.patos-calculator .label-with-help {
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+}
+
+.patos-calculator .field-label {
+  margin-bottom:0;
+}
+
+.patos-result {
+  display:inline-flex;
+  align-items:center;
+  min-height:31px;
+  padding:5px 11px;
+  border:1px solid #cfd5df;
+  border-radius:999px;
+  background:#fff;
+  color:#475467;
+  font-size:.82rem;
+  font-weight:900;
+  letter-spacing:.04em;
+}
+
+.patos-result.is-yes {
+  border-color:#166a5a;
+  background:var(--green-800);
+  color:#fff;
+}
