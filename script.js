@@ -220,6 +220,138 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
+  const keywordDetectorDialog = $("#keywordDetectorDialog");
+  const openKeywordDetector = $("#openKeywordDetector");
+  const closeKeywordDetector = $("#closeKeywordDetector");
+  const operativeNarrative = $("#operativeNarrative");
+  const keywordDetectorResults = $("#keywordDetectorResults");
+
+  const KEYWORD_RULES = [
+    ["patosKeyword", "Abscess", /\babscess(?:es)?\b/i, "abscess"],
+    ["patosKeyword", "Infection", /\binfect(?:ion|ed|ious)\b/i, "infection"],
+    ["patosKeyword", "Phlegmon", /\bphlegmon\b/i, "phlegmon"],
+    ["patosKeyword", "Feculent peritonitis", /\bfeculent\s+peritonitis\b/i, "feculent peritonitis"],
+    ["patosKeyword", "Purulence or pus", /\b(?:purulen\w*|pus)\b/i, "purulence or pus"],
+    ["patosKeyword", "Purulence or pus", /\b(?:green|yellow)\b[\s\S]{0,40}\b(?:milky|thick|creamy|opaque|viscous)\b|\b(?:milky|thick|creamy|opaque|viscous)\b[\s\S]{0,40}\b(?:green|yellow)\b/i, "qualifying purulence color and consistency"],
+    ["patosKeyword", "Ruptured or perforated appendix", /\b(?:ruptured|perforated)\s+(?:appendix|appendiceal)\b/i, "ruptured or perforated appendix"],
+    ["patosKeyword", "Osteomyelitis", /\bosteomyelitis\b/i, "osteomyelitis"],
+    ["patosKeyword", "Sinus tract", /\bsinus\s+tract\b/i, "sinus tract"],
+    ["evidence", "Purulent drainage", /\b(?:purulent|purulence|pus)\b[\s\S]{0,50}\bdrainage\b|\bdrainage\b[\s\S]{0,50}\b(?:purulent|purulence|pus)\b/i, "purulent drainage"],
+    ["evidence", "Organism identified by culture or non-culture test", /\b(?:culture|cultures|specimen|specimens)\b[\s\S]{0,60}\b(?:positive|grew|growth|isolated|identified)\b|\b(?:positive|grew|growth|isolated|identified)\b[\s\S]{0,60}\b(?:culture|cultures|specimen|specimens)\b/i, "positive culture or organism identification"],
+    ["cultureCollected", "Yes", /\b(?:culture|cultures|specimen|specimens)\b/i, "culture or specimen collected"],
+    ["evidence", "Incision deliberately opened, re-accessed, or aspirated", /\b(?:incision|wound)\b[\s\S]{0,45}\b(?:opened|re-?accessed|aspirat\w*)\b|\b(?:opened|re-?accessed|aspirat\w*)\b[\s\S]{0,45}\b(?:incision|wound)\b/i, "incision opened, re-accessed, or aspirated"],
+    ["evidence", "Spontaneous dehiscence", /\b(?:spontaneous\w*\s+)?dehisc(?:ence|ed)\b/i, "dehiscence"],
+    ["evidence", "Gross anatomic evidence of infection", /\b(?:gross|direct)\s+(?:anatomic|anatomical|operative)\s+evidence\b/i, "gross anatomic evidence"],
+    ["evidence", "Histopathologic evidence of infection", /\b(?:histopathology|histopathologic|pathology)\b/i, "histopathology"],
+    ["evidence", "Imaging evidence definitive or equivocal for infection", /\b(?:ct|mri|ultrasound|imaging|radiograph\w*)\b[\s\S]{0,80}\b(?:infection|abscess|collection)\b/i, "imaging evidence"],
+    ["evidence", "Physician or physician designee diagnosis", /\b(?:diagnos(?:is|ed)|assessment)\b[\s\S]{0,60}\b(?:ssi|surgical site infection|wound infection)\b/i, "SSI diagnosis"],
+    ["evidence", "Antibiotic or antifungal therapy initiated or continued", /\b(?:antibiotic|antifungal|antimicrobial)\w*\b/i, "antibiotic or antifungal therapy"],
+    ["symptom", "Fever greater than 38°C", /\b(?:fever|febrile|temperature)\b[\s\S]{0,20}\b(?:3[89](?:\.\d+)?|[4-9]\d(?:\.\d+)?)\s*(?:°?\s*c|celsius)\b|\b(?:3[89](?:\.\d+)?|[4-9]\d(?:\.\d+)?)\s*(?:°?\s*c|celsius)\b[\s\S]{0,20}\b(?:fever|febrile|temperature)\b/i, "fever greater than 38°C"],
+    ["symptom", "New or worsening localized pain or tenderness", /\b(?:new|worsening|increased)?\s*(?:localized\s+)?(?:pain|tenderness)\b/i, "pain or tenderness"],
+    ["symptom", "Localized swelling", /\b(?:localized\s+)?swelling\b/i, "swelling"],
+    ["symptom", "Erythema", /\b(?:erythema|erythematous|redness)\b/i, "erythema or redness"],
+    ["symptom", "Heat", /\b(?:warmth|hot\s+to\s+touch|heat)\b/i, "heat or warmth"],
+    ["symptom", "Drainage", /\bdrainage\b/i, "drainage"],
+    ["symptom", "Joint effusion", /\b(?:joint\s+)?effusion\b/i, "joint effusion"],
+    ["symptom", "Limitation of motion", /\b(?:limited|decreased|reduced)\s+(?:range\s+of\s+)?motion\b/i, "limited motion"],
+    ["symptom", "Nausea", /\bnausea\b/i, "nausea"],
+    ["symptom", "Vomiting", /\b(?:vomiting|emesis)\b/i, "vomiting"],
+    ["symptom", "Abdominal pain or tenderness", /\b(?:abdominal|abdomen)\b[\s\S]{0,30}\b(?:pain|tenderness)\b|\b(?:pain|tenderness)\b[\s\S]{0,30}\b(?:abdominal|abdomen)\b/i, "abdominal pain or tenderness"]
+  ];
+
+  function selectDetectedField(name, value) {
+    const field = $(`input[name="${name}"][value="${value}"]`);
+
+    if (!field || field.checked) {
+      return false;
+    }
+
+    field.checked = true;
+    return true;
+  }
+
+  function detectKeywords() {
+    const narrative = operativeNarrative?.value.trim() || "";
+
+    if (!keywordDetectorResults) {
+      return;
+    }
+
+    if (!narrative) {
+      keywordDetectorResults.textContent = "Paste an operative narrative before detecting keywords.";
+      operativeNarrative?.focus();
+      return;
+    }
+
+    const detected = [];
+    let added = 0;
+
+    KEYWORD_RULES.forEach(([name, value, pattern, label]) => {
+      if (!pattern.test(narrative)) {
+        return;
+      }
+
+      if (!detected.includes(label)) {
+        detected.push(label);
+      }
+
+      if (selectDetectedField(name, value)) {
+        added += 1;
+      }
+    });
+
+    updateConditionalFields();
+
+    if (!detected.length) {
+      keywordDetectorResults.innerHTML = "<strong>No matching terms found.</strong> Review the narrative manually and use the NHSN Manual to determine applicable fields.";
+      return;
+    }
+
+    keywordDetectorResults.innerHTML = `
+      <strong>${added ? `${added} field${added === 1 ? "" : "s"} added to the form.` : "All detected fields were already selected."}</strong>
+      <div>Detected terms:</div>
+      <ul>${detected.map(label => `<li>${escapeHtml(label)}</li>`).join("")}</ul>
+      <div>Confirm the context and NHSN eligibility of every selection before reporting.</div>
+    `;
+  }
+
+  if (keywordDetectorDialog && openKeywordDetector && closeKeywordDetector) {
+    const closeDetectorDialog = () => {
+      if (keywordDetectorDialog.open) {
+        keywordDetectorDialog.close();
+      }
+    };
+
+    openKeywordDetector.addEventListener("click", () => {
+      keywordDetectorDialog.showModal();
+      document.body.classList.add("manual-open");
+      operativeNarrative?.focus();
+    });
+
+    closeKeywordDetector.addEventListener("click", closeDetectorDialog);
+    $("#detectKeywords")?.addEventListener("click", detectKeywords);
+    $("#clearOperativeNarrative")?.addEventListener("click", () => {
+      if (operativeNarrative) {
+        operativeNarrative.value = "";
+        operativeNarrative.focus();
+      }
+      if (keywordDetectorResults) {
+        keywordDetectorResults.textContent = "Paste a narrative, then select Detect keywords.";
+      }
+    });
+
+    keywordDetectorDialog.addEventListener("click", event => {
+      if (event.target === keywordDetectorDialog) {
+        closeDetectorDialog();
+      }
+    });
+
+    keywordDetectorDialog.addEventListener("close", () => {
+      document.body.classList.remove("manual-open");
+      openKeywordDetector.focus();
+    });
+  }
+
   function selectedRadio(name) {
     const input = $(`input[name="${name}"]:checked`);
     const select = $(`select[name="${name}"]`);
