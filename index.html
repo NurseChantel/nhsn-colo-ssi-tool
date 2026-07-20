@@ -31,7 +31,18 @@
         </p>
       </div>
 
-      <div class="procedure-search">
+      <div class="header-tools">
+
+        <button
+          id="openManual"
+          class="manual-button"
+          type="button"
+          aria-haspopup="dialog"
+        >
+          NHSN Manual
+        </button>
+
+        <div class="procedure-search">
 
         <label class="sr-only" for="procedureSearch">
           Search procedure category
@@ -44,11 +55,13 @@
           autocomplete="off"
         >
 
-        <div
-          id="procedureSearchResults"
-          class="search-results hidden"
-          aria-live="polite"
-        ></div>
+          <div
+            id="procedureSearchResults"
+            class="search-results hidden"
+            aria-live="polite"
+          ></div>
+
+        </div>
 
       </div>
 
@@ -287,24 +300,6 @@
           </div>
 
         </div>
-
-
-        <details class="reference-toggle">
-
-          <summary>
-            Show / hide PATOS graphic
-          </summary>
-
-          <div class="graphic-wrap">
-
-            <img
-              src="patos-guide.png"
-              alt="PATOS Guide"
-            >
-
-          </div>
-
-        </details>
 
 
         <div class="field-group patos-calculator">
@@ -2339,6 +2334,41 @@
     class="tooltip"
     role="tooltip"
   ></div>
+
+
+  <dialog
+    id="manualDialog"
+    class="manual-dialog"
+    aria-labelledby="manualDialogTitle"
+  >
+
+    <div class="manual-dialog-header">
+
+      <h2 id="manualDialogTitle">
+        NHSN Manual
+      </h2>
+
+      <button
+        id="closeManual"
+        class="manual-close"
+        type="button"
+        aria-label="Close NHSN Manual"
+      >
+        Close
+      </button>
+
+    </div>
+
+    <div class="manual-dialog-content">
+
+      <img
+        src="patos-guide.png"
+        alt="PATOS guide from the NHSN Manual"
+      >
+
+    </div>
+
+  </dialog>
 
 
   <script src="script.js"></script>
