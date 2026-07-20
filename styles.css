@@ -1144,3 +1144,97 @@ footer {
   font-size:.89rem;
   line-height:1.4;
 }
+
+/* NHSN definition affordances appear on every review control. */
+.check-card:not(.purulence-option) {
+  padding-right:34px;
+}
+
+.radio-card > span {
+  padding-right:38px;
+}
+.check-card .definition-trigger,
+.radio-card .definition-trigger {
+  position:absolute;
+  top:50%;
+  right:8px;
+  transform:translateY(-50%);
+}
+
+.field-group > .definition-trigger,
+fieldset > .definition-trigger,
+label.field-label > .definition-trigger {
+  margin-left:7px;
+  vertical-align:middle;
+}
+
+.definition-trigger {
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  width:19px;
+  height:19px;
+  padding:0;
+  border:1px solid currentColor;
+  border-radius:50%;
+  background:var(--white);
+  color:var(--green-800);
+  font-size:12px;
+  font-weight:900;
+  line-height:1;
+  cursor:help;
+}
+
+.check-card:has(input:checked) .definition-trigger,
+.radio-card:has(input:checked) .definition-trigger {
+  color:var(--green-900);
+}
+
+.definition-trigger:hover,
+.definition-trigger:focus-visible {
+  outline:none;
+  background:var(--green-100);
+  box-shadow:0 0 0 3px rgba(19,132,110,.18);
+}
+
+.tooltip {
+  position:fixed;
+  z-index:200;
+  width:min(360px,calc(100vw - 32px));
+  padding:10px 12px;
+  transform:translateX(-50%);
+  border:1px solid #98cfc1;
+  border-radius:8px;
+  background:var(--green-900);
+  color:var(--white);
+  box-shadow:var(--shadow);
+  font-size:12px;
+  line-height:1.45;
+  opacity:0;
+  visibility:hidden;
+  pointer-events:none;
+  transition:opacity .14s ease,visibility .14s ease;
+}
+
+.tooltip.visible {
+  opacity:1;
+  visibility:visible;
+}
+
+.tooltip strong,
+.tooltip span,
+.tooltip small {
+  display:block;
+}
+
+.tooltip strong {
+  margin-bottom:3px;
+  font-size:12px;
+}
+
+.tooltip small {
+  margin-top:7px;
+  color:#c8e8df;
+  font-size:10px;
+  line-height:1.3;
+}
