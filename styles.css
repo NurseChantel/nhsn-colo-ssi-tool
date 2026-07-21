@@ -124,32 +124,36 @@ h1 {
 
 .header-tools {
   display:flex;
-  gap:12px;
+  gap:44px;
   justify-content:flex-end;
   align-items:center
 }
 
 .keyword-detector-button {
-  min-height:48px;
-  padding:8px 12px;
-  border:1px solid var(--green-700);
-  border-radius:8px;
-  background:var(--green-050);
-  color:var(--green-900);
-  box-shadow:0 2px 5px rgba(31,42,55,.08);
-  font-size:.78rem;
+  min-width:132px;
+  min-height:64px;
+  padding:10px 16px;
+  border:1px solid #1e3a8a;
+  border-radius:14px;
+  background:linear-gradient(180deg,#60a5fa 0%,#3b82f6 46%,#2563eb 100%);
+  color:var(--white);
+  box-shadow:inset 0 2px 0 rgba(255,255,255,.45),inset 0 -4px 0 rgba(30,64,175,.45),0 7px 0 #1e40af,0 13px 18px rgba(30,64,175,.28);
+  font-size:.8rem;
   font-weight:900;
-  letter-spacing:.02em;
+  letter-spacing:.06em;
   line-height:1.1;
   text-align:center;
   text-transform:uppercase;
+  transition:transform .18s ease,box-shadow .18s ease;
 }
 
 .keyword-detector-button:hover,.keyword-detector-button:focus-visible {
-  border-color:var(--green-900);
-  background:var(--green-100);
-  outline:none;
+  transform:translateY(-2px);
+  box-shadow:inset 0 2px 0 rgba(255,255,255,.5),inset 0 -4px 0 rgba(30,64,175,.45),0 9px 0 #1e40af,0 16px 21px rgba(30,64,175,.3);
+  outline:none
 }
+.keyword-detector-button:focus-visible { outline:3px solid #f0b429; outline-offset:4px }
+.keyword-detector-button:active { transform:translateY(6px); box-shadow:inset 0 3px 6px rgba(30,58,138,.45),0 1px 0 #1e40af,0 4px 7px rgba(30,64,175,.2) }
 
 .manual-button {
   position:relative; flex:0 0 84px; width:84px; min-height:58px; padding:7px 7px 7px 13px;
@@ -622,6 +626,7 @@ body.manual-open { overflow:hidden }
 
 .keyword-detector-dialog { width:min(720px,calc(100vw - 32px)); padding:0; overflow:hidden; border:0; border-radius:var(--radius); background:var(--white); box-shadow:0 20px 50px rgba(31,42,55,.28) }
 .keyword-detector-dialog::backdrop { background:rgba(25,34,45,.58) }
+.keyword-detector-phi-warning { margin:0; padding:8px 20px; border-bottom:1px solid #f0b5b5; background:#fff5f5; color:#b42318; font-size:.8rem; font-weight:900; letter-spacing:.04em; text-align:center }
 .keyword-detector-header { display:flex; align-items:flex-start; justify-content:space-between; gap:16px; padding:17px 20px; border-bottom:1px solid var(--line) }
 .keyword-detector-content { padding:20px }
 .detector-helper { margin-top:0; margin-bottom:12px }
@@ -629,6 +634,10 @@ body.manual-open { overflow:hidden }
 .keyword-detector-results { min-height:48px; margin-top:14px; padding:10px 12px; border:1px solid #b9dacf; border-radius:8px; background:var(--green-050); color:#475467; font-size:.88rem }
 .keyword-detector-results strong { color:var(--green-900) }
 .keyword-detector-results ul { margin:7px 0 0; padding-left:20px }
+.keyword-detector-confirmation { display:flex; align-items:center; flex-wrap:wrap; gap:8px; margin-top:12px; padding-top:10px; border-top:1px solid #b9dacf }
+.keyword-detector-confirmation p { flex:1 1 260px; margin:0; color:var(--ink); font-weight:750 }
+.add-detected-keywords-button { padding:7px 12px; border:1px solid var(--green-900); border-radius:7px; background:var(--green-800); color:var(--white); font-weight:800 }
+.add-detected-keywords-button:hover,.add-detected-keywords-button:focus-visible { background:var(--green-900); outline:3px solid rgba(19,132,110,.2); outline-offset:2px }
 .keyword-detector-footer { display:flex; align-items:center; justify-content:space-between; gap:16px; padding:12px 20px; border-top:1px solid var(--line); background:var(--green-050) }
 .keyword-detector-footer p { margin:0; color:#475467; font-size:.82rem }
 .keyword-detector-actions { display:flex; flex:0 0 auto; gap:8px }
