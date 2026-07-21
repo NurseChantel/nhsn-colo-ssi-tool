@@ -464,13 +464,6 @@ select {
   font-weight:800
 }
 
-.procedure-picker-button-hint,
-.procedure-option-copy small {
-  margin-top:1px;
-  color:var(--muted);
-  font-size:.78rem
-}
-
 .procedure-picker-chevron {
   width:10px;
   height:10px;

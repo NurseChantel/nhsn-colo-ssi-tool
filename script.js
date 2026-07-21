@@ -379,14 +379,11 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     const label = $(".procedure-picker-button-label", button);
-    const hint = $(".procedure-picker-button-hint", button);
 
     if (selectedOption) {
       label.textContent = selectedOption.querySelector("strong")?.textContent || "Choose an NHSN procedure";
-      hint.textContent = `${value} · ${selectedOption.querySelector("small")?.textContent || "NHSN procedure category"}`;
     } else {
       label.textContent = "Choose an NHSN procedure";
-      hint.textContent = "Organized clinical categories";
     }
   }
 
