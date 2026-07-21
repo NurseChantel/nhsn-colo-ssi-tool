@@ -225,6 +225,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const closeKeywordDetector = $("#closeKeywordDetector");
   const operativeNarrative = $("#operativeNarrative");
   const keywordDetectorResults = $("#keywordDetectorResults");
+  let pendingDetectedFields = [];
 
   const KEYWORD_RULES = [
     ["patosKeyword", "Abscess", /\babscess(?:es)?\b/i, "abscess"],
@@ -270,6 +271,25 @@ document.addEventListener("DOMContentLoaded", () => {
     return true;
   }
 
+  function applyDetectedFields() {
+    let added = 0;
+
+    pendingDetectedFields.forEach(({ name, value }) => {
+      if (selectDetectedField(name, value)) {
+        added += 1;
+      }
+    });
+
+    updateConditionalFields();
+
+    keywordDetectorResults.innerHTML = `
+      <strong>${added ? `${added} field${added === 1 ? "" : "s"} added to the form.` : "All detected fields were already selected."}</strong>
+      <div>Review each selected field against the narrative and current NHSN Manual before reporting.</div>
+    `;
+
+    pendingDetectedFields = [];
+  }
+
   function detectKeywords() {
     const narrative = operativeNarrative?.value.trim() || "";
 
@@ -284,7 +304,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     const detected = [];
-    let added = 0;
+    const matchingFields = [];
 
     KEYWORD_RULES.forEach(([name, value, pattern, label]) => {
       if (!pattern.test(narrative)) {
@@ -295,24 +315,34 @@ document.addEventListener("DOMContentLoaded", () => {
         detected.push(label);
       }
 
-      if (selectDetectedField(name, value)) {
-        added += 1;
+      if (!matchingFields.some(field => field.name === name && field.value === value)) {
+        matchingFields.push({ name, value });
       }
     });
 
-    updateConditionalFields();
-
     if (!detected.length) {
+      pendingDetectedFields = [];
       keywordDetectorResults.innerHTML = "<strong>No matching terms found.</strong> Review the narrative manually and use the NHSN Manual to determine applicable fields.";
       return;
     }
 
+    pendingDetectedFields = matchingFields;
     keywordDetectorResults.innerHTML = `
-      <strong>${added ? `${added} field${added === 1 ? "" : "s"} added to the form.` : "All detected fields were already selected."}</strong>
+      <strong>Detected terms found.</strong>
       <div>Detected terms:</div>
       <ul>${detected.map(label => `<li>${escapeHtml(label)}</li>`).join("")}</ul>
-      <div>Confirm the context and NHSN eligibility of every selection before reporting.</div>
+      <div class="keyword-detector-confirmation">
+        <p>Would you like to add these detected keywords to the matching fields throughout the form?</p>
+        <button id="addDetectedKeywords" class="add-detected-keywords-button" type="button">Yes, add to form</button>
+        <button id="dismissDetectedKeywords" class="manual-close" type="button">No, not now</button>
+      </div>
     `;
+
+    $("#addDetectedKeywords")?.addEventListener("click", applyDetectedFields);
+    $("#dismissDetectedKeywords")?.addEventListener("click", () => {
+      pendingDetectedFields = [];
+      keywordDetectorResults.innerHTML = "<strong>No fields were added.</strong> You can update the narrative and detect keywords again when ready.";
+    });
   }
 
   if (keywordDetectorDialog && openKeywordDetector && closeKeywordDetector) {
@@ -331,6 +361,7 @@ document.addEventListener("DOMContentLoaded", () => {
     closeKeywordDetector.addEventListener("click", closeDetectorDialog);
     $("#detectKeywords")?.addEventListener("click", detectKeywords);
     $("#clearOperativeNarrative")?.addEventListener("click", () => {
+      pendingDetectedFields = [];
       if (operativeNarrative) {
         operativeNarrative.value = "";
         operativeNarrative.focus();
