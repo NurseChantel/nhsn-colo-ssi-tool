@@ -136,12 +136,21 @@ h1 {
 
 .header-tools {
   display:flex;
-  gap:12px;
+  gap:44px;
   justify-content:flex-end;
   align-items:center
 }
 
 .keyword-detector-button {
+  min-width:132px;
+  min-height:64px;
+  padding:10px 16px;
+  border:1px solid #1e3a8a;
+  border-radius:14px;
+  background:linear-gradient(180deg,#60a5fa 0%,#3b82f6 46%,#2563eb 100%);
+  color:var(--white);
+  box-shadow:inset 0 2px 0 rgba(255,255,255,.45),inset 0 -4px 0 rgba(30,64,175,.45),0 7px 0 #1e40af,0 13px 18px rgba(30,64,175,.28);
+  font-size:.8rem;
   position:relative;
   min-width:112px;
   min-height:58px;
@@ -167,6 +176,12 @@ h1 {
 .keyword-detector-button::before { position:absolute; z-index:-1; top:3px; right:-5px; bottom:3px; width:5px; border-radius:0 4px 4px 0; background:repeating-linear-gradient(to bottom,#f5f0e4 0 1px,#d9d0bf 1px 2px); box-shadow:1px 0 1px rgba(0,0,0,.15); content:"" }
 .keyword-detector-button::after { position:absolute; top:2px; bottom:2px; left:3px; width:7px; border-radius:3px 0 0 3px; background:linear-gradient(90deg,#043b35,#0b6759 65%,rgba(255,255,255,.2)); box-shadow:inset -1px 0 rgba(255,255,255,.22); content:"" }
 .keyword-detector-button:hover,.keyword-detector-button:focus-visible {
+  transform:translateY(-2px);
+  box-shadow:inset 0 2px 0 rgba(255,255,255,.5),inset 0 -4px 0 rgba(30,64,175,.45),0 9px 0 #1e40af,0 16px 21px rgba(30,64,175,.3);
+  outline:none
+}
+.keyword-detector-button:focus-visible { outline:3px solid #f0b429; outline-offset:4px }
+.keyword-detector-button:active { transform:translateY(6px); box-shadow:inset 0 3px 6px rgba(30,58,138,.45),0 1px 0 #1e40af,0 4px 7px rgba(30,64,175,.2) }
   transform:perspective(360px) translateY(-3px) rotateY(-10deg) rotateZ(-2deg);
   box-shadow:inset 1px 1px 0 rgba(255,255,255,.25),inset -4px -4px 7px rgba(0,0,0,.16),4px 7px 0 #d8d0bc,9px 13px 17px rgba(20,43,43,.28);
   outline:none
@@ -645,6 +660,7 @@ body.manual-open { overflow:hidden }
 
 .keyword-detector-dialog { width:min(720px,calc(100vw - 32px)); padding:0; overflow:hidden; border:0; border-radius:var(--radius); background:var(--white); box-shadow:0 20px 50px rgba(31,42,55,.28) }
 .keyword-detector-dialog::backdrop { background:rgba(25,34,45,.58) }
+.keyword-detector-phi-warning { margin:0; padding:8px 20px; border-bottom:1px solid #f0b5b5; background:#fff5f5; color:#b42318; font-size:.8rem; font-weight:900; letter-spacing:.04em; text-align:center }
 .keyword-detector-header { display:flex; align-items:flex-start; justify-content:space-between; gap:16px; padding:17px 20px; border-bottom:1px solid var(--line) }
 .keyword-detector-content { padding:20px }
 .detector-helper { margin-top:0; margin-bottom:12px }
