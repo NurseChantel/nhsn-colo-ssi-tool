@@ -886,6 +886,74 @@ document.addEventListener("DOMContentLoaded", () => {
     updateConditionalFields();
   }
 
+  /*
+   * NHSN excludes these organisms from meeting an SSI criterion.  The
+   * species aliases below make the input feedback useful when a laboratory
+   * result uses a common abbreviated name rather than "coagulase-negative".
+   */
+  const SSI_ORGANISM_EXCLUSIONS = [
+    {
+      label: "coagulase-negative Staphylococcus",
+      pattern: /\b(?:coagulase[-\s]*negative|coag[-\s]*negative|cons)\s+(?:staph(?:ylococcus)?\.?|staphylococci)\b|\b(?:staph(?:ylococcus)?\.?|staphylococci)\s+(?:coagulase[-\s]*negative|coag[-\s]*negative)\b/i
+    },
+    {
+      label: "Staphylococcus epidermidis (a coagulase-negative Staphylococcus)",
+      pattern: /\b(?:staph(?:ylococcus)?\.?|s\.)\s*epidermidis\b/i
+    },
+    {
+      label: "Staphylococcus hominis (a coagulase-negative Staphylococcus)",
+      pattern: /\b(?:staph(?:ylococcus)?\.?|s\.)\s*hominis\b/i
+    },
+    {
+      label: "Staphylococcus capitis (a coagulase-negative Staphylococcus)",
+      pattern: /\b(?:staph(?:ylococcus)?\.?|s\.)\s*capitis\b/i
+    },
+    {
+      label: "Staphylococcus haemolyticus (a coagulase-negative Staphylococcus)",
+      pattern: /\b(?:staph(?:ylococcus)?\.?|s\.)\s*haemolyticus\b/i
+    },
+    {
+      label: "Staphylococcus warneri (a coagulase-negative Staphylococcus)",
+      pattern: /\b(?:staph(?:ylococcus)?\.?|s\.)\s*warneri\b/i
+    },
+    {
+      label: "Micrococcus",
+      pattern: /\bmicrococcus\b/i
+    },
+    {
+      label: "Cutibacterium acnes (formerly Propionibacterium acnes)",
+      pattern: /\b(?:cutibacterium|propionibacterium)\s+acnes\b/i
+    }
+  ];
+
+  function updateOrganismEligibility() {
+    const input = $("#organisms");
+    const status = $("#organismEligibility");
+
+    if (!input || !status) return;
+
+    const organism = input.value.trim();
+    status.className = "organism-eligibility";
+
+    if (!organism) {
+      status.textContent = "Enter an organism to review NHSN SSI microbiology eligibility.";
+      return;
+    }
+
+    const exclusions = SSI_ORGANISM_EXCLUSIONS
+      .filter(({ pattern }) => pattern.test(organism))
+      .map(({ label }) => label);
+
+    if (exclusions.length) {
+      status.classList.add("is-excluded");
+      status.textContent = `Not eligible to meet an NHSN SSI criterion: ${exclusions.join("; ")}. Any other organism entered may be eligible only if the specimen and all selected SSI-criterion requirements are met.`;
+      return;
+    }
+
+    status.classList.add("is-potentially-eligible");
+    status.textContent = "Potentially eligible for an NHSN SSI microbiology pathway. Confirm it was identified from an aseptically obtained specimen from the applicable incision, tissue, fluid, or organ/space by a test performed for clinical diagnosis or treatment, and that all selected SSI-criterion requirements are met.";
+  }
+
   function updateConditionalFields() {
     const culture =
       selectedRadio("cultureCollected");
@@ -920,6 +988,7 @@ document.addEventListener("DOMContentLoaded", () => {
     calculateSurveillance();
     updatePatosResult();
     updateProgress();
+    updateOrganismEligibility();
     updateCriteriaGuidance();
   }
 
@@ -2137,7 +2206,10 @@ document.addEventListener("DOMContentLoaded", () => {
   $("#organisms")
     ?.addEventListener(
       "input",
-      updateCriteriaGuidance
+      () => {
+        updateOrganismEligibility();
+        updateCriteriaGuidance();
+      }
     );
 
   $("#calculateButton")
@@ -2217,7 +2289,7 @@ document.addEventListener("DOMContentLoaded", () => {
     "Physician or physician designee diagnosis": "A diagnosis documented by a physician or physician designee. It is a qualifying pathway for superficial-incisional SSI, but is not by itself a general substitute for every NHSN SSI criterion.",
     "Antibiotic or antifungal therapy initiated or continued": "For the deliberate-opening or dehiscence pathways, antimicrobial therapy must be started or continued within the NHSN-specified two-calendar-day timeframe and continued for at least two calendar days. This does not replace the other pathway requirements.",
     "cultureCollected": "Record whether a culture or other eligible microbiologic test was collected from the relevant site. A collected test is not automatically qualifying; its source, collection method, and result must fit the selected NHSN criterion.",
-    "organisms": "List the organism(s) identified from the relevant specimen. Record the source separately in the clinical record because NHSN qualification depends on the source, collection method, and selected criterion.",
+    "organisms": "An organism is potentially eligible only when it is identified from an aseptically obtained specimen from the applicable incision, tissue, fluid, or organ/space by a microbiologic test performed for clinical diagnosis or treatment, and all selected SSI-criterion requirements are met. Exclusions: coagulase-negative Staphylococci, Micrococcus, and Cutibacterium acnes (formerly Propionibacterium acnes) do not meet NHSN SSI criteria.",
     "pjiEvidence": "Review each PJI element against the NHSN PJI definition. PJI can be met through two matching positive periprosthetic specimens, a sinus tract communicating with the joint, purulence or other gross joint evidence, or the required combination of minor criteria.",
     "Two positive periprosthetic specimens with a matching organism": "Two positive periprosthetic tissue or fluid specimens with at least one matching organism are a qualifying PJI pathway.",
     "Sinus tract communicating with the joint": "A sinus tract that communicates with the joint is a qualifying PJI pathway.",

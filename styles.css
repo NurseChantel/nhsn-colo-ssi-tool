@@ -1428,3 +1428,19 @@ label.field-label > .definition-trigger {
 }
 
 @media(prefers-reduced-motion:reduce) { .manual-button { transition:none } .manual-button:hover,.manual-button:active { transform:none } }
+
+.organism-eligibility {
+  margin:8px 0 0;
+  color:var(--muted);
+  font-size:.86rem;
+  line-height:1.4;
+}
+
+.organism-eligibility.is-potentially-eligible {
+  color:var(--green-900);
+}
+
+.organism-eligibility.is-excluded {
+  color:var(--danger);
+  font-weight:700;
+}
