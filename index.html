@@ -365,7 +365,7 @@
           <div class="label-with-help">
 
             <span class="field-label">
-              PATOS symptoms
+              PATOS findings
             </span>
 
             <output
@@ -378,8 +378,8 @@
 
           </div>
 
-          <p class="helper-text">
-            Select every applicable finding documented at the index procedure. The complete PATOS finding list is available for every surgery type, and PATOS is automatically YES when one or more findings are selected.
+          <p id="patosHelperText" class="helper-text" aria-live="polite">
+            Select an NHSN procedure category to view its eligible PATOS findings.
           </p>
 
 
@@ -388,7 +388,7 @@
             data-group="patosKeywords"
           >
 
-            <label class="check-card">
+            <label class="check-card" data-patos-procedures="COLO HYST CBGB CBGC CRAN CSEC FUSN HPRO KPRO">
 
               <input
                 type="checkbox"
@@ -403,7 +403,7 @@
             </label>
 
 
-            <label class="check-card">
+            <label class="check-card" data-patos-procedures="COLO HYST CBGB CBGC CRAN CSEC FUSN HPRO KPRO">
 
               <input
                 type="checkbox"
@@ -418,7 +418,7 @@
             </label>
 
 
-            <label class="check-card">
+            <label class="check-card" data-patos-procedures="COLO">
 
               <input
                 type="checkbox"
@@ -433,7 +433,7 @@
             </label>
 
 
-            <label class="check-card">
+            <label class="check-card" data-patos-procedures="COLO">
 
               <input
                 type="checkbox"
@@ -448,7 +448,7 @@
             </label>
 
 
-            <label class="check-card purulence-option">
+            <label class="check-card purulence-option" data-patos-procedures="COLO HYST CBGB CBGC CRAN CSEC FUSN HPRO KPRO">
 
               <input
                 type="checkbox"
@@ -559,7 +559,7 @@
             </label>
 
 
-            <label class="check-card">
+            <label class="check-card" data-patos-procedures="COLO">
 
               <input
                 type="checkbox"
@@ -574,7 +574,7 @@
             </label>
 
 
-            <label class="check-card">
+            <label class="check-card" data-patos-procedures="FUSN HPRO KPRO">
 
               <input
                 type="checkbox"
@@ -589,7 +589,7 @@
             </label>
 
 
-            <label class="check-card">
+            <label class="check-card" data-patos-procedures="HPRO KPRO">
 
               <input
                 type="checkbox"

@@ -263,7 +263,7 @@ document.addEventListener("DOMContentLoaded", () => {
   function selectDetectedField(name, value) {
     const field = $(`input[name="${name}"][value="${value}"]`);
 
-    if (!field || field.checked) {
+    if (!field || field.disabled || field.checked) {
       return false;
     }
 
@@ -492,6 +492,35 @@ document.addEventListener("DOMContentLoaded", () => {
     return selectedChecks("patosKeyword").length > 0
       ? "Yes"
       : "No";
+  }
+
+  function updatePatosFindings(procedure) {
+    const helperText = $("#patosHelperText");
+    const procedureName = PROCEDURES[procedure]?.name;
+
+    $$("[data-patos-procedures]").forEach(card => {
+      const input = $("input[name=\"patosKeyword\"]", card);
+      const isEligible = Boolean(procedure) &&
+        card.dataset.patosProcedures.split(" ").includes(procedure);
+
+      card.classList.toggle("hidden", !isEligible);
+
+      if (input) {
+        input.disabled = !isEligible;
+
+        if (!isEligible) {
+          input.checked = false;
+        }
+      }
+    });
+
+    if (!helperText) {
+      return;
+    }
+
+    helperText.textContent = procedureName
+      ? `Select every applicable ${procedure} (${procedureName}) finding documented at the index procedure. PATOS is automatically YES when one or more eligible findings are selected.`
+      : "Select an NHSN procedure category to view its eligible PATOS findings.";
   }
 
   function updatePatosResult() {
@@ -845,6 +874,8 @@ document.addEventListener("DOMContentLoaded", () => {
         !jointProcedure
       );
     });
+
+    updatePatosFindings(procedure);
 
     const coloSiteOptions =
       $("#coloSiteOptions");
@@ -1409,6 +1440,8 @@ document.addEventListener("DOMContentLoaded", () => {
     $("#jointEvidenceCards")
       ?.classList.add("hidden");
 
+    updatePatosFindings("");
+
     updateConditionalFields();
 
     window.scrollTo({
@@ -1455,6 +1488,7 @@ document.addEventListener("DOMContentLoaded", () => {
       $("#coloEvidenceCards")?.classList.remove("hidden");
       $("#jointEvidenceCards")?.classList.add("hidden");
       $("#siteSpecificNote").textContent = "";
+      updatePatosFindings("");
     }
 
     updateConditionalFields();
@@ -2427,6 +2461,7 @@ document.addEventListener("DOMContentLoaded", () => {
   setupProcedurePicker();
   setupDefinitionTooltips();
   setupTabs();
+  updatePatosFindings(selectedRadio("procedureCategory"));
   updateConditionalFields();
   calculateSurveillance();
   updateProgress();
