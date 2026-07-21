@@ -53,6 +53,18 @@ button {
   backdrop-filter:blur(10px)
 }
 
+.phi-warning {
+  margin:0;
+  padding:7px 24px;
+  border-bottom:1px solid #f0b5b5;
+  background:#fff5f5;
+  color:#b42318;
+  font-size:.8rem;
+  font-weight:900;
+  letter-spacing:.04em;
+  text-align:center;
+}
+
 .header-inner {
   max-width:1380px;
   margin:0 auto;
@@ -138,15 +150,30 @@ h1 {
   background:linear-gradient(180deg,#4b9df2 0%,#2779cc 52%,#1762ad 100%);
   color:var(--white);
   box-shadow:inset 0 1px 0 rgba(255,255,255,.35),inset 0 -3px 0 rgba(6,50,100,.3),0 5px 0 #104b89,0 10px 15px rgba(24,72,122,.25);
+  position:relative;
+  min-width:112px;
+  min-height:58px;
+  padding:9px 13px 9px 17px;
+  isolation:isolate;
+  overflow:visible;
+  border:1px solid #06483f;
+  border-radius:5px 9px 9px 5px;
+  background:linear-gradient(135deg,#1c8d78 0%,#0d6859 52%,#074840 100%);
+  color:var(--white);
+  box-shadow:inset 1px 1px 0 rgba(255,255,255,.25),inset -4px -4px 7px rgba(0,0,0,.16),4px 5px 0 #d8d0bc,7px 9px 12px rgba(20,43,43,.25);
   font-size:.76rem;
   font-weight:900;
   letter-spacing:.06em;
   line-height:1.1;
   text-align:center;
   text-transform:uppercase;
+  transform:perspective(360px) rotateY(-7deg) rotateZ(-1deg);
+  transform-origin:left center;
   transition:transform .18s ease,box-shadow .18s ease;
 }
 
+.keyword-detector-button::before { position:absolute; z-index:-1; top:3px; right:-5px; bottom:3px; width:5px; border-radius:0 4px 4px 0; background:repeating-linear-gradient(to bottom,#f5f0e4 0 1px,#d9d0bf 1px 2px); box-shadow:1px 0 1px rgba(0,0,0,.15); content:"" }
+.keyword-detector-button::after { position:absolute; top:2px; bottom:2px; left:3px; width:7px; border-radius:3px 0 0 3px; background:linear-gradient(90deg,#043b35,#0b6759 65%,rgba(255,255,255,.2)); box-shadow:inset -1px 0 rgba(255,255,255,.22); content:"" }
 .keyword-detector-button:hover,.keyword-detector-button:focus-visible {
   transform:translateY(-2px);
   box-shadow:inset 0 1px 0 rgba(255,255,255,.4),inset 0 -3px 0 rgba(6,50,100,.3),0 7px 0 #104b89,0 13px 18px rgba(24,72,122,.28);
@@ -154,6 +181,12 @@ h1 {
 }
 .keyword-detector-button:focus-visible { outline:3px solid #f0b429; outline-offset:4px }
 .keyword-detector-button:active { transform:translateY(4px); box-shadow:inset 0 2px 5px rgba(5,40,85,.35),0 1px 0 #104b89,0 4px 7px rgba(24,72,122,.2) }
+  transform:perspective(360px) translateY(-3px) rotateY(-10deg) rotateZ(-2deg);
+  box-shadow:inset 1px 1px 0 rgba(255,255,255,.25),inset -4px -4px 7px rgba(0,0,0,.16),4px 7px 0 #d8d0bc,9px 13px 17px rgba(20,43,43,.28);
+  outline:none
+}
+.keyword-detector-button:focus-visible { outline:3px solid #f0b429; outline-offset:4px }
+.keyword-detector-button:active { transform:perspective(360px) translateY(1px) rotateY(-4deg); box-shadow:inset 1px 2px 5px rgba(0,0,0,.28),3px 3px 0 #d8d0bc,5px 6px 8px rgba(20,43,43,.24) }
 
 .manual-button {
   position:relative; flex:0 0 84px; width:84px; min-height:58px; padding:7px 7px 7px 13px;
