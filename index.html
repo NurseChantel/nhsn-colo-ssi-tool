@@ -14,6 +14,10 @@
 
   <header class="app-header">
 
+    <p class="phi-warning" role="alert">
+      NOT PHI PROTECTED... YET — Do not enter protected health information.
+    </p>
+
     <div class="header-inner">
 
       <div>
@@ -2494,7 +2498,7 @@
         <p class="manual-dialog-kicker">REVIEW ASSISTANT</p>
         <h2 id="keywordDetectorTitle">Keyword detector</h2>
         <p id="keywordDetectorDescription" class="manual-dialog-description">
-          Paste operative notes to identify documented terms and preselect related review fields.
+          Paste operative notes to identify documented terms throughout the review form. You will be asked before any fields are added.
         </p>
       </div>
 
@@ -2516,7 +2520,7 @@
     </div>
 
     <div class="keyword-detector-footer">
-      <p>Detected selections are added to the form; existing selections are not removed.</p>
+      <p>Detected selections are never added until you confirm. Existing selections are not removed.</p>
       <div class="keyword-detector-actions">
         <button id="clearOperativeNarrative" class="manual-close" type="button">Clear narrative</button>
         <button id="detectKeywords" class="detect-keywords-button" type="button">Detect keywords</button>
