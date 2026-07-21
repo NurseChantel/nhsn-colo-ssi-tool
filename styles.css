@@ -1471,21 +1471,13 @@ label.field-label > .definition-trigger {
 }
 
 .tooltip strong,
-.tooltip span,
-.tooltip small {
+.tooltip span {
   display:block;
 }
 
 .tooltip strong {
   margin-bottom:3px;
   font-size:12px;
-}
-
-.tooltip small {
-  margin-top:7px;
-  color:#c8e8df;
-  font-size:10px;
-  line-height:1.3;
 }
 
 @media(prefers-reduced-motion:reduce) { .manual-button { transition:none } .manual-button:hover,.manual-button:active { transform:none } }

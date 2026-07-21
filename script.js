@@ -2440,9 +2440,7 @@ document.addEventListener("DOMContentLoaded", () => {
         title.textContent = `NHSN definition: ${definitionLabelFor(control)}`;
         const content = document.createElement("span");
         content.textContent = definitionFor(control);
-        const source = document.createElement("small");
-        source.textContent = "Based on the NHSN Patient Safety Component Manual; verify the current edition.";
-        tooltip.replaceChildren(title, content, source);
+        tooltip.replaceChildren(title, content);
         tooltip.classList.add("visible");
         const rect = trigger.getBoundingClientRect();
         tooltip.style.top = `${Math.min(window.innerHeight - 16, rect.bottom + 10)}px`;
