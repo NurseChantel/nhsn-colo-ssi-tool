@@ -142,30 +142,66 @@ h1 {
 }
 
 .keyword-detector-button {
-  min-width:132px;
-  min-height:64px;
-  padding:10px 16px;
-  border:1px solid #1e3a8a;
-  border-radius:14px;
-  background:linear-gradient(180deg,#60a5fa 0%,#3b82f6 46%,#2563eb 100%);
-  color:var(--white);
-  box-shadow:inset 0 2px 0 rgba(255,255,255,.45),inset 0 -4px 0 rgba(30,64,175,.45),0 7px 0 #1e40af,0 13px 18px rgba(30,64,175,.28);
-  font-size:.8rem;
-  font-weight:900;
-  letter-spacing:.06em;
-  line-height:1.1;
-  text-align:center;
-  text-transform:uppercase;
-  transition:transform .18s ease,box-shadow .18s ease;
+    min-width: 105px;
+    min-height: 46px;
+    padding: 6px 12px;
+
+    border: 1px solid #1e3a8a;
+    border-radius: 10px;
+
+    background: linear-gradient(
+        180deg,
+        #60a5fa 0%,
+        #3b82f6 46%,
+        #2563eb 100%
+    );
+
+    color: var(--white);
+
+    box-shadow:
+        inset 0 2px 0 rgba(255,255,255,.45),
+        inset 0 -3px 0 rgba(30,64,175,.45),
+        0 5px 0 #315B8F,
+        0 9px 14px rgba(30,64,175,.28);
+
+    font-size: .68rem;
+    font-weight: 900;
+    letter-spacing: .04em;
+    line-height: 1.1;
+    text-align: center;
+    text-transform: uppercase;
+
+    transition:
+        transform .18s ease,
+        box-shadow .18s ease;
 }
 
-.keyword-detector-button:hover,.keyword-detector-button:focus-visible {
-  transform:translateY(-2px);
-  box-shadow:inset 0 2px 0 rgba(255,255,255,.5),inset 0 -4px 0 rgba(30,64,175,.45),0 9px 0 #1e40af,0 16px 21px rgba(30,64,175,.3);
-  outline:none
+.keyword-detector-button:hover,
+.keyword-detector-button:focus-visible {
+    transform: translateY(-2px);
+
+    box-shadow:
+        inset 0 2px 0 rgba(255,255,255,.5),
+        inset 0 -3px 0 rgba(30,64,175,.45),
+        0 7px 0 #315B8F,
+        0 12px 18px rgba(30,64,175,.3);
+
+    outline: none;
 }
-.keyword-detector-button:focus-visible { outline:3px solid #f0b429; outline-offset:4px }
-.keyword-detector-button:active { transform:translateY(6px); box-shadow:inset 0 3px 6px rgba(30,58,138,.45),0 1px 0 #1e40af,0 4px 7px rgba(30,64,175,.2) }
+
+.keyword-detector-button:focus-visible {
+    outline: 3px solid #315B8F;
+    outline-offset: 3px;
+}
+
+.keyword-detector-button:active {
+    transform: translateY(4px);
+
+    box-shadow:
+        inset 0 3px 6px rgba(30,58,138,.45),
+        0 1px 0 #315B8F,
+        0 3px 6px rgba(30,64,175,.2);
+}
 
 .manual-button {
   position:relative; flex:0 0 84px; width:84px; min-height:58px; padding:7px 7px 7px 13px;
