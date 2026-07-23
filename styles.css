@@ -151,9 +151,9 @@ h1 {
 
     background: linear-gradient(
         180deg,
-        #60a5fa 0%,
-        #3b82f6 46%,
-        #2563eb 100%
+        #315B8F 0%,
+        #315B8F 46%,
+        #315B8F 100%
     );
 
     color: var(--white);
